@@ -5,8 +5,8 @@ export const backgroundLoader = () => {
   const textureLoader = new THREE.TextureLoader();
 
   // Load textures
-  const albedoMap = textureLoader.load("/albedo_map.jpg");
-  const depthMap = textureLoader.load("/depth_map.png");
+  const albedoMap = textureLoader.load("/textured_albedo_map.jpg");
+  const depthMap = textureLoader.load("/depth_map3.jpg");
 
   // Custom Shader Material
   const vertexShader = `
@@ -49,7 +49,7 @@ export const backgroundLoader = () => {
   });
 
   // Geometry
-  const geometry = new THREE.PlaneGeometry(16, 9, 32, 32);
+  const geometry = new THREE.PlaneGeometry(15, 10, 128, 128);
   const plane = new THREE.Mesh(geometry, customMaterial);
 
   return plane;

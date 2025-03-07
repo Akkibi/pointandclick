@@ -28,3 +28,10 @@ body {
     height: 100%;
     overflow: hidden;
 }
+
+.ui-elements {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+}

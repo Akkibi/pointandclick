@@ -13,13 +13,13 @@ const ThreeScene: React.FC = () => {
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
-      35,
+      13,
       window.innerWidth / window.innerHeight,
       0.1,
       1000,
     );
     const cameraGroup = new THREE.Group();
-    camera.position.z = 20;
+    camera.position.z = 50;
     cameraGroup.add(camera);
     scene.add(cameraGroup);
 
@@ -63,8 +63,8 @@ const ThreeScene: React.FC = () => {
       const x = event.clientX;
       const y = event.clientY;
 
-      cameraGroup.rotation.x = (y / window.innerHeight - 0.5) / 4;
-      cameraGroup.rotation.y = (x / window.innerWidth - 0.5) / 3;
+      cameraGroup.rotation.x = (y / window.innerHeight - 0.5) / 12;
+      cameraGroup.rotation.y = (x / window.innerWidth - 0.5) / 12;
 
       renderer.render(scene, camera);
     };
@@ -78,7 +78,7 @@ const ThreeScene: React.FC = () => {
     };
   }, []);
 
-  return <div id="three-scene" ref={mountRef}></div>;
+  return <div id="three-scene" className="" ref={mountRef}></div>;
 };
 
 export default ThreeScene;
