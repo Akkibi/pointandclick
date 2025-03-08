@@ -4,7 +4,6 @@ import { backgroundLoader } from "./backgroundLoader";
 import { global } from "../global";
 import gsap from "gsap";
 import { updateMouseSmooth } from "./utils/updateMouseSmooth";
-import { update } from "three/examples/jsm/libs/tween.module.js";
 
 const ThreeScene: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
