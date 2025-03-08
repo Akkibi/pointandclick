@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { backgroundLoader } from "./backgroundLoader";
+import { global } from "../global";
+import gsap from "gsap";
+import { updateMouseSmooth } from "./utils/updateMouseSmooth";
+import { update } from "three/examples/jsm/libs/tween.module.js";
 
 const ThreeScene: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -60,15 +64,27 @@ const ThreeScene: React.FC = () => {
 
     // Handle mouse move for paralax effect
     const handleMouseMove = (event: MouseEvent) => {
-      const x = event.clientX;
-      const y = event.clientY;
+      global.mouse.target.x = event.clientX;
+      global.mouse.target.y = event.clientY;
+    };
 
-      cameraGroup.rotation.x = (y / window.innerHeight - 0.5) / 12;
-      cameraGroup.rotation.y = (x / window.innerWidth - 0.5) / 12;
-
+    const render = () => {
+      if (global.isMenuOpen) return;
       renderer.render(scene, camera);
     };
 
+    const updateParalax = () => {
+      if (global.isMenuOpen) return;
+      updateMouseSmooth(10);
+      gsap.set(cameraGroup.rotation, {
+        x: (global.mouse.current.y / window.innerHeight - 0.5) / 12,
+        y: (global.mouse.current.x / window.innerWidth - 0.5) / 12,
+      });
+    };
+
+    gsap.ticker.add(updateParalax);
+    gsap.ticker.add(render);
+    gsap.ticker.fps(30);
     window.addEventListener("mousemove", handleMouseMove);
 
     // Cleanup

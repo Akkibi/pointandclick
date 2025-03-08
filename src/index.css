@@ -11,6 +11,27 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    --ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    --ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+    --ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    --ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    --ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+
+    --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+    --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+    --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+    --ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+    --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+    --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+    --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
 *,
@@ -29,9 +50,149 @@ body {
     overflow: hidden;
 }
 
-.ui-elements {
+/* ---------------- MENU ---------------- */
+
+.ui,
+.menu,
+.menu_container {
+    position: absolute;
+    inset: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+.menu_filter {
     position: absolute;
     inset: 0;
     height: 100%;
     width: 100%;
+    backdrop-filter: grayscale(100%);
+}
+
+.menu_background-left {
+    position: absolute;
+    top: 0;
+    width: 33.33%;
+    height: 100%;
+    background-color: black;
+}
+.menu_title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+}
+
+.menu_icon-container {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    height: 3rem;
+    width: 3rem;
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+.menu_icon {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
+    background-color: black;
+    color: white;
+    border: none;
+    transition: all 0.5s var(--ease-out-expo);
+}
+.menu_icon-container:focus > .menu_icon,
+.menu_icon-container:hover > .menu_icon {
+    background-color: white;
+    color: black;
+}
+
+.menu_hide {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-200%, -200%);
+    transition: all 0.5s var(--ease-out-expo);
+}
+.menu_icon-container:focus > .menu_hide,
+.menu_icon-container:hover > .menu_hide {
+    transform: translate(-50%, -50%);
+}
+
+.menu_icon-container svg {
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.menu_buttons {
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.menu_button {
+    position: relative;
+    text-align: left;
+    padding: 1rem 4rem;
+    background-color: transparent;
+    border: none;
+    overflow: visible;
+}
+.menu_button > span {
+    transition: all 0.2s ease-out;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+.menu_button:focus > span,
+.menu_button:hover > span {
+    color: black;
+}
+
+.menu_button::before {
+    content: "";
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    clip-path: xywh(0 0 calc(100% - 2rem) 100%);
+    transition: all 0.5s var(--ease-out-expo);
+}
+.menu_button:focus::before,
+.menu_button:hover::before {
+    clip-path: xywh(2rem 0 calc(100% - 1.99rem) 100%);
+}
+
+.menu_button::after {
+    content: "";
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: left top;
+    transform: scaleX(0);
+    background-color: white;
+    clip-path: xywh(0 0 calc(100% - 2rem) 100%);
+    transition: all 0.5s var(--ease-out-expo);
+}
+
+.menu_button:focus::after,
+.menu_button:hover::after {
+    transform: scaleX(100%);
+    clip-path: xywh(2rem 0 100% 100%);
 }
