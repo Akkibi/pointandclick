@@ -7,6 +7,7 @@ import FloatingButton from "../floatingButton/floatingButton";
 interface MenuProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  uiRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 
 const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
@@ -109,7 +110,11 @@ const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
                 <span>Save</span>
               </div>
             </button>
-            <button ref={settingsRef} className="menu_button-container">
+            <button
+              ref={settingsRef}
+              onClick={() => document.body.requestFullscreen()}
+              className="menu_button-container"
+            >
               <div className="menu_button">
                 <span>Settings</span>
               </div>
