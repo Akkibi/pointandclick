@@ -7,7 +7,6 @@ import FloatingButton from "../floatingButton/floatingButton";
 interface MenuProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  uiRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 
 const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
