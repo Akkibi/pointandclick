@@ -1,0 +1,33 @@
+.user-select-box_container {
+    perspective: 800px;
+    display: flex;
+    position: relative;
+    height: 10vh;
+    width: 100%;
+}
+
+.user-select-box {
+    position: absolute;
+    right: 0;
+    bottom: 5vh;
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+    height: 10vh;
+    padding-right: 5vh;
+    margin-top: 0vh;
+    width: 25vh;
+    height: 50vh;
+    justify-content: center;
+    gap: 1vh;
+    align-items: end;
+    background-color: rgb(from var(--dark-color) r g b / 0.85);
+    transform: rotate3d(0, 1, 0, -20deg);
+}
+
+.user-select-box_title {
+    position: absolute;
+    top: 1vh;
+    left: 1.5vh;
+    font-size: 1.5rem;
+}

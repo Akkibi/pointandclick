@@ -1,8 +1,9 @@
 import { useRef } from "react";
-import { global } from "../global";
+import { global } from "../../global";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-
+import "./style.css";
+import FloatingButton from "../floatingButton/floatingButton";
 interface MenuProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -96,43 +97,29 @@ const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
       <div className="menu">
         <div ref={grayscaleRef} className="menu_filter"></div>
         <div ref={backgroundBarRef} className="menu_background-left"></div>
-        <button
-          className="menu_icon-container"
-          onClick={() => tl.current.timeScale(2).reverse()}
-        >
-          <div className="menu_icon">
-            <svg
-              viewBox="-0.5 0 25 25"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3 21.32L21 3.32001"
-                stroke="currentColor"
-                stroke-width="1.5"
-              ></path>
-              <path
-                d="M3 3.32001L21 21.32"
-                stroke="currentColor"
-                stroke-width="1.5"
-              ></path>
-            </svg>
-          </div>
-        </button>
+        <FloatingButton onClick={() => setIsOpen(false)} isClose />
         <div>
           <div className="menu_buttons" ref={buttonsContainerRef}>
             <h1 className="menu_title">Menu</h1>
-            <button ref={saveRef} className="menu_button">
-              <span>Save</span>
+            <button ref={saveRef} className="menu_button-container">
+              <div className="menu_button">
+                <span>Save</span>
+              </div>
             </button>
-            <button ref={settingsRef} className="menu_button">
-              <span>Settings</span>
+            <button ref={settingsRef} className="menu_button-container">
+              <div className="menu_button">
+                <span>Settings</span>
+              </div>
             </button>
-            <button ref={aboutRef} className="menu_button">
-              <span>About</span>
+            <button ref={aboutRef} className="menu_button-container">
+              <div className="menu_button">
+                <span>About</span>
+              </div>
             </button>
-            <button ref={deleteRef} className="menu_button">
-              <span>Delete save</span>
+            <button ref={deleteRef} className="menu_button-container">
+              <div className="menu_button">
+                <span>Delete save</span>
+              </div>
             </button>
           </div>
         </div>

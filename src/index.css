@@ -1,7 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lacquer&display=swap");
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: "Syne Mono", monospace;
     line-height: 1.5;
     font-weight: 400;
+    font-style: normal;
 
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
@@ -32,6 +35,56 @@
     --ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
     --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
     --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
+    --accent-color: #e8edcb;
+    --dark-color: #000000;
+    --light-color: #ffffff;
+
+    --font-ui: "Syne Mono", monospace;
+    --font-character-default: "Lacquer", system-ui;
+    --font-player: "lacquer", system-ui;
+}
+
+button {
+    font: unset;
+    background: unset;
+    border: unset;
+    padding: unset;
+    position: relative;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding: unset;
+    margin: unset;
+    font-family: inherit;
+}
+
+button::before {
+    content: "";
+    position: absolute;
+    right: calc(100% + 0.5rem);
+    top: 0;
+    width: 2px;
+    height: 100%;
+    aspect-ratio: 1;
+    pointer-events: none;
+    background-color: #e8edcb;
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+
+button:focus {
+    outline: none;
+    border: none;
+}
+
+button:focus::before {
+    opacity: 1;
 }
 
 *,
@@ -48,151 +101,4 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-}
-
-/* ---------------- MENU ---------------- */
-
-.ui,
-.menu,
-.menu_container {
-    position: absolute;
-    inset: 0;
-    height: 100vh;
-    width: 100vw;
-}
-
-.menu_filter {
-    position: absolute;
-    inset: 0;
-    height: 100%;
-    width: 100%;
-    backdrop-filter: grayscale(100%);
-}
-
-.menu_background-left {
-    position: absolute;
-    top: 0;
-    width: 33.33%;
-    height: 100%;
-    background-color: black;
-}
-.menu_title {
-    font-size: 3rem;
-    font-weight: bold;
-    color: white;
-}
-
-.menu_icon-container {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    height: 3rem;
-    width: 3rem;
-    border: none;
-    background: transparent;
-    padding: 0;
-}
-.menu_icon {
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 9999px;
-    background-color: black;
-    color: white;
-    border: none;
-    transition: all 0.5s var(--ease-out-expo);
-}
-.menu_icon-container:focus > .menu_icon,
-.menu_icon-container:hover > .menu_icon {
-    background-color: white;
-    color: black;
-}
-
-.menu_hide {
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-200%, -200%);
-    transition: all 0.5s var(--ease-out-expo);
-}
-.menu_icon-container:focus > .menu_hide,
-.menu_icon-container:hover > .menu_hide {
-    transform: translate(-50%, -50%);
-}
-
-.menu_icon-container svg {
-    position: absolute;
-    height: 1.5rem;
-    width: 1.5rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.menu_buttons {
-    width: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.menu_button {
-    position: relative;
-    text-align: left;
-    padding: 1rem 4rem;
-    background-color: transparent;
-    border: none;
-    overflow: visible;
-}
-.menu_button > span {
-    transition: all 0.2s ease-out;
-    color: white;
-    position: relative;
-    z-index: 1;
-}
-.menu_button:focus > span,
-.menu_button:hover > span {
-    color: black;
-}
-
-.menu_button::before {
-    content: "";
-    z-index: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    clip-path: xywh(0 0 calc(100% - 2rem) 100%);
-    transition: all 0.5s var(--ease-out-expo);
-}
-.menu_button:focus::before,
-.menu_button:hover::before {
-    clip-path: xywh(2rem 0 calc(100% - 1.99rem) 100%);
-}
-
-.menu_button::after {
-    content: "";
-    z-index: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform-origin: left top;
-    transform: scaleX(0);
-    background-color: white;
-    clip-path: xywh(0 0 calc(100% - 2rem) 100%);
-    transition: all 0.5s var(--ease-out-expo);
-}
-
-.menu_button:focus::after,
-.menu_button:hover::after {
-    transform: scaleX(100%);
-    clip-path: xywh(2rem 0 100% 100%);
 }

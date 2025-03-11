@@ -1,5 +1,5 @@
 import ThreeScene from "./three/threeScene";
-import UiElements from "./components/uiElements";
+import UiElements from "./components/uiElements/uiElements";
 function App() {
   return (
     <>
