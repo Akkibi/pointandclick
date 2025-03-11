@@ -1,12 +1,11 @@
 .character-text-box_container {
-    transform: rotate3d(0, 1, 0, 20deg);
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: 16vh;
+    min-height: 14vh;
     margin-top: 1.5vh;
     margin-bottom: 1.5vh;
 }
@@ -14,13 +13,13 @@
 .character-text-box_username {
     z-index: 1;
     position: absolute;
-    left: 5vw;
+    left: 7.5vw;
     top: 0;
     transform: translate(0, -50%);
-    font-size: 0.75rem;
-    color: white;
+    font-size: 1.5rem;
+    color: var(--yellow-color);
     background-color: black;
-    padding: 0.25rem 0.75rem;
+    padding: 0.5rem 1rem;
     border-radius: 999px;
 }
 
@@ -33,10 +32,10 @@
     width: 100%;
     inset: 0;
     padding-left: 15vh;
-    padding-right: 22vh;
+    padding-right: 23vh;
     padding-top: 2vh;
     padding-bottom: 2vh;
-    color: black;
+    color: var(--yellow-color);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -44,8 +43,8 @@
 
 .character-text-box_message > p {
     position: relative;
-    font-size: 2.5vh;
-    text-shadow: 0 5px 3px var(--accent-color);
+    font-size: 2.5rem;
+    text-shadow: 0 5px 3px var(--brown-color);
     font-family: var(--font-character-default);
 }
 

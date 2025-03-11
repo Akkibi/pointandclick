@@ -74,7 +74,7 @@ const ThreeScene: React.FC = () => {
 
     const updateParalax = () => {
       if (global.isMenuOpen) return;
-      updateMouseSmooth(10);
+      updateMouseSmooth(20);
       gsap.set(cameraGroup.rotation, {
         x: (global.mouse.current.y / window.innerHeight - 0.5) / 12,
         y: (global.mouse.current.x / window.innerWidth - 0.5) / 12,

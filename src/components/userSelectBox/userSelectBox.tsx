@@ -1,3 +1,4 @@
+import { interfaceContent } from "../../data/interface";
 import "./style.css";
 
 interface UserSelectBoxProps {
@@ -5,9 +6,14 @@ interface UserSelectBoxProps {
 }
 
 const UserSelectBox: React.FC<UserSelectBoxProps> = ({ options }) => {
+  const backgroundImage = interfaceContent.userSelectBox.backgroundImage;
+
   return (
     <div className="user-select-box_container">
-      <div className="user-select-box">
+      <div
+        className="user-select-box"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
         <h3 className="user-select-box_title">Respond :</h3>
         {options.map((option) => (
           <button className="user-select-box_option" key={option}>

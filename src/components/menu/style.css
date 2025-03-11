@@ -13,7 +13,7 @@
     height: 100%;
     width: 100%;
     backdrop-filter: grayscale(100%);
-    background-color: #cc200011;
+    background-color: rgb(from var(--red-color) r g b / 0.15);
 }
 
 .menu_background-left {
@@ -24,9 +24,10 @@
     background-color: black;
 }
 .menu_title {
-    font-size: 3rem;
+    font-size: 7rem;
     font-weight: bold;
-    color: #e8edcb;
+    color: var(--yellow-color);
+    margin-bottom: 4rem;
 }
 .menu_buttons {
     width: 50%;
@@ -42,16 +43,17 @@
 .menu_button {
     position: relative;
     text-align: left;
-    padding: 1rem 4rem;
+    padding: 2rem 6rem;
     background-color: transparent;
     border: none;
     overflow: visible;
 }
 .menu_button > span {
     transition: all 0.2s ease-out;
-    color: #e8edcb;
+    color: var(--yellow-color);
     position: relative;
     z-index: 1;
+    font-size: 2rem;
 }
 .menu_button:focus > span,
 .menu_button:hover > span {
@@ -85,7 +87,7 @@
     height: 100%;
     transform-origin: left top;
     transform: scaleX(0);
-    background-color: #e8edcb;
+    background-color: var(--yellow-color);
     clip-path: xywh(0 0 calc(100% - 2rem) 100%);
     transition: all 0.5s var(--ease-out-expo);
 }

@@ -1,10 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lacquer&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Averia+Gruesa+Libre&display=swap");
 :root {
-    font-family: "Syne Mono", monospace;
-    line-height: 1.5;
+    font-family: "Averia Gruesa Libre", system-ui;
+    line-height: 1;
     font-weight: 400;
     font-style: normal;
+    font-size: 1vh;
 
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
@@ -36,9 +38,10 @@
     --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
     --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
 
-    --accent-color: #e8edcb;
-    --dark-color: #000000;
-    --light-color: #ffffff;
+    --black-color: #000000;
+    --yellow-color: #e8edcb;
+    --red-color: #cc2000;
+    --brown-color: #100705ff;
 
     --font-ui: "Syne Mono", monospace;
     --font-character-default: "Lacquer", system-ui;
@@ -64,6 +67,11 @@ h6 {
     font-family: inherit;
 }
 
+*::selection {
+    background-color: rgba(255, 0, 0, 0.4);
+    color: rgba(150, 0, 0, 1);
+}
+
 button::before {
     content: "";
     position: absolute;
@@ -73,7 +81,7 @@ button::before {
     height: 100%;
     aspect-ratio: 1;
     pointer-events: none;
-    background-color: #e8edcb;
+    background-color: currentColor;
     opacity: 0;
     transition: opacity 0.2s ease-out;
 }

@@ -97,10 +97,13 @@ const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
       <div className="menu">
         <div ref={grayscaleRef} className="menu_filter"></div>
         <div ref={backgroundBarRef} className="menu_background-left"></div>
-        <FloatingButton onClick={() => setIsOpen(false)} isClose />
+        <FloatingButton
+          onClick={() => tl.current.timeScale(2).reverse()}
+          isClose
+        />
         <div>
           <div className="menu_buttons" ref={buttonsContainerRef}>
-            <h1 className="menu_title">Menu</h1>
+            <h1 className="menu_title">Way To Lutetia</h1>
             <button ref={saveRef} className="menu_button-container">
               <div className="menu_button">
                 <span>Save</span>

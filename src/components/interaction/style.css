@@ -7,5 +7,10 @@
     flex-direction: column;
     justify-content: end;
     align-items: end;
-    perspective: 800px;
+    perspective: 50vh;
+}
+
+.interaction_character-text-container {
+    position: relative;
+    transform: rotate3d(0.5, 1, 0.1, 20deg);
 }
