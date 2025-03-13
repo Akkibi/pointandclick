@@ -14,7 +14,7 @@ const UserSelectBox: React.FC<UserSelectBoxProps> = ({ options }) => {
         className="user-select-box"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
-        <h3 className="user-select-box_title">Respond :</h3>
+        <h3 className="user-select-box_title">My response :</h3>
         {options.map((option) => (
           <button className="user-select-box_option" key={option}>
             <p>{option}</p>

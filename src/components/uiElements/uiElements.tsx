@@ -3,6 +3,7 @@ import Menu from "../menu/menu";
 import "./style.css";
 import FloatingButton from "../floatingButton/floatingButton";
 import Interaction from "../interaction/interaction";
+import IsLandscape from "../isLandscape/isLandscape";
 
 const UiElements: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,6 +22,7 @@ const UiElements: React.FC = () => {
         <Interaction />
       </div>
       <Menu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+      <IsLandscape />
     </>
   );
 };

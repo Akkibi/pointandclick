@@ -47,6 +47,11 @@
     --font-character-default: "Lacquer", system-ui;
     --font-player: "lacquer", system-ui;
 }
+@media (pointer: coarse) {
+    :root {
+        font-size: 1.4vh;
+    }
+}
 
 button {
     font: unset;

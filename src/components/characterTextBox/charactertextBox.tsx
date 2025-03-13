@@ -2,11 +2,12 @@ import "./style.css";
 import { interfaceContent } from "../../data/interface";
 
 interface CharacterTextBoxProps {
-  text: string;
+  line: string;
   name: string;
+  playing: boolean;
 }
 
-const CharacterTextBox: React.FC<CharacterTextBoxProps> = ({ text, name }) => {
+const CharacterTextBox: React.FC<CharacterTextBoxProps> = ({ line, name }) => {
   const index = Math.floor(
     Math.random() * interfaceContent.textboxBackgroundImages.length,
   );
@@ -17,16 +18,13 @@ const CharacterTextBox: React.FC<CharacterTextBoxProps> = ({ text, name }) => {
       <div className="character-text-box_username">
         <p>{name}</p>
       </div>
-      <div
-        className="character-text-box_message"
-        // style={{ backgroundImage: `url(${backgroundImage})` }}
-      >
+      <div className="character-text-box_message">
         <img
           src={backgroundImage}
           alt="background"
           className="character-text-box_message_background"
         />
-        <p className="character-text-box_message_text">{text}</p>
+        <p className="character-text-box_message_text">{line}</p>
       </div>
     </div>
   );

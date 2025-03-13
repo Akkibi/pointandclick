@@ -7,27 +7,40 @@
 }
 
 .user-select-box {
+    clip-path: polygon(
+        0 0,
+        20% 1%,
+        50% 0%,
+        80% 3%,
+        100% 0%,
+        100% 100%,
+        80% 98%,
+        50% 100%,
+        20% 99%,
+        0% 100%
+    );
     position: absolute;
     right: 0;
     bottom: 5vh;
     display: flex;
     flex-direction: column;
-    gap: 5vh;
-    padding-right: 2vh;
-    padding-left: 4.5vh;
-    padding-top: 2vh;
+    gap: 5rem;
+    padding-right: 2rem;
+    padding-left: 4.5rem;
+    padding-top: 2rem;
     width: 26rem;
+    min-height: 30vh;
     padding-bottom: 3rem;
     justify-content: start;
     align-items: start;
-    gap: 2rem;
+    gap: 0;
     /* background-color: rgb(from var(--dark-color) r g b / 0.85); */
     background-size: cover;
     background-position: top;
-    transform: rotate3d(-0.4, 1, -0.2, -20deg);
+    transform: rotate3d(-0.4, 1, -0.2, -25deg);
     color: black;
     opacity: 0.8;
-    transition: all 0.5s ease-in-out;
+    transition: all 2s var(--ease-out-expo);
 }
 
 .user-select-box:hover {
@@ -40,11 +53,14 @@
     position: relative;
     text-align: left;
     line-height: 2rem;
-    margin-top: 0;
     font-size: 3rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    text-decoration: black underline;
 }
 
+.user-select-box_option {
+    width: 100%;
+}
 .user-select-box_option::before {
     background-color: var(--red-color);
 }
@@ -61,14 +77,32 @@
     transform: scaleX(0);
     transition: all 0.2s ease-out;
 }
+.user-select-box_option:focus::after,
 .user-select-box_option:hover::after {
     transform: scaleX(1);
 }
 
 .user-select-box_option > p {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     line-height: 2rem;
     font-size: 2rem;
     position: relative;
     text-align: left;
     color: black;
+}
+
+@media (pointer: coarse) {
+    .user-select-box {
+        width: 26rem;
+        right: -5vw;
+        gap: 2rem;
+    }
+    .user-select-box_container {
+        height: 7vh;
+    }
+    .user-select-box {
+        opacity: 1;
+        transform: rotate3d(1, -1, 0.5, 15deg);
+    }
 }

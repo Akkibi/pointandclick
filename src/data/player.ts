@@ -4,4 +4,6 @@ export const playerState = {
   freedom: 0,
   fool: 0,
   achievements: ["puzzle_1"],
+  places: ["sceneff0000"],
+  objects: ["map"],
 };

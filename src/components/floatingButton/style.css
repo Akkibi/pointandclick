@@ -1,9 +1,13 @@
-.floating-button_icon-container {
+.floating-button_container {
     position: absolute;
+    width: 7rem;
+    height: 7rem;
+}
+.floating-button_icon-container {
     top: 3rem;
     left: 3rem;
-    height: 10rem;
-    width: 10rem;
+    height: 4rem;
+    width: 4rem;
     border: none;
     background: transparent;
     padding: 0;
@@ -21,7 +25,9 @@
     transition: all 0.5s var(--ease-out-expo);
 }
 .floating-button_icon-container:focus > .floating-button_icon,
-.floating-button_icon-container:hover > .floating-button_icon {
+.floating-button_container:hover
+    > .floating-button_icon-container
+    > .floating-button_icon {
     background-color: var(--yellow-color);
     color: black;
 }
@@ -33,8 +39,14 @@
     transition: all 0.5s var(--ease-out-expo);
 }
 .floating-button_icon-container:focus > .floating-button_hide,
-.floating-button_icon-container:hover > .floating-button_hide {
+.floating-button_container:hover
+    > .floating-button_icon-container
+    > .floating-button_hide {
     transform: translate(0%, 0%);
+}
+
+.floating-button_icon-container::before {
+    display: none;
 }
 
 .floating-button_icon-container svg {
@@ -44,4 +56,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+@media (pointer: coarse) {
+    .floating-button_icon-container {
+        top: 2rem;
+        left: 2rem;
+        width: 6rem;
+        height: 6rem;
+    }
 }
