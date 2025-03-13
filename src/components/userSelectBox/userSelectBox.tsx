@@ -12,7 +12,10 @@ const UserSelectBox: React.FC<UserSelectBoxProps> = ({ options }) => {
     <div className="user-select-box_container">
       <div
         className="user-select-box"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundPosition: `center ${Math.random() > 0.5 ? "top" : "bottom"} ${Math.round(Math.random() * 10) * 2}rem`,
+        }}
       >
         <h3 className="user-select-box_title">My response :</h3>
         {options.map((option) => (

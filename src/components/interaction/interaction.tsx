@@ -21,8 +21,13 @@ const Interaction: React.FC = () => {
   return (
     <div className="interaction">
       <div className="interaction_character-text-container">
-        {talks.map((talk) => (
-          <CharacterTextBox playing={false} line={talk.line} name={talk.name} />
+        {talks.map((talk, index) => (
+          <CharacterTextBox
+            playing={false}
+            line={talk.line}
+            name={talk.name}
+            key={index}
+          />
         ))}
       </div>
       <UserSelectBox

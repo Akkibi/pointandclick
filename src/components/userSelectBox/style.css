@@ -2,7 +2,7 @@
     perspective: 80vh;
     display: flex;
     position: relative;
-    height: 13vh;
+    height: 11vh;
     width: 100%;
 }
 
@@ -36,11 +36,12 @@
     gap: 0;
     /* background-color: rgb(from var(--dark-color) r g b / 0.85); */
     background-size: cover;
-    background-position: top;
     transform: rotate3d(-0.4, 1, -0.2, -25deg);
     color: black;
-    opacity: 0.8;
-    transition: all 2s var(--ease-out-expo);
+    opacity: 0.75;
+    transition:
+        transform 2s var(--ease-out-expo),
+        opacity 2s linear;
 }
 
 .user-select-box:hover {
