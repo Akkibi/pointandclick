@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { ElementType, useEffect, useRef } from "react";
 import * as THREE from "three";
 import { backgroundLoader } from "./backgroundLoader";
 import { global } from "../global";
 import gsap from "gsap";
 import { updateMouseSmooth } from "./utils/updateMouseSmooth";
+import { eventEmitterInstance } from "../utils/eventEmitter";
 
 const ThreeScene: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -34,26 +35,12 @@ const ThreeScene: React.FC = () => {
     // Geometry
     const cube = backgroundLoader();
     scene.add(cube);
-    console.log(cube);
-
-    // Animation loop
-    // const animate = () => {
-    //   requestAnimationFrame(animate);
-
-    //   cube.rotation.x += 0.01;
-    //   cube.rotation.y += 0.01;
-
-    //   renderer.render(scene, camera);
-    // };
-
-    // animate();
     renderer.render(scene, camera);
 
     // Handle window resize
     const handleResize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-
+      const width = document.body.clientWidth;
+      const height = document.body.clientWidth;
       renderer.setSize(width, height);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
@@ -71,6 +58,16 @@ const ThreeScene: React.FC = () => {
       if (global.isMenuOpen) return;
       renderer.render(scene, camera);
     };
+
+    eventEmitterInstance.on("update-renderer", () => {
+      handleResize();
+      renderer.render(scene, camera);
+    });
+
+    addEventListener("fullscreenchange", () => {
+      handleResize();
+      renderer.render(scene, camera);
+    });
 
     const updateParalax = () => {
       if (global.isMenuOpen) return;

@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lacquer&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Averia+Gruesa+Libre&display=swap");
+
 :root {
     font-family: "Averia Gruesa Libre", system-ui;
     line-height: 1;
@@ -73,8 +74,8 @@ h6 {
 }
 
 *::selection {
-    background-color: rgba(255, 0, 0, 0.4);
-    color: rgba(150, 0, 0, 1);
+    background-color: rgba(255, 0, 0, 0.2);
+    color: rgba(255, 50, 50, 1);
 }
 
 button::before {

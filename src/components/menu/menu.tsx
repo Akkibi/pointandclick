@@ -4,18 +4,20 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import "./style.css";
 import FloatingButton from "../floatingButton/floatingButton";
+import { eventEmitterInstance } from "../../utils/eventEmitter";
 interface MenuProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const fullscreenHandler = () => {
-  console.log(document.fullscreen);
-  if (!document.fullscreen) {
+  console.log(document.fullscreenElement);
+  if (!document.fullscreenElement) {
     document.body.requestFullscreen();
   } else {
     document.exitFullscreen();
   }
+  eventEmitterInstance.trigger("update-renderer");
 };
 
 const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
