@@ -6,4 +6,6 @@ export const playerState = {
   achievements: ["puzzle_1"],
   places: ["sceneff0000"],
   objects: ["map"],
+  currentScene: "sceneff0000",
+  lastScene: "sceneff0000",
 };
