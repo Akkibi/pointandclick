@@ -9,6 +9,15 @@ interface MenuProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const fullscreenHandler = () => {
+  console.log(document.fullscreen);
+  if (!document.fullscreen) {
+    document.body.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+};
+
 const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
   const container = useRef<HTMLDivElement>(null);
   const tl = useRef(gsap.timeline());
@@ -111,7 +120,7 @@ const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
             </button>
             <button
               ref={settingsRef}
-              onClick={() => document.body.requestFullscreen()}
+              onClick={fullscreenHandler}
               className="menu_button-container"
             >
               <div className="menu_button">
