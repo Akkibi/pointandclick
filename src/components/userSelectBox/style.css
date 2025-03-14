@@ -1,8 +1,7 @@
 .user-select-box_container {
     perspective: 80vh;
-    display: flex;
     position: relative;
-    height: 11vh;
+    height: 5vh;
     width: 100%;
 }
 

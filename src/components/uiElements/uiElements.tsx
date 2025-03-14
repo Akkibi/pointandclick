@@ -4,6 +4,7 @@ import "./style.css";
 import FloatingButton from "../floatingButton/floatingButton";
 import Interaction from "../interaction/interaction";
 import IsLandscape from "../isLandscape/isLandscape";
+import TestActionButton from "../testActionButton/testActionButton";
 
 const UiElements: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,7 +14,7 @@ const UiElements: React.FC = () => {
     function confirmExit() {
       return "You have attempted to leave this page. Are you sure?";
     }
-  });
+  }, []);
 
   return (
     <>
@@ -21,6 +22,7 @@ const UiElements: React.FC = () => {
         <FloatingButton onClick={() => setIsMenuOpen(true)} />
         <Interaction />
       </div>
+      <TestActionButton />
       <Menu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
       <IsLandscape />
     </>

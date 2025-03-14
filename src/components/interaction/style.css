@@ -1,18 +1,24 @@
 .interaction {
     position: relative;
-    max-width: 100vmin;
+    width: 100vmin;
     height: 100%;
     margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: end;
     align-items: end;
+}
+
+.interaction_perspective-container {
+    position: relative;
     perspective: 50vh;
+    width: 100%;
 }
 
 .interaction_character-text-container {
     position: relative;
-    transform: rotate3d(0.5, 1, 0.1, 20deg);
+    width: 100%;
+    transform: rotate3d(0.5, 1, -0.2, 20deg);
 }
 
 @media (pointer: coarse) {
@@ -20,6 +26,6 @@
         max-width: 60vmax;
     }
     .interaction_character-text-container {
-        transform: rotate3d(0.5, 1, 0.1, 10deg) translateX(-5vw);
+        transform: rotate3d(0.5, 1, -0.2, 10deg) translateX(-5vw);
     }
 }

@@ -103,3 +103,19 @@ export interface Position {
   pose?: string;
   speed?: string;
 }
+
+export interface PlayerState {
+  love: number;
+  truth: number;
+  freedom: number;
+  fool: number;
+  achievements: string[];
+  places: string[];
+  objects: string[];
+  currentScene: string;
+  lastScene: string;
+}
+
+export interface ScenesType {
+  [key: string]: Scene;
+}

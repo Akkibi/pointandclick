@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { global } from "../../global";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -92,7 +92,7 @@ const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
     { scope: container },
   );
 
-  useGSAP(() => {
+  useEffect(() => {
     global.isMenuOpen = isOpen;
     if (isOpen) {
       tl.current.timeScale(1).play();

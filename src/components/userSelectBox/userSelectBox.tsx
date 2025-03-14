@@ -1,11 +1,17 @@
 import { interfaceContent } from "../../data/interface";
+import { Options } from "../../types/scene";
+import { eventEmitterInstance } from "../../utils/eventEmitter";
 import "./style.css";
 
-interface UserSelectBoxProps {
-  options: string[];
-}
+const interaction = (option: Options) => {
+  if (option.destination) {
+    eventEmitterInstance.trigger("goto", [option.destination]);
+  } else {
+    eventEmitterInstance.trigger("close-interaction");
+  }
+};
 
-const UserSelectBox: React.FC<UserSelectBoxProps> = ({ options }) => {
+const UserSelectBox: React.FC<{ options: Options[] }> = ({ options }) => {
   const backgroundImage = interfaceContent.userSelectBox.backgroundImage;
 
   return (
@@ -18,9 +24,13 @@ const UserSelectBox: React.FC<UserSelectBoxProps> = ({ options }) => {
         }}
       >
         <h3 className="user-select-box_title">My response :</h3>
-        {options.map((option) => (
-          <button className="user-select-box_option" key={option}>
-            <p>{option}</p>
+        {options.map((option: Options, index: number) => (
+          <button
+            className="user-select-box_option"
+            key={index}
+            onClick={() => interaction(option)}
+          >
+            <p>{option.text}</p>
           </button>
         ))}
       </div>

@@ -1,4 +1,6 @@
-export const playerState = {
+import { PlayerState } from "../types/scene";
+
+export const playerState: PlayerState = {
   love: 0,
   truth: 0,
   freedom: 0,

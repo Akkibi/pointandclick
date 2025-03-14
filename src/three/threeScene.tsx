@@ -1,10 +1,9 @@
-import React, { ElementType, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { backgroundLoader } from "./backgroundLoader";
 import { global } from "../global";
 import gsap from "gsap";
 import { updateMouseSmooth } from "./utils/updateMouseSmooth";
-import { eventEmitterInstance } from "../utils/eventEmitter";
 
 const ThreeScene: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -22,6 +21,7 @@ const ThreeScene: React.FC = () => {
       0.1,
       1000,
     );
+
     const cameraGroup = new THREE.Group();
     camera.position.z = 50;
     cameraGroup.add(camera);
@@ -58,11 +58,6 @@ const ThreeScene: React.FC = () => {
       if (global.isMenuOpen) return;
       renderer.render(scene, camera);
     };
-
-    eventEmitterInstance.on("update-renderer", () => {
-      handleResize();
-      renderer.render(scene, camera);
-    });
 
     addEventListener("fullscreenchange", () => {
       handleResize();

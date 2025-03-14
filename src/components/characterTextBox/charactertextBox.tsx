@@ -1,20 +1,26 @@
 import "./style.css";
 import { interfaceContent } from "../../data/interface";
+import { Lines } from "../../types/scene";
 
-interface CharacterTextBoxProps {
-  line: string;
-  name: string;
-  playing: boolean;
+interface CharacterTextBoxProps extends Lines {
+  characterIndex: number;
 }
 
-const CharacterTextBox: React.FC<CharacterTextBoxProps> = ({ line, name }) => {
+const CharacterTextBox: React.FC<CharacterTextBoxProps> = ({
+  line,
+  name,
+  characterIndex,
+}) => {
   const index = Math.floor(
     Math.random() * interfaceContent.textboxBackgroundImages.length,
   );
   const backgroundImage = interfaceContent.textboxBackgroundImages[index];
 
   return (
-    <div className="character-text-box_container">
+    <div
+      className="character-text-box_container"
+      id={`character-text-box-${characterIndex}`}
+    >
       <div className="character-text-box_username">
         <p>{name}</p>
       </div>
@@ -24,7 +30,13 @@ const CharacterTextBox: React.FC<CharacterTextBoxProps> = ({ line, name }) => {
           alt="background"
           className="character-text-box_message_background"
         />
-        <p className="character-text-box_message_text">{line}</p>
+        <p className="character-text-box_message_text">
+          {line.map((line) => (
+            <span key={line} className="character_line-block">
+              {line}{" "}
+            </span>
+          ))}
+        </p>
       </div>
     </div>
   );

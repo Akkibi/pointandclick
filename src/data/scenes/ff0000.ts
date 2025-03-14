@@ -53,6 +53,10 @@ const sceneff0000: Scene = {
               name: "cataphile",
               line: ["Oi You!", "You Good?"],
             },
+            {
+              name: "cataphile",
+              line: ["Oi You!", "You Good?"],
+            },
           ],
           options: [
             {

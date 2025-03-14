@@ -1,42 +1,122 @@
+import { useEffect, useRef, useState } from "react";
 import CharacterTextBox from "../characterTextBox/charactertextBox";
 import UserSelectBox from "../userSelectBox/userSelectBox";
 import "./style.css";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { eventEmitterInstance } from "../../utils/eventEmitter";
+import { Lines, Options } from "../../types/scene";
+import { playerState } from "../../data/player";
+import { scenes } from "../../data/scenes";
 
 const Interaction: React.FC = () => {
-  const talks = [
-    {
-      name: "bob",
-      line: "Hello moi c'est bob",
+  const characterTextRef = useRef<HTMLDivElement>(null);
+  const tl = useRef(gsap.timeline());
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [lines, setLines] = useState<Lines[]>([]);
+  const [options, setOptions] = useState<Options[]>([]);
+  // const [currentDialog, setCurrentDialog] = useState<string>("start");
+
+  useGSAP(
+    () => {
+      tl.current = gsap.timeline();
+
+      lines.forEach((_line, index) => {
+        tl.current
+          .fromTo(
+            "#character-text-box-" + index,
+            {
+              opacity: 0,
+              y: "100%",
+            },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+            },
+            ">",
+          )
+          .fromTo(
+            "#character-text-box-" + index + " .character_line-block",
+            {
+              opacity: 0,
+              y: "100%",
+            },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              stagger: 0.5,
+            },
+          );
+      });
+
+      tl.current
+        .fromTo(
+          ".user-select-box_container",
+          { opacity: 0, y: "100%" },
+          { opacity: 1, y: 0, duration: 0.5 },
+          ">",
+        )
+        .fromTo(
+          ".user-select-box_option",
+          {
+            opacity: 0,
+          },
+          {
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.5,
+          },
+          ">",
+        );
+
+      tl.current.progress(0);
+      // tl.current.pause();
+      tl.current.play();
     },
-    {
-      name: "bob",
-      line: "MAIS QUI ÊTES-VOUS ? ou plutot que faites vous ici???",
-    },
-    {
-      name: "Lorem ipsum le grand",
-      line: "Lorem ipsum dolot sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas a a a a a a amet lorem ipsum dolor sit amet bla ",
-    },
-  ];
+    { dependencies: [lines], scope: containerRef },
+  );
+
+  useEffect(() => {
+    const handleInteractionOpen = () => {
+      const currentScene: string = playerState.currentScene;
+      const currentSceneData = scenes[currentScene];
+      if (
+        !currentSceneData.conversations ||
+        !currentSceneData.conversations[0].dialog
+      )
+        return;
+      const lines = currentSceneData.conversations[0].dialog["start"].lines;
+      const options = currentSceneData.conversations[0].dialog["start"].options;
+      setLines(lines);
+      setOptions(options ? options : []);
+    };
+    eventEmitterInstance.on("openInteraction", handleInteractionOpen);
+    return () => {
+      eventEmitterInstance.off("openInteraction");
+    };
+  }, []);
 
   return (
-    <div className="interaction">
-      <div className="interaction_character-text-container">
-        {talks.map((talk, index) => (
-          <CharacterTextBox
-            playing={false}
-            line={talk.line}
-            name={talk.name}
-            key={index}
-          />
-        ))}
+    <div className="interaction" ref={containerRef}>
+      <div className="interaction_perspective-container">
+        <div
+          className="interaction_character-text-container"
+          ref={characterTextRef}
+        >
+          {lines.length &&
+            lines.map((line, index) => (
+              <CharacterTextBox
+                line={line.line}
+                name={line.name}
+                key={index}
+                characterIndex={index}
+              />
+            ))}
+        </div>
       </div>
-      <UserSelectBox
-        options={[
-          "bob",
-          "bobby",
-          "je sait pas j'ai pas compris la question, on peut même se demander si ...",
-        ]}
-      />
+      {options.length && <UserSelectBox options={options} />}
     </div>
   );
 };
