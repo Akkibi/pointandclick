@@ -11,16 +11,25 @@ import { scenes } from "../../data/scenes";
 
 const Interaction: React.FC = () => {
   const characterTextRef = useRef<HTMLDivElement>(null);
-  const tl = useRef(gsap.timeline());
   const containerRef = useRef<HTMLDivElement>(null);
   const [lines, setLines] = useState<Lines[]>([]);
   const [options, setOptions] = useState<Options[]>([]);
-  // const [currentDialog, setCurrentDialog] = useState<string>("start");
-
+  const tl = useRef(
+    gsap.timeline({
+      onReverseComplete: () => {
+        console.log("next dialog, ", playerState.currentDialog);
+        if (playerState.currentDialog !== null) {
+          console.log("trigger goto", playerState.currentDialog);
+          eventEmitterInstance.trigger("openInteraction", [
+            playerState.currentDialog,
+          ]);
+        }
+      },
+    }),
+  );
   useGSAP(
     () => {
-      tl.current = gsap.timeline();
-
+      tl.current.clear(true).timeScale(1);
       lines.forEach((_line, index) => {
         tl.current
           .fromTo(
@@ -87,14 +96,32 @@ const Interaction: React.FC = () => {
         !currentSceneData.conversations[0].dialog
       )
         return;
-      const lines = currentSceneData.conversations[0].dialog["start"].lines;
-      const options = currentSceneData.conversations[0].dialog["start"].options;
+
+      const action = playerState.isInteracting
+        ? playerState.currentDialog
+          ? playerState.currentDialog
+          : "start"
+        : null;
+      if (action === null) return;
+      const lines = currentSceneData.conversations[0].dialog[action].lines;
+      const options = currentSceneData.conversations[0].dialog[action].options;
       setLines(lines);
       setOptions(options ? options : []);
     };
+
+    const handleGoto = (destination: string | null) => {
+      tl.current.timeScale(3).reverse();
+      playerState.lastDialog = playerState.currentDialog;
+      playerState.currentDialog = destination;
+      if (destination === null) {
+        playerState.isInteracting = false;
+      }
+    };
     eventEmitterInstance.on("openInteraction", handleInteractionOpen);
+    eventEmitterInstance.on("goto", handleGoto);
     return () => {
       eventEmitterInstance.off("openInteraction");
+      eventEmitterInstance.off("goto");
     };
   }, []);
 

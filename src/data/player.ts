@@ -10,4 +10,7 @@ export const playerState: PlayerState = {
   objects: ["map"],
   currentScene: "sceneff0000",
   lastScene: "sceneff0000",
+  currentDialog: "start",
+  lastDialog: null,
+  isInteracting: false,
 };

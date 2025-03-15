@@ -114,6 +114,9 @@ export interface PlayerState {
   objects: string[];
   currentScene: string;
   lastScene: string;
+  currentDialog: string | null;
+  lastDialog: string | null;
+  isInteracting: boolean;
 }
 
 export interface ScenesType {

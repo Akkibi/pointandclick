@@ -50,8 +50,12 @@ const sceneff0000: Scene = {
         start: {
           lines: [
             {
-              name: "cataphile",
-              line: ["Oi You!", "You Good?"],
+              name: "test",
+              line: [
+                "i'm testing",
+                "with multiple lines",
+                "to see if it works",
+              ],
             },
             {
               name: "cataphile",
@@ -61,14 +65,14 @@ const sceneff0000: Scene = {
           options: [
             {
               text: "...",
-              destination: "path/to/destination",
+              destination: "...",
               points: {
                 fool: 1,
               },
             },
             {
               text: "Who's there?",
-              destination: "path/to/destination",
+              destination: "...",
               points: {
                 love: 1,
               },
@@ -96,14 +100,14 @@ const sceneff0000: Scene = {
             },
             {
               text: "What happened?",
-              destination: "What happened?",
+              destination: null,
               points: {
                 truth: 1,
               },
             },
             {
               text: "Who are you?",
-              destination: "Who are you?",
+              destination: null,
               points: {
                 love: 1,
               },
@@ -132,7 +136,7 @@ const sceneff0000: Scene = {
             },
             {
               text: "Just  leave me be",
-              destination: "Just leave me be",
+              destination: null,
             },
           ],
         },

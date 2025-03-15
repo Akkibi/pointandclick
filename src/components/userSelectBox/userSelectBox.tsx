@@ -4,11 +4,7 @@ import { eventEmitterInstance } from "../../utils/eventEmitter";
 import "./style.css";
 
 const interaction = (option: Options) => {
-  if (option.destination) {
-    eventEmitterInstance.trigger("goto", [option.destination]);
-  } else {
-    eventEmitterInstance.trigger("close-interaction");
-  }
+  eventEmitterInstance.trigger("goto", [option.destination]);
 };
 
 const UserSelectBox: React.FC<{ options: Options[] }> = ({ options }) => {
