@@ -132,7 +132,7 @@ const Interaction: React.FC = () => {
           className="interaction_character-text-container"
           ref={characterTextRef}
         >
-          {lines.length &&
+          {lines.length > 0 &&
             lines.map((line, index) => (
               <CharacterTextBox
                 line={line.line}
@@ -143,7 +143,7 @@ const Interaction: React.FC = () => {
             ))}
         </div>
       </div>
-      {options.length && <UserSelectBox options={options} />}
+      {options.length > 0 && <UserSelectBox options={options} />}
     </div>
   );
 };
