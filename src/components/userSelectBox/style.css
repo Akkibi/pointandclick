@@ -6,6 +6,8 @@
 }
 
 .user-select-box {
+    user-select: text;
+    pointer-events: all;
     clip-path: polygon(
         0 0,
         20% 1%,
@@ -28,7 +30,7 @@
     padding-left: 4.5rem;
     padding-top: 2rem;
     width: 26rem;
-    min-height: 30vh;
+    min-height: 30rem;
     padding-bottom: 3rem;
     justify-content: start;
     align-items: start;
@@ -53,7 +55,7 @@
     position: relative;
     text-align: left;
     line-height: 2rem;
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin-bottom: 3rem;
     text-decoration: black underline;
 }
@@ -61,6 +63,7 @@
 .user-select-box_option {
     width: 100%;
 }
+
 .user-select-box_option::before {
     background-color: var(--red-color);
 }
@@ -73,10 +76,11 @@
     width: 100%;
     height: 100%;
     transform-origin: left;
-    background-color: #ffff0033;
+    background-color: #ff000033;
     transform: scaleX(0);
     transition: all 0.2s ease-out;
 }
+
 .user-select-box_option:focus::after,
 .user-select-box_option:hover::after {
     transform: scaleX(1);
@@ -86,7 +90,7 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
     line-height: 2rem;
-    font-size: 2rem;
+    font-size: 2.2rem;
     position: relative;
     text-align: left;
     color: black;
@@ -98,9 +102,11 @@
         right: -5vw;
         gap: 2rem;
     }
+
     .user-select-box_container {
         height: 7vh;
     }
+
     .user-select-box {
         opacity: 1;
         transform: rotate3d(1, -1, 0.5, 15deg);

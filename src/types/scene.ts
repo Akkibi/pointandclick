@@ -1,9 +1,8 @@
-export interface Scene {
+export interface SceneType {
   id: number;
   dependences?: string[];
   isStageLookingFront: boolean;
-  doors?: Doors[];
-  textures?: Textures;
+  doors?: Doors;
   sound?: string;
   conversations?: Conversation[];
 }
@@ -14,22 +13,11 @@ export interface Doors {
 }
 
 export interface DoorMap {
-  map: string;
-  colors: color;
+  [key: string]: string;
 }
 
 export interface color {
   [key: string]: string;
-}
-
-export interface Textures {
-  front?: Texture;
-  back?: Texture;
-}
-
-export interface Texture {
-  depth: string;
-  albedo: string;
 }
 
 export interface Conversation {
@@ -43,6 +31,22 @@ export interface Conversation {
   characters: any[];
   dialog?: Dialogs;
   positions: Position[];
+  idleAnimation?: IdleAnimation;
+  hoverAnimation?: HoverAnimation;
+  enterAnimation?: EnterAnimation;
+  exitAnimation?: ExitAnimation;
+}
+
+export interface HoverAnimation {
+  [key: number]: string[];
+}
+
+export interface EnterAnimation {
+  [key: number]: string[];
+}
+
+export interface ExitAnimation {
+  [key: string]: string;
 }
 
 export interface soundTypes {
@@ -75,13 +79,12 @@ export interface Dialog {
   achievements?: string;
   sound?: string;
   // change animation to that character talking during the time of the speech
-  lines: Lines[];
+  lines: Lines;
   options?: Options[];
 }
 
 export interface Lines {
-  name: string;
-  line: string[];
+  [key: number]: string[];
 }
 
 export interface Options {
@@ -102,21 +105,6 @@ export interface Position {
   y?: number;
   pose?: string;
   speed?: string;
-}
-
-export interface PlayerState {
-  love: number;
-  truth: number;
-  freedom: number;
-  fool: number;
-  achievements: string[];
-  places: string[];
-  objects: string[];
-  currentScene: string;
-  lastScene: string;
-  currentDialog: string | null;
-  lastDialog: string | null;
-  isInteracting: boolean;
 }
 
 export interface ScenesType {

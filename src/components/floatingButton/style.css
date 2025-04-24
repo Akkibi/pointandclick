@@ -2,6 +2,7 @@
     position: absolute;
     width: 7rem;
     height: 7rem;
+    pointer-events: all;
 }
 .floating-button_icon-container {
     top: 3rem;

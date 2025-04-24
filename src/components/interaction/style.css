@@ -18,14 +18,12 @@
 .interaction_character-text-container {
     position: relative;
     width: 100%;
-    transform: rotate3d(0.5, 1, -0.2, 20deg);
+    /* transform: rotate3d(0.5, 1, -0.2, 20deg); */
+    transform: rotate3d(0.5, 1, -0.2, 10deg) translateX(-5vw);
 }
 
 @media (pointer: coarse) {
     .interaction {
         max-width: 60vmax;
-    }
-    .interaction_character-text-container {
-        transform: rotate3d(0.5, 1, -0.2, 10deg) translateX(-5vw);
     }
 }

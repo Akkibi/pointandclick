@@ -1,14 +1,17 @@
 import * as THREE from "three";
 
-export const backgroundLoader = () => {
+export const backgroundLoader = (sceneName: string, isFront: boolean) => {
   // Texture Loader
   const textureLoader = new THREE.TextureLoader();
 
   // Load textures
-  const albedoMap = textureLoader.load("/textured_albedo_map.jpg");
-  const depthMap = textureLoader.load("/depth_map3.jpg");
-
-  // Custom Shader Material
+  const albedoMap = textureLoader.load(
+    `/scenes/${sceneName}/${isFront ? "front" : "back"}-albedo.jpg`,
+  );
+  const depthMap = textureLoader.load(
+    `/scenes/${sceneName}/${isFront ? "front" : "back"}-depth.jpg`,
+  );
+  // console.log(sceneName, albedoMap);
   const vertexShader = `
         uniform sampler2D depthMap; // Depth map texture
         varying vec2 vUv;
@@ -51,6 +54,7 @@ export const backgroundLoader = () => {
   // Geometry
   const geometry = new THREE.PlaneGeometry(15, 10, 128, 128);
   const plane = new THREE.Mesh(geometry, customMaterial);
+  plane.name = "background";
 
   return plane;
 };

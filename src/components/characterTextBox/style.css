@@ -7,6 +7,8 @@
     width: 100%;
     min-height: 14rem;
     margin-bottom: 3rem;
+    user-select: text;
+    pointer-events: all;
 }
 
 .character-text-box_username {
@@ -42,7 +44,7 @@
 
 .character-text-box_message > p {
     position: relative;
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     width: max-content;
     text-shadow: 0 5px 3px var(--brown-color);
     font-family: var(--font-character-default);
@@ -55,10 +57,12 @@
     transform: translate(-50%, 0);
     height: 100%;
 }
+
 .character_line-block {
     position: relative;
     opacity: 0;
 }
+
 .character_line-block:hover {
     color: white;
 }

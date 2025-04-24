@@ -1,18 +1,27 @@
+import gsap from "gsap";
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { backgroundLoader } from "./backgroundLoader";
-import { global } from "../global";
-import gsap from "gsap";
-import { updateMouseSmooth } from "./utils/updateMouseSmooth";
+// import { getLines } from "./utils/getInfo";
+import { playerState } from "../data/player";
+import { eventEmitterInstance } from "../utils/eventEmitter";
+import Game from "./game";
 
 const ThreeScene: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
 
+  // console.log(getLines("sceneff0000", "cataphile1", "start"));
+
   useEffect(() => {
     if (!mountRef.current) return;
+    console.log(
+      "mountRef",
+      mountRef.current.children,
+      mountRef.current.children[0] !== undefined,
+    );
+    if (mountRef.current.children.length > 0) return;
 
     // Scene
-    const scene = new THREE.Scene();
+    // const scene = new THREE.Scene();
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
@@ -25,67 +34,59 @@ const ThreeScene: React.FC = () => {
     const cameraGroup = new THREE.Group();
     camera.position.z = 50;
     cameraGroup.add(camera);
-    scene.add(cameraGroup);
+    // scene.add(cameraGroup);
 
-    // Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    mountRef.current.appendChild(renderer.domElement);
-
-    // Geometry
-    const cube = backgroundLoader();
-    scene.add(cube);
-    renderer.render(scene, camera);
+    const game = new Game();
+    mountRef.current.appendChild(game.renderer.domElement);
 
     // Handle window resize
+
     const handleResize = () => {
-      const width = document.body.clientWidth;
-      const height = document.body.clientWidth;
-      renderer.setSize(width, height);
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
+      eventEmitterInstance.trigger("resize", []);
     };
 
     window.addEventListener("resize", handleResize);
+    addEventListener("fullscreenchange", handleResize);
 
-    // Handle mouse move for paralax effect
+    const update = (tick: number) => {
+      if (playerState.isMenuOpen) return;
+      eventEmitterInstance.trigger("update", [tick]);
+      game.render();
+    };
+
     const handleMouseMove = (event: MouseEvent) => {
-      global.mouse.target.x = event.clientX;
-      global.mouse.target.y = event.clientY;
+      if (playerState.isMenuOpen) return;
+      playerState.mouse.target.x = event.clientX;
+      playerState.mouse.target.y = event.clientY;
+      eventEmitterInstance.trigger("mouseMove", [event]);
     };
 
-    const render = () => {
-      if (global.isMenuOpen) return;
-      renderer.render(scene, camera);
-    };
-
-    addEventListener("fullscreenchange", () => {
-      handleResize();
-      renderer.render(scene, camera);
-    });
-
-    const updateParalax = () => {
-      if (global.isMenuOpen) return;
-      updateMouseSmooth(20);
-      gsap.set(cameraGroup.rotation, {
-        x: (global.mouse.current.y / window.innerHeight - 0.5) / 12,
-        y: (global.mouse.current.x / window.innerWidth - 0.5) / 12,
-      });
-    };
-
-    gsap.ticker.add(updateParalax);
-    gsap.ticker.add(render);
+    gsap.ticker.add(update);
     gsap.ticker.fps(30);
+
+    const handleMouseDown = (event: MouseEvent) => {
+      if (playerState.isMenuOpen) return;
+      playerState.mouse.target.x = event.clientX;
+      playerState.mouse.target.y = event.clientY;
+      if (event.target instanceof HTMLCanvasElement) {
+        eventEmitterInstance.trigger("mouseDown", [event]);
+      }
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousedown", handleMouseDown);
 
     // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
-      mountRef.current?.removeChild(renderer.domElement);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousedown", handleMouseDown);
+      removeEventListener("fullscreenchange", handleResize);
+      mountRef.current?.removeChild(game.renderer.domElement);
     };
-  }, []);
+  }, [mountRef]);
 
-  return <div id="three-scene" className="" ref={mountRef}></div>;
+  return <div id="three-scene" ref={mountRef}></div>;
 };
 
 export default ThreeScene;

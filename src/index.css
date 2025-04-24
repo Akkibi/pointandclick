@@ -7,7 +7,7 @@
     line-height: 1;
     font-weight: 400;
     font-style: normal;
-    font-size: 1vh;
+    font-size: 1.1vh;
 
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
@@ -48,9 +48,10 @@
     --font-character-default: "Lacquer", system-ui;
     --font-player: "lacquer", system-ui;
 }
+
 @media (pointer: coarse) {
     :root {
-        font-size: 1.4vh;
+        font-size: 1.5vh;
     }
 }
 
@@ -61,6 +62,7 @@ button {
     padding: unset;
     position: relative;
 }
+
 p,
 h1,
 h2,
@@ -116,3 +118,25 @@ body {
     height: 100%;
     overflow: hidden;
 }
+
+body.bottom-cursor {
+    cursor:
+        url("/mouseBack.png") 64 36,
+        pointer;
+}
+
+body.door-cursor {
+    cursor:
+        url("/mouseDoor.png") 64 64,
+        help;
+}
+
+/* body.door-cursor {
+    cursor:
+        url("/mouseDoor.png") 50 80,
+        pointer;
+} */
+
+/* body.bottom-cursor {
+    cursor: url('https://miamo.fun/assets/sprites/common/backtrack.png') 64 64, pointer;
+} */

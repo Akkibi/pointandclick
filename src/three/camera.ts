@@ -1,0 +1,68 @@
+import gsap from "gsap";
+import * as THREE from "three";
+import { interfaceContent } from "../data/interface";
+import { playerState } from "../data/player";
+import { eventEmitterInstance } from "../utils/eventEmitter";
+import { updateMouseSmooth } from "./utils/updateMouseSmooth";
+class Camera {
+  public instance: THREE.Group;
+  private cameraGroup: THREE.Group;
+  public camera: THREE.PerspectiveCamera;
+  constructor() {
+    this.instance = new THREE.Group();
+    this.cameraGroup = new THREE.Group();
+    this.cameraGroup.position.z = -interfaceContent.sceneDeepness;
+    this.instance.add(this.cameraGroup);
+    this.camera = new THREE.PerspectiveCamera(
+      20,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000,
+    );
+    this.camera.position.z = interfaceContent.sceneDeepness;
+    this.cameraGroup.add(this.camera);
+
+    const axesHelper = new THREE.AxesHelper(10);
+    axesHelper.position.z = -interfaceContent.sceneDeepness;
+    this.cameraGroup.add(axesHelper);
+
+    const instancePos = new THREE.Vector3();
+    this.instance.getWorldPosition(instancePos);
+    const cameraGroupPos = new THREE.Vector3();
+    this.cameraGroup.getWorldPosition(cameraGroupPos);
+    const cameraPos = new THREE.Vector3();
+    this.camera.getWorldPosition(cameraPos);
+    console.log(instancePos, cameraGroupPos, cameraPos, axesHelper.position);
+
+    eventEmitterInstance.on("update", this.updateParalax.bind(this));
+    eventEmitterInstance.on("resize", this.handleResize.bind(this));
+    eventEmitterInstance.on("turnCamera", this.turnCamera.bind(this));
+    this.handleResize();
+    this.camera.lookAt(this.cameraGroup.position);
+  }
+
+  public turnCamera = () => {
+    console.log("turnCamera", this.instance.rotation);
+    playerState.isLookingFront = !playerState.isLookingFront;
+    gsap.to(this.instance.rotation, {
+      y: playerState.isLookingFront ? 0 : Math.PI,
+      duration: 1,
+      ease: "expo.inOut",
+    });
+  };
+
+  private updateParalax = () => {
+    updateMouseSmooth(20);
+    gsap.set(this.cameraGroup.rotation, {
+      x: (playerState.mouse.current.y / window.innerHeight - 0.5) / 12,
+      y: (playerState.mouse.current.x / window.innerWidth - 0.5) / 12,
+    });
+  };
+
+  private handleResize = () => {
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+  };
+}
+
+export default Camera;
