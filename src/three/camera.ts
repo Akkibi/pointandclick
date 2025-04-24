@@ -37,8 +37,60 @@ class Camera {
     eventEmitterInstance.on("update", this.updateParalax.bind(this));
     eventEmitterInstance.on("resize", this.handleResize.bind(this));
     eventEmitterInstance.on("turnCamera", this.turnCamera.bind(this));
+    eventEmitterInstance.on(
+      "sceneChangeOut",
+      this.handleSceneChangeOut.bind(this),
+    );
+    eventEmitterInstance.on(
+      "sceneChangeIn",
+      this.handleSceneChangeIn.bind(this),
+    );
     this.handleResize();
     this.camera.lookAt(this.cameraGroup.position);
+  }
+
+  private handleSceneChangeOut = (point: THREE.Vector3) => {
+    point.x *= playerState.isLookingFront ? 3.14 : -1;
+    point.y *= playerState.isLookingFront ? 3.14 : 1;
+    point.z -= 35;
+    console.log("point", point);
+    gsap.to(this.camera.position, {
+      duration: 0.5,
+      ease: "expo.in",
+      x: point.x,
+      y: point.y,
+      z: point.z,
+      onComplete: () => {
+        eventEmitterInstance.trigger("sceneChange");
+      },
+    });
+  };
+
+  private handleSceneChangeIn = () => {
+    console.log(this.camera.position);
+    gsap.fromTo(
+      this.camera.position,
+      {
+        x: 0,
+        y: 0,
+        z: 2 * interfaceContent.sceneDeepness,
+      },
+      {
+        duration: 0.5,
+        ease: "expo.out",
+        x: 0,
+        y: 0,
+        z: interfaceContent.sceneDeepness,
+      },
+    );
+  };
+
+  public destroy() {
+    eventEmitterInstance.off("update");
+    eventEmitterInstance.off("resize");
+    eventEmitterInstance.off("turnCamera");
+    eventEmitterInstance.off("sceneChangeOut");
+    eventEmitterInstance.off("sceneChangeIn");
   }
 
   public turnCamera = () => {
