@@ -37,7 +37,7 @@ export const characters: Characters = {
         ],
       },
     },
-    onclick: {
+    onClick: {
       cataphile1: {
         default: [
           "path/to/image",

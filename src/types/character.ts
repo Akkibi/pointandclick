@@ -5,15 +5,11 @@ export interface Characters {
 export interface Character {
   id: number;
   name: string;
-  pose: string;
-  text: string;
-  speed: string;
   sounds?: Sounds;
-  idle: Idle;
-  hover: CharacterAnimation;
-  enter: CharacterAnimation;
-  onClick: CharacterAnimation;
-  onLeave: CharacterAnimation;
+  idle?: Idle;
+  hover?: CharacterAnimation;
+  onClick?: CharacterAnimation;
+  onLeave?: CharacterAnimation;
   states: stateTypes;
 }
 
