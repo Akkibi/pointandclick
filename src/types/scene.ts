@@ -1,3 +1,5 @@
+import { Character } from "./character";
+
 export interface SceneType {
   id: number;
   dependences?: string[];
@@ -28,7 +30,7 @@ export interface Conversation {
   done: boolean;
   dependences?: string[];
   fallback?: Fallback;
-  characters: any[];
+  characters: Character[];
   dialog?: Dialogs;
   positions: Position[];
   idleAnimation?: IdleAnimation;
@@ -37,12 +39,16 @@ export interface Conversation {
   exitAnimation?: ExitAnimation;
 }
 
+export interface IdleAnimation {
+  [key: string]: string[];
+}
+
 export interface HoverAnimation {
-  [key: number]: string[];
+  [key: string]: string[];
 }
 
 export interface EnterAnimation {
-  [key: number]: string[];
+  [key: string]: string[];
 }
 
 export interface ExitAnimation {
@@ -108,5 +114,5 @@ export interface Position {
 }
 
 export interface ScenesType {
-  [key: string]: Scene;
+  [key: string]: SceneType;
 }

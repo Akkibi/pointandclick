@@ -1,37 +1,46 @@
+export interface Characters {
+  [key: string]: Character;
+}
+
 export interface Character {
-    id: number;
-    name: string;
-    pose: string;
-    text: string;
-    speed: string;
-    sounds?: Sounds;
-    idle: CharacterAnimation;
-    hover: CharacterAnimation;
-    enter: CharacterAnimation;
-    onClick: CharacterAnimation;
-    onLeave: CharacterAnimation;
-    states: stateTypes;
+  id: number;
+  name: string;
+  pose: string;
+  text: string;
+  speed: string;
+  sounds?: Sounds;
+  idle: Idle;
+  hover: CharacterAnimation;
+  enter: CharacterAnimation;
+  onClick: CharacterAnimation;
+  onLeave: CharacterAnimation;
+  states: stateTypes;
 }
 
 export interface Sounds {
-    default: string[];
-    happy: string[];
-    angry: string[];
-    sad: string[];
+  default: string[];
+  happy: string[];
+  angry: string[];
+  sad: string[];
+}
+
+export interface Idle {
+  [key: string]: string[];
 }
 
 export interface CharacterAnimation {
-    [key: number]: string[];
+  [key: string]: talkTypes;
 }
 
 export interface stateTypes {
-    default: talkTypes;
-    happy: talkTypes;
-    angry: talkTypes;
-    sad: talkTypes;
+  default: talkTypes;
+  happy: talkTypes;
+  angry: talkTypes;
+  sad: talkTypes;
 }
 
 export interface talkTypes {
-    default: string[];
-    taking: string[];
+  transition?: string[];
+  default?: string[];
+  talking?: string[];
 }
