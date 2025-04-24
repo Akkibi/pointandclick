@@ -6,10 +6,10 @@ export const backgroundLoader = (sceneName: string, isFront: boolean) => {
 
   // Load textures
   const albedoMap = textureLoader.load(
-    `/scenes/${sceneName}/${isFront ? "front" : "back"}-albedo.jpg`,
+    `/scenes/${sceneName}/${isFront ? "front" : "back"}-albedo.opti.webp`,
   );
   const depthMap = textureLoader.load(
-    `/scenes/${sceneName}/${isFront ? "front" : "back"}-depth.jpg`,
+    `/scenes/${sceneName}/${isFront ? "front" : "back"}-depth.opti.webp`,
   );
   // console.log(sceneName, albedoMap);
   const vertexShader = `

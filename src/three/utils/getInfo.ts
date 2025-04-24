@@ -57,6 +57,7 @@ export const getLines = (
     scene,
     conversationName,
   );
+  console.log("dialog", currentCharacters);
   const dialog: Dialog | null = getDialog(scene, conversationName, dialogName);
   if (!dialog || !currentCharacters) return [];
   const lines: FormatedLine[] = [];
