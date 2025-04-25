@@ -22,17 +22,17 @@ class Camera {
     this.camera.position.z = interfaceContent.sceneDeepness;
     this.cameraGroup.add(this.camera);
 
-    const axesHelper = new THREE.AxesHelper(10);
-    axesHelper.position.z = -interfaceContent.sceneDeepness;
-    this.cameraGroup.add(axesHelper);
+    // const axesHelper = new THREE.AxesHelper(10);
+    // axesHelper.position.z = -interfaceContent.sceneDeepness;
+    // this.cameraGroup.add(axesHelper);
 
-    const instancePos = new THREE.Vector3();
-    this.instance.getWorldPosition(instancePos);
-    const cameraGroupPos = new THREE.Vector3();
-    this.cameraGroup.getWorldPosition(cameraGroupPos);
-    const cameraPos = new THREE.Vector3();
-    this.camera.getWorldPosition(cameraPos);
-    console.log(instancePos, cameraGroupPos, cameraPos, axesHelper.position);
+    // const instancePos = new THREE.Vector3();
+    // this.instance.getWorldPosition(instancePos);
+    // const cameraGroupPos = new THREE.Vector3();
+    // this.cameraGroup.getWorldPosition(cameraGroupPos);
+    // const cameraPos = new THREE.Vector3();
+    // this.camera.getWorldPosition(cameraPos);
+    // console.log(instancePos, cameraGroupPos, cameraPos, axesHelper.position);
 
     eventEmitterInstance.on("update", this.updateParalax.bind(this));
     eventEmitterInstance.on("resize", this.handleResize.bind(this));
