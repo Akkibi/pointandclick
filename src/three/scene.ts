@@ -158,7 +158,7 @@ class Scene {
 
   public loadBackgrounds() {
     this.loadImage(
-      `/scenes/${this.name}/front-albedo.jpg`,
+      `/scenes/${this.name}/front-albedo.opti.webp`,
       (texture: THREE.Texture) => {
         (
           this.frontBackground.material as THREE.ShaderMaterial
@@ -167,7 +167,7 @@ class Scene {
     )
       .then(() =>
         this.loadImage(
-          `/scenes/${this.name}/back-albedo.jpg`,
+          `/scenes/${this.name}/back-albedo.opti.webp`,
           (texture: THREE.Texture) => {
             (
               this.backBackground.material as THREE.ShaderMaterial
@@ -177,7 +177,7 @@ class Scene {
       )
       .then(() =>
         this.loadImage(
-          `/scenes/${this.name}/front-depth.jpg`,
+          `/scenes/${this.name}/front-depth.opti.webp`,
           (texture: THREE.Texture) => {
             (
               this.frontBackground.material as THREE.ShaderMaterial
@@ -187,7 +187,7 @@ class Scene {
       )
       .then(() =>
         this.loadImage(
-          `/scenes/${this.name}/back-depth.jpg`,
+          `/scenes/${this.name}/back-depth.opti.webp`,
           (texture: THREE.Texture) => {
             (
               this.backBackground.material as THREE.ShaderMaterial
