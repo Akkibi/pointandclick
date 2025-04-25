@@ -10,8 +10,9 @@ class Game {
   private raycaster: THREE.Raycaster;
   public renderer: THREE.WebGLRenderer;
   constructor() {
-    this.scene = new Scene(playerState.currentScene);
     this.camera = new Camera();
+    this.scene = new Scene(playerState.currentScene);
+    this.handleSceneChange();
     this.scene.instance.add(this.camera.instance);
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -34,7 +35,7 @@ class Game {
     this.scene = new Scene(playerState.currentScene);
     console.log("new scene", this.scene, this.camera);
     this.scene.instance.add(this.camera.instance);
-    eventEmitterInstance.trigger("sceneChangeIn");
+    this.scene.loadBackgrounds();
   };
 
   private raycast = () => {
@@ -86,6 +87,7 @@ class Game {
         if (intersects.length > 0) {
           intersects.forEach((intersect) => {
             if (intersect.object.name === "background") {
+              console.log("Scene transition start");
               eventEmitterInstance.trigger("sceneChangeOut", [intersect.point]);
             }
           });

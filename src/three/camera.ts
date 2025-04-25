@@ -53,7 +53,7 @@ class Camera {
     point.x *= playerState.isLookingFront ? 3.14 : -1;
     point.y *= playerState.isLookingFront ? 3.14 : 1;
     point.z -= 35;
-    console.log("point", point);
+    // console.log("point", point);
     gsap.to(this.camera.position, {
       duration: 0.5,
       ease: "expo.in",

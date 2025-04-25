@@ -7,6 +7,11 @@ export const backgroundLoader = (sceneName: string, isFront: boolean) => {
   // Load textures
   const albedoMap = textureLoader.load(
     `/scenes/${sceneName}/${isFront ? "front" : "back"}-albedo.opti.webp`,
+    () => {},
+    undefined,
+    () => {
+      console.error("An error happened loading the texture.");
+    },
   );
   const depthMap = textureLoader.load(
     `/scenes/${sceneName}/${isFront ? "front" : "back"}-depth.opti.webp`,
