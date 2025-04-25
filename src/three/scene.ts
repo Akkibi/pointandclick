@@ -127,12 +127,10 @@ class Scene {
           normalizedPos.x,
           normalizedPos.y,
         );
-        // console.log(rgbToHex(rgb));
         if (this.data.doors?.back?.[rgbToHex(rgb)]) {
           return this.data.doors.back[rgbToHex(rgb)];
         }
       }
-      // console.log(normalizedPos);
       return null;
     }
   }
@@ -160,7 +158,7 @@ class Scene {
 
   public loadBackgrounds() {
     this.loadImage(
-      `/scenes/${this.name}/front-albedo.opti.webp`,
+      `/scenes/${this.name}/front-albedo.jpg`,
       (texture: THREE.Texture) => {
         (
           this.frontBackground.material as THREE.ShaderMaterial
@@ -169,7 +167,7 @@ class Scene {
     )
       .then(() =>
         this.loadImage(
-          `/scenes/${this.name}/back-albedo.opti.webp`,
+          `/scenes/${this.name}/back-albedo.jpg`,
           (texture: THREE.Texture) => {
             (
               this.backBackground.material as THREE.ShaderMaterial
@@ -179,7 +177,7 @@ class Scene {
       )
       .then(() =>
         this.loadImage(
-          `/scenes/${this.name}/front-depth.opti.webp`,
+          `/scenes/${this.name}/front-depth.jpg`,
           (texture: THREE.Texture) => {
             (
               this.frontBackground.material as THREE.ShaderMaterial
@@ -189,7 +187,7 @@ class Scene {
       )
       .then(() =>
         this.loadImage(
-          `/scenes/${this.name}/back-depth.opti.webp`,
+          `/scenes/${this.name}/back-depth.jpg`,
           (texture: THREE.Texture) => {
             (
               this.backBackground.material as THREE.ShaderMaterial
