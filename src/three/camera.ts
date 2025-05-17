@@ -8,10 +8,8 @@ class Camera {
   public instance: THREE.Group;
   private cameraGroup: THREE.Group;
   public camera: THREE.PerspectiveCamera;
-  private fov: number;
   constructor() {
     this.instance = new THREE.Group();
-    this.fov = 20;
     this.cameraGroup = new THREE.Group();
     this.cameraGroup.position.z = -interfaceContent.sceneDeepness;
     this.instance.add(this.cameraGroup);
