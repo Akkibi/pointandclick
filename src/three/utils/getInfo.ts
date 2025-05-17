@@ -1,6 +1,13 @@
+import { playerState } from "../../data/player";
 import { scenes } from "../../data/scenes";
-import { Character } from "../../types/character";
-import { Conversation, Dialog, Options, SceneType } from "../../types/scene";
+import { CharacterType } from "../../types/character";
+import {
+  CharacterPositions,
+  Conversation,
+  Dialog,
+  Options,
+  SceneType,
+} from "../../types/scene";
 
 export const getScene = (scene: string): SceneType => {
   const currentScene: SceneType | undefined = scenes[scene];
@@ -16,6 +23,26 @@ export const getConversation = (
   );
   return conversation ?? getScene(scene).conversations?.[0] ?? null;
 };
+
+export const getCurrentConversation = (scene: string): Conversation | null => {
+  const conversation =
+    getScene(scene).conversations?.find(
+      (c) =>
+        c.done === false &&
+        checkDependences(playerState.achievements, c.dependences),
+    ) ?? null;
+
+  return conversation;
+};
+
+function checkDependences(
+  playerAchievements: string[],
+  dependences: string[] | undefined,
+): boolean {
+  if (playerAchievements.length === 0 || dependences === undefined)
+    return false;
+  return dependences.every((dep) => playerAchievements.includes(dep));
+}
 
 export const getDialog = (
   scene: string,
@@ -35,12 +62,12 @@ export const getDialog = (
 export const getConversationCharacters = (
   scene: string,
   conversationName: string,
-): Character[] => {
+): CharacterType[] => {
   const conversation: Conversation | null = getConversation(
     scene,
     conversationName,
   );
-  if (!conversation) return [];
+  if (!conversation || !conversation.characters) return [];
   return conversation.characters;
 };
 
@@ -48,12 +75,40 @@ export interface FormatedLine {
   name: string;
   line: string[];
 }
+
+// export const getCharacterPosition = (characterName: string) => {
+//   if (!playerState.currentConversation) return;
+//   const currentCharacters: CharacterType[] | null = getConversationCharacters(
+//     playerState.currentScene,
+//     playerState.currentConversation,
+//   );
+
+//   if (!currentCharacters) return;
+//   const character = currentCharacters.find(
+//     (c) => c.name === characterName,
+//   );
+//   if (!character) return;
+//   return character.position;
+// };
+
+export const getCharactersPosition = (
+  scene: string,
+  conversationName: string,
+): CharacterPositions | null => {
+  const conversation: Conversation | null = getConversation(
+    scene,
+    conversationName,
+  );
+  if (!conversation) return null;
+  return conversation.positions;
+};
+
 export const getLines = (
   scene: string,
   conversationName: string,
   dialogName: string,
 ): FormatedLine[] | [] => {
-  const currentCharacters: Character[] | null = getConversationCharacters(
+  const currentCharacters: CharacterType[] | null = getConversationCharacters(
     scene,
     conversationName,
   );

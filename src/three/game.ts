@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { playerState } from "../data/player";
 import { eventEmitterInstance } from "../utils/eventEmitter";
-import Camera from "./camera";
+import Camera, { cameraInstance } from "./camera";
 import Scene from "./scene";
 
 class Game {
@@ -10,7 +10,7 @@ class Game {
   private raycaster: THREE.Raycaster;
   public renderer: THREE.WebGLRenderer;
   constructor() {
-    this.camera = new Camera();
+    this.camera = cameraInstance;
     this.scene = new Scene(playerState.currentScene);
     this.handleSceneChange();
     this.scene.instance.add(this.camera.instance);
@@ -31,7 +31,6 @@ class Game {
 
   private handleSceneChange = () => {
     this.scene.instance.remove(this.camera.instance);
-    // this.scene.destroy();
     this.scene = new Scene(playerState.currentScene);
     console.log("new scene", this.scene, this.camera);
     this.scene.instance.add(this.camera.instance);
@@ -47,7 +46,7 @@ class Game {
     const intersects = this.raycaster.intersectObjects(
       this.scene.instance.children,
     );
-    return intersects;
+    return intersects ?? [];
   };
 
   private handleResize = () => {
@@ -67,10 +66,21 @@ class Game {
       document.body.classList.remove("door-cursor");
     } else {
       document.body.classList.remove("bottom-cursor");
-      if (this.scene.checkDoor() !== null) {
+      const intersect = this.raycast();
+      const intersectName = intersect[0]?.object.name;
+      if (!intersectName) return;
+
+      if (intersectName === "background") {
+        // console.log("door", this.scene.checkDoor())
+        if (this.scene.checkDoor() === null) {
+        document.body.classList.remove("door-cursor");
+        } else {
         document.body.classList.add("door-cursor");
+        }
       } else {
         document.body.classList.remove("door-cursor");
+        eventEmitterInstance.trigger(`hover-${intersectName}`);
+        // console.log("hover", intersectName);
       }
     }
   }
@@ -79,19 +89,18 @@ class Game {
     if (playerState.mouse.target.y >= window.innerHeight * 0.9) {
       eventEmitterInstance.trigger("turnCamera", []);
     } else {
+      const intersect = this.raycast();
+      const intersectName = intersect[0].object.name;
+      if (!intersectName) return;
       const sceneTarget = this.scene.checkDoor();
-      console.log(sceneTarget);
-      if (sceneTarget !== null) {
+      if (intersectName === "background") {
+        if (sceneTarget === null) return;
         playerState.currentScene = sceneTarget;
-        const intersects = this.raycast();
-        if (intersects.length > 0) {
-          intersects.forEach((intersect) => {
-            if (intersect.object.name === "background") {
-              console.log("Scene transition start");
-              eventEmitterInstance.trigger("sceneChangeOut", [intersect.point]);
-            }
-          });
-        }
+        console.log("Scene transition start");
+        eventEmitterInstance.trigger("sceneChangeOut", [intersect[0].point]);
+      } else {
+        eventEmitterInstance.trigger(`click-${intersectName}`);
+        // console.log("click", intersectName);
       }
     }
   }

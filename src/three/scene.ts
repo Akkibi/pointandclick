@@ -1,51 +1,86 @@
 import * as THREE from "three";
 import { interfaceContent } from "../data/interface";
 import { playerState } from "../data/player";
-import { SceneType } from "../types/scene";
 import getPixelColor from "../utils/getPixelColor";
 import rgbToHex from "../utils/rgbToHex";
 // import { backgroundLoader } from "./backgroundLoader";
-import { getScene } from "./utils/getInfo";
+import {
+  getConversationCharacters,
+  getCurrentConversation,
+  getDialog,
+  getScene,
+} from "./utils/getInfo";
 import { eventEmitterInstance } from "../utils/eventEmitter";
+import Character from "./character";
 class Scene {
-  instance: THREE.Scene;
-  data: SceneType;
-  name: string;
-  frontBackground: THREE.Mesh;
-  backBackground: THREE.Mesh;
-  frontDoors: ImageData | null;
-  backDoors: ImageData | null;
+  public instance: THREE.Scene;
+  public name: string;
+  private frontBackground: THREE.Mesh;
+  private backBackground: THREE.Mesh;
+  private frontDoors: ImageData | null;
+  private backDoors: ImageData | null;
+  private charactersGroup: THREE.Group;
   constructor(name: string) {
-    this.data = getScene(name);
     this.frontDoors = null;
     this.backDoors = null;
     this.name = name;
     this.instance = new THREE.Scene();
     console.log(this.name);
-    // this.frontBackground = backgroundLoader(this.name, true);
-    // this.backBackground = backgroundLoader(this.name, false);
     this.frontBackground = this.backgroundElementsLoader();
     this.backBackground = this.backgroundElementsLoader();
 
-    // console.log("material", this.frontBackground.material);
     this.frontBackground.position.set(0, 0, -interfaceContent.sceneDeepness);
     this.backBackground.position.set(0, 0, interfaceContent.sceneDeepness);
     this.backBackground.rotation.y = Math.PI;
     this.instance.add(this.frontBackground);
     this.instance.add(this.backBackground);
 
-    // character1
-    const plane = new THREE.Mesh(
-      new THREE.PlaneGeometry(2, 6, 1, 1),
-      new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
-    );
-    plane.position.set(-1, -1, -interfaceContent.sceneDeepness / 2);
-    plane.lookAt(0, 0, 0);
-    this.instance.add(plane);
+    playerState.currentScene = this.name;
+    playerState.currentSceneData = getScene(name);
+    playerState.currentConversation =
+      getCurrentConversation(this.name)?.name ?? null;
+    playerState.currentConversationData =
+      getCurrentConversation(this.name) ?? null;
+    if (playerState.currentConversation) {
+      playerState.currentDialog = "start";
+      playerState.currentDialogData = getDialog(
+        this.name,
+        playerState.currentConversation,
+        "start",
+      );
+    } else {
+      playerState.currentDialog = null;
+      playerState.currentDialogData = null;
+    }
 
-    if (this.data.doors) {
-      if (this.data.doors.front) this.loadDoors(true);
-      if (this.data.doors.back) this.loadDoors(false);
+    // characters group
+    this.charactersGroup = new THREE.Group();
+
+    // load characters
+
+    if (playerState.currentDialog) {
+      const charactersData = getConversationCharacters(
+        this.name,
+        playerState.currentDialog,
+      );
+      charactersData.forEach((characterData, index) => {
+        const character: Character = new Character(characterData, index);
+        this.charactersGroup.add(character.instance);
+      });
+    }
+    this.charactersGroup.position.set(
+      0,
+      0,
+      -interfaceContent.sceneDeepness / 4,
+    );
+    this.instance.add(this.charactersGroup);
+
+    // plane.lookAt(0, 0, 0);
+    // this.instance.add(plane);
+
+    if (playerState.currentSceneData.doors) {
+      if (playerState.currentSceneData.doors.front) this.loadDoors(true);
+      if (playerState.currentSceneData.doors.back) this.loadDoors(false);
     }
   }
 
@@ -69,7 +104,7 @@ class Scene {
             canvas.width,
             canvas.height,
           );
-          // console.log("load frontdoors", this.frontDoors);
+          console.log("load frontdoors", this.frontDoors);
         } else {
           this.backDoors = context.getImageData(
             0,
@@ -77,7 +112,7 @@ class Scene {
             canvas.width,
             canvas.height,
           );
-          // console.log("load backdoors", this.backDoors);
+          console.log("load backdoors", this.backDoors);
         }
       }
     };
@@ -90,25 +125,26 @@ class Scene {
   }
 
   public checkDoor(): string | null {
-    if (!this.data) return null;
+    if (!playerState.currentSceneData) return null;
     // translate mouse position between 0 and 1
     const normalizedPos = {
       x: Math.round(
         ((playerState.mouse.target.x +
           (window.innerHeight - window.innerWidth) / 2) /
           window.innerHeight) *
-          interfaceContent.doorMapSize,
+          interfaceContent.doorMapSize.width,
       ),
       y: Math.round(
         (playerState.mouse.target.y / window.innerHeight) *
-          interfaceContent.doorMapSize,
+          interfaceContent.doorMapSize.height,
       ),
     };
+    // console.log("pos", normalizedPos)
     if (
       normalizedPos.x < 0 ||
-      normalizedPos.x > interfaceContent.doorMapSize ||
+      normalizedPos.x > interfaceContent.doorMapSize.width ||
       normalizedPos.y < 0 ||
-      normalizedPos.y > interfaceContent.doorMapSize
+      normalizedPos.y > interfaceContent.doorMapSize.height
     ) {
       return null;
     } else {
@@ -118,8 +154,9 @@ class Scene {
           normalizedPos.x,
           normalizedPos.y,
         );
-        if (this.data.doors?.front?.[rgbToHex(rgb)]) {
-          return this.data.doors.front[rgbToHex(rgb)];
+        // console.log("tgb",rgb)
+        if (playerState.currentSceneData.doors?.front?.[rgbToHex(rgb)]) {
+          return playerState.currentSceneData.doors.front[rgbToHex(rgb)];
         }
       } else if (!playerState.isLookingFront && this.backDoors) {
         const rgb = getPixelColor(
@@ -127,8 +164,8 @@ class Scene {
           normalizedPos.x,
           normalizedPos.y,
         );
-        if (this.data.doors?.back?.[rgbToHex(rgb)]) {
-          return this.data.doors.back[rgbToHex(rgb)];
+        if (playerState.currentSceneData.doors?.back?.[rgbToHex(rgb)]) {
+          return playerState.currentSceneData.doors.back[rgbToHex(rgb)];
         }
       }
       return null;

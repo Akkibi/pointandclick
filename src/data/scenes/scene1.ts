@@ -1,18 +1,16 @@
 import type { SceneType } from "../../types/scene";
 import { characters } from "../characters";
 const scene1: SceneType = {
-  id: 0,
   isStageLookingFront: true,
   doors: {
     front: {
-      "#ff0010": "scene2",
+      "#ee0000": "scene2",
     },
   },
   sound: "path/ot/sound",
   conversations: [
     {
       name: "cataphile1",
-      id: 0,
       done: false,
       dependences: ["puzzle_1"],
       characters: [characters.cataphile, characters.painter],
@@ -23,14 +21,20 @@ const scene1: SceneType = {
         text: "it's not the right moment",
         speed: "400ms",
       },
-      positions: [
-        {
-          x: 10,
-          y: 10,
+      positions: {
+        0: {
+          x: -2,
+          y: -1.5,
           pose: "default",
           speed: "400ms",
         },
-      ],
+        1: {
+          x: 2,
+          y: -1.5,
+          pose: "default",
+          speed: "400ms",
+        },
+      },
       enterAnimation: {
         0: ["path/to/image", "path/to/image"],
       },

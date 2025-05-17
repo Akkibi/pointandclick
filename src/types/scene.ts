@@ -1,7 +1,6 @@
-import { Character } from "./character";
+import { CharacterType } from "./character";
 
 export interface SceneType {
-  id: number;
   dependences?: string[];
   isStageLookingFront: boolean;
   doors?: Doors;
@@ -26,13 +25,12 @@ export interface Conversation {
   // sound is optional and it overrides the current one
   // change animation to that character talking during the time of the speech
   name: string;
-  id: number;
   done: boolean;
   dependences?: string[];
   fallback?: Fallback;
-  characters: Character[];
+  characters: CharacterType[];
   dialog?: Dialogs;
-  positions: Position[];
+  positions: CharacterPositions;
   idleAnimation?: IdleAnimation;
   hoverAnimation?: HoverAnimation;
   enterAnimation?: EnterAnimation;
@@ -80,7 +78,7 @@ export interface Dialogs {
 }
 
 export interface Dialog {
-  positions?: Position[];
+  positions?: CharacterPositions;
   objects?: string;
   achievements?: string;
   sound?: string;
@@ -104,6 +102,10 @@ export interface Points {
   love?: number;
   freedom?: number;
   fool?: number;
+}
+
+export interface CharacterPositions {
+  [key: number]: Position;
 }
 
 export interface Position {

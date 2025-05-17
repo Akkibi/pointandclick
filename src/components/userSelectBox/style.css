@@ -3,9 +3,12 @@
     position: relative;
     height: 5vh;
     width: 100%;
+    z-index: 10;
+    overflow: visible;
 }
 
 .user-select-box {
+    z-index: 2;
     user-select: text;
     pointer-events: all;
     clip-path: polygon(
@@ -39,7 +42,7 @@
     background-size: cover;
     transform: rotate3d(-0.4, 1, -0.2, -25deg);
     color: black;
-    opacity: 0.75;
+    opacity: 1;
     transition:
         transform 2s var(--ease-out-expo),
         opacity 2s linear;

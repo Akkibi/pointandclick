@@ -1,8 +1,8 @@
 export interface Characters {
-  [key: string]: Character;
+  [key: string]: CharacterType;
 }
 
-export interface Character {
+export interface CharacterType {
   id: number;
   name: string;
   sounds?: Sounds;
@@ -21,7 +21,7 @@ export interface Sounds {
 }
 
 export interface Idle {
-  [key: string]: string[];
+  [key: string]: number;
 }
 
 export interface CharacterAnimation {
@@ -36,7 +36,7 @@ export interface stateTypes {
 }
 
 export interface talkTypes {
-  transition?: string[];
-  default?: string[];
-  talking?: string[];
+  transition?: number;
+  default?: number;
+  talking?: number;
 }

@@ -8,8 +8,10 @@ class Camera {
   public instance: THREE.Group;
   private cameraGroup: THREE.Group;
   public camera: THREE.PerspectiveCamera;
+  private fov: number;
   constructor() {
     this.instance = new THREE.Group();
+    this.fov = 20;
     this.cameraGroup = new THREE.Group();
     this.cameraGroup.position.z = -interfaceContent.sceneDeepness;
     this.instance.add(this.cameraGroup);
@@ -20,6 +22,7 @@ class Camera {
       1000,
     );
     this.camera.position.z = interfaceContent.sceneDeepness;
+    this.camera.name = "camera";
     this.cameraGroup.add(this.camera);
 
     // const axesHelper = new THREE.AxesHelper(10);
@@ -112,9 +115,14 @@ class Camera {
   };
 
   private handleResize = () => {
-    this.camera.aspect = window.innerWidth / window.innerHeight;
+    const width = document.body.clientWidth;
+    const height = document.body.clientWidth;
+    this.camera.aspect = width / height;
+    this.camera.fov = (window.innerWidth / window.innerHeight) * 20;
     this.camera.updateProjectionMatrix();
   };
 }
+
+export const cameraInstance = new Camera();
 
 export default Camera;

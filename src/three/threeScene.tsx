@@ -45,6 +45,8 @@ const ThreeScene: React.FC = () => {
       eventEmitterInstance.trigger("resize", []);
     };
 
+    eventEmitterInstance.trigger("resize", []);
+
     window.addEventListener("resize", handleResize);
     addEventListener("fullscreenchange", handleResize);
 
