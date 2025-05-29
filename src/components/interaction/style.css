@@ -7,11 +7,12 @@
     flex-direction: column;
     justify-content: end;
     align-items: end;
+    perspective: 60vh;
 }
 
 .interaction_perspective-container {
+    transform-style: preserve-3d;
     position: relative;
-    perspective: 50vh;
     width: 100%;
 }
 

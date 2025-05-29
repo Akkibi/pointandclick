@@ -6,10 +6,10 @@ export interface CharacterType {
   id: number;
   name: string;
   sounds?: Sounds;
-  idle?: Idle;
-  hover?: CharacterAnimation;
-  onClick?: CharacterAnimation;
-  onLeave?: CharacterAnimation;
+  idle: Idle;
+  hover: CharacterAnimation;
+  onClick: CharacterAnimation;
+  onLeave: CharacterAnimation;
   states: stateTypes;
 }
 

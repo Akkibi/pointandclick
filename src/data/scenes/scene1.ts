@@ -128,13 +128,77 @@ const scene1: SceneType = {
 
           options: [
             {
-              text: "Leave You do too many drugs or something?",
+              text: "Leave because ...",
               destination: null,
             },
           ],
         },
       },
     },
+    {
+      name: "cataphile2",
+      done: false,
+      dependences: [],
+      characters: [characters.cataphile],
+      // optional fallback
+      fallback: {
+        name: "cataphile",
+        pose: "default",
+        text: "it's not the right moment",
+        speed: "400ms",
+      },
+      positions: {
+        0: {
+          x: -2,
+          y: -1.5,
+          pose: "default",
+          speed: "400ms",
+        },
+      },
+      enterAnimation: {
+        0: ["path/to/image", "path/to/image"],
+      },
+      dialog: {
+        start: {
+          lines: {
+            0: ["test2","Oi You!", "You Good?"],
+          },
+          options: [
+            {
+              text: "...",
+              destination: "...",
+              points: {
+                fool: 1,
+              },
+            },
+
+            {
+              text: "Who's there?",
+              destination: "...",
+              points: {
+                love: 1,
+              },
+            },
+
+          ],
+        },
+        "...": {
+          lines: {
+            0: [
+              "Yo",
+              "are you forreal?",
+              "what the hell are you doing down here without a light!",
+            ],
+          },
+          options: [
+            {
+              text: "Leave -->",
+              destination: null,
+            },
+          ],
+        },
+      },
+    }
   ],
 };
 export default scene1;

@@ -49,13 +49,32 @@ export const characters: Characters = {
     },
   },
   painter: {
-    id: 1,
+    id: 0,
     name: "Painter",
     sounds: {
       default: ["path/to/sound", "path/to/sound", "path/to/sound"],
       happy: ["path/to/sound", "path/to/sound", "path/to/sound"],
       angry: ["path/to/sound", "path/to/sound", "path/to/sound"],
       sad: ["path/to/sound", "path/to/sound", "path/to/sound"],
+    },
+    idle: {
+      cataphile1: 3,
+    },
+    hover: {
+      cataphile1: {
+        transition: 3,
+        default: 3,
+      },
+    },
+    onClick: {
+      cataphile1: {
+        default: 3,
+      },
+    },
+    onLeave: {
+      cataphile1: {
+        default: 3,
+      },
     },
     states: {
       default: {

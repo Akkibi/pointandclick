@@ -9,6 +9,7 @@ class Game {
   public scene: Scene;
   private raycaster: THREE.Raycaster;
   public renderer: THREE.WebGLRenderer;
+  private currentHoveredElement: string = "";
   constructor() {
     this.camera = cameraInstance;
     this.scene = new Scene(playerState.currentScene);
@@ -26,6 +27,7 @@ class Game {
     eventEmitterInstance.on("mouseMove", this.raycast.bind(this));
     eventEmitterInstance.on("mouseMove", this.mouseMove.bind(this));
     eventEmitterInstance.on("mouseDown", this.mouseDown.bind(this));
+
     this.render();
   }
 
@@ -38,6 +40,7 @@ class Game {
   };
 
   private raycast = () => {
+    if (playerState.isInteracting) return [];
     const mousePos = new THREE.Vector2(
       (playerState.mouse.target.x / window.innerWidth) * 2 - 1,
       -(playerState.mouse.target.y / window.innerHeight) * 2 + 1,
@@ -69,9 +72,11 @@ class Game {
       const intersect = this.raycast();
       const intersectName = intersect[0]?.object.name;
       if (!intersectName) return;
-
+      if (this.currentHoveredElement === intersectName) return;
+      if (this.currentHoveredElement === "character"){
+        eventEmitterInstance.trigger(`stop-hover-${this.currentHoveredElement}`, []);
+      }
       if (intersectName === "background") {
-        // console.log("door", this.scene.checkDoor())
         if (this.scene.checkDoor() === null) {
         document.body.classList.remove("door-cursor");
         } else {
@@ -80,8 +85,8 @@ class Game {
       } else {
         document.body.classList.remove("door-cursor");
         eventEmitterInstance.trigger(`hover-${intersectName}`);
-        // console.log("hover", intersectName);
       }
+      this.currentHoveredElement = intersectName;
     }
   }
 

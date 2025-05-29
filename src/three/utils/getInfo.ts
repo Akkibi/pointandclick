@@ -24,6 +24,15 @@ export const getConversation = (
   return conversation ?? getScene(scene).conversations?.[0] ?? null;
 };
 
+export const setConversationDone = (
+  scene: string,
+  conversationName: string,
+): void => {
+  const conversation = getConversation(scene, conversationName);
+  if (!conversation) return;
+  conversation.done = true;
+};
+
 export const getCurrentConversation = (scene: string): Conversation | null => {
   const conversation =
     getScene(scene).conversations?.find(

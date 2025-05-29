@@ -12,6 +12,7 @@ import {
 } from "./utils/getInfo";
 import { eventEmitterInstance } from "../utils/eventEmitter";
 import Character from "./character";
+import loadImage from "./utils/loadImage";
 class Scene {
   public instance: THREE.Scene;
   public name: string;
@@ -172,29 +173,8 @@ class Scene {
     }
   }
 
-  private loadImage(
-    url: string,
-    onLoad: (texture: THREE.Texture) => void,
-  ): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      const loader = new THREE.TextureLoader();
-      loader.load(
-        url,
-        (texture: THREE.Texture) => {
-          onLoad(texture);
-          resolve();
-        },
-        undefined,
-        (err) => {
-          console.error(`Error loading texture from ${url}`, err);
-          reject(err);
-        },
-      );
-    });
-  }
-
   public loadBackgrounds() {
-    this.loadImage(
+    loadImage(
       `/scenes/${this.name}/front-albedo.opti.webp`,
       (texture: THREE.Texture) => {
         (
@@ -203,7 +183,7 @@ class Scene {
       },
     )
       .then(() =>
-        this.loadImage(
+        loadImage(
           `/scenes/${this.name}/back-albedo.opti.webp`,
           (texture: THREE.Texture) => {
             (
@@ -213,7 +193,7 @@ class Scene {
         ),
       )
       .then(() =>
-        this.loadImage(
+        loadImage(
           `/scenes/${this.name}/front-depth.opti.webp`,
           (texture: THREE.Texture) => {
             (
@@ -223,7 +203,7 @@ class Scene {
         ),
       )
       .then(() =>
-        this.loadImage(
+        loadImage(
           `/scenes/${this.name}/back-depth.opti.webp`,
           (texture: THREE.Texture) => {
             (

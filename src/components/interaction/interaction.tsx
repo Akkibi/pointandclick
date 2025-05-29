@@ -2,12 +2,14 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 import { playerState } from "../../data/player";
-import { FormatedLine, getLines, getOptions } from "../../three/utils/getInfo";
+import { FormatedLine, getCurrentConversation, getLines, getOptions, setConversationDone } from "../../three/utils/getInfo";
 import { Options } from "../../types/scene";
 import { eventEmitterInstance } from "../../utils/eventEmitter";
 import CharacterTextBox from "../characterTextBox/charactertextBox";
 import UserSelectBox from "../userSelectBox/userSelectBox";
 import "./style.css";
+import { interfaceContent } from "../../data/interface";
+import {  preloadImages } from "../../three/utils/ImagePreloader";
 
 const Interaction: React.FC = () => {
   const characterTextRef = useRef<HTMLDivElement>(null);
@@ -18,10 +20,15 @@ const Interaction: React.FC = () => {
   const tlBack = useRef(
     gsap.timeline({
       onComplete: () => {
-        if (playerState.currentDialog !== null && tl.current.progress() > 0.5) {
+        if (tl.current.progress() < 0.5) return;
+        if (playerState.currentDialog !== null) {
           eventEmitterInstance.trigger("openInteraction", [
             playerState.currentDialog,
           ]);
+        } else {
+          // if (!playerState.currentConversation) return;
+          // console.log("close interaction");
+          // setConversationDone(playerState.currentScene, playerState.currentConversation);
         }
       },
     }),
@@ -129,7 +136,8 @@ const Interaction: React.FC = () => {
 
   useEffect(() => {
     const handleInteractionOpen = () => {
-      if (!playerState.currentScene || !playerState.currentDialog) return;
+      console.log("currentDialog", playerState.currentDialog, "currentConversation", playerState.currentConversation)
+      if (!playerState.currentScene || !playerState.currentDialog || !playerState.currentConversation) return;
       console.log("handleInteractionOpen");
 
       const action = playerState.isInteracting
@@ -140,12 +148,12 @@ const Interaction: React.FC = () => {
       if (action === null) return;
       const lines = getLines(
         playerState.currentScene,
-        playerState.currentDialog,
+        playerState.currentConversation,
         action,
       );
       const options = getOptions(
         playerState.currentScene,
-        playerState.currentDialog,
+        playerState.currentConversation,
         action,
       );
       setLines(lines);
@@ -155,8 +163,12 @@ const Interaction: React.FC = () => {
     const handleGoto = (destination: string | null) => {
       tlBack.current.play();
       playerState.lastDialog = playerState.currentDialog;
-      playerState.currentDialog = destination;
+      playerState.currentDialog = destination ?? "start";
       if (destination === null) {
+        setConversationDone(playerState.currentScene, playerState.currentConversation ?? "");
+        playerState.currentConversationData = getCurrentConversation(playerState.currentScene);
+        playerState.currentConversation = playerState.currentConversationData?.name ?? null;
+        console.log("change conversation to :", getCurrentConversation(playerState.currentScene))
         playerState.isInteracting = false;
       }
     };
@@ -167,6 +179,10 @@ const Interaction: React.FC = () => {
       eventEmitterInstance.off("goto");
     };
   }, []);
+
+  useEffect(() => {
+    preloadImages(interfaceContent.textboxBackgroundImages);
+}, []);
 
   return (
     <div className="interaction" ref={containerRef}>
