@@ -3,7 +3,7 @@ import type { SceneType } from "../../types/scene";
 const artist: SceneType = {
   isStageLookingFront: true,
   doors: {
-    back: {
+    front: {
       "#fe0000": "scene28", // scène précédente
     },
   },
