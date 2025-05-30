@@ -26,8 +26,8 @@
   import tunnel7_4 from "./scenes/tunnel7_4";
   import tunnel7_5 from "./scenes/tunnel7_5";
   import split3 from "./scenes/split3";
-  // import tunnel8_1 from "./scenes/tunnel8_1";
-  // import artist from "./scenes/artist";
+  import tunnel8_1 from "./scenes/tunnel8_1.ts";
+  import artist from "./scenes/artist";
   // import tunnel9_1 from "./scenes/tunnel9_1";
   // import tunnel9_2 from "./scenes/tunnel9_2";
   // import chessroom from "./scenes/chessroom";
@@ -64,8 +64,8 @@
     scene25: tunnel7_4,
     scene26: tunnel7_5,
     scene27: split3,
-    // scene28: tunnel8_1,
-    // scene29: artist,
+    scene28: tunnel8_1,
+    scene29: artist,
     // scene30: tunnel9_1,
     // scene31: tunnel9_2,
     // scene32: chessroom, //split
