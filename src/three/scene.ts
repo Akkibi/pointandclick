@@ -128,12 +128,19 @@ class Scene {
   public checkDoor(): string | null {
     if (!playerState.currentSceneData) return null;
     // translate mouse position between 0 and 1
+
+    const widthScaledUp = (interfaceContent.doorMapSize.width * (window.innerHeight / interfaceContent.doorMapSize.height));
+    // console.log("widthScaledUp", widthScaledUp)
+    const troncatedWidth =  playerState.mouse.target.x - (window.innerWidth - widthScaledUp) / 2;
+    const finalWidth = troncatedWidth / widthScaledUp * interfaceContent.doorMapSize.width;
+    // console.log("finalWidth" , finalWidth )
+
     const normalizedPos = {
-      x: Math.round(
-        ((playerState.mouse.target.x +
-          (window.innerHeight - window.innerWidth) / 2) /
-          window.innerHeight) *
-          interfaceContent.doorMapSize.width,
+      x: Math.round( finalWidth
+        // ((playerState.mouse.target.x +
+        //   (window.innerHeight - window.innerWidth) / 2) /
+        //   window.innerHeight) *
+        //   interfaceContent.doorMapSize.width,
       ),
       y: Math.round(
         (playerState.mouse.target.y / window.innerHeight) *

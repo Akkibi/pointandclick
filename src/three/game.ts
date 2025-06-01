@@ -18,9 +18,11 @@ class Game {
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.raycaster = new THREE.Raycaster();
+    console.log("this.raycaster", this.raycaster)
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setClearColor(0x000000, 1);
 
+    console.log("load eventEmitter")
     eventEmitterInstance.on("update", this.render.bind(this));
     eventEmitterInstance.on("resize", this.handleResize.bind(this));
     eventEmitterInstance.on("sceneChange", this.handleSceneChange.bind(this));
@@ -71,12 +73,8 @@ class Game {
       document.body.classList.remove("bottom-cursor");
       const intersect = this.raycast();
       const intersectName = intersect[0]?.object.name;
-      if (!intersectName) return;
-      if (this.currentHoveredElement === intersectName) return;
-      if (this.currentHoveredElement === "character"){
-        eventEmitterInstance.trigger(`stop-hover-${this.currentHoveredElement}`, []);
-      }
-      if (intersectName === "background") {
+      console.log("hover" ,intersectName);
+      if (intersectName === "background" || !intersectName) {
         if (this.scene.checkDoor() === null) {
         document.body.classList.remove("door-cursor");
         } else {
@@ -85,6 +83,11 @@ class Game {
       } else {
         document.body.classList.remove("door-cursor");
         eventEmitterInstance.trigger(`hover-${intersectName}`);
+      }
+      if (!intersectName) return;
+      if (this.currentHoveredElement !== intersectName && (intersectName === "character" || this.currentHoveredElement === "character")) return;
+      if (this.currentHoveredElement === "character"){
+        eventEmitterInstance.trigger(`stop-hover-${this.currentHoveredElement}`, []);
       }
       this.currentHoveredElement = intersectName;
     }
