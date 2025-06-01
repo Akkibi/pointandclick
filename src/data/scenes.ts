@@ -31,10 +31,10 @@
   import tunnel9_1 from "./scenes/tunnel9_1";
   import tunnel9_2 from "./scenes/tunnel9_2";
   // import chessroom from "./scenes/chessroom";
-  // import tunnel10_1 from "./scenes/tunnel10_1";
-  // import tunnel10_2 from "./scenes/tunnel10_2";
-  // import tunnel10_3 from "./scenes/tunnel10_3";
-  // import tagger from "./scenes/tagger";
+  import tunnel10_1 from "./scenes/tunnel10_1";
+  import tunnel10_2 from "./scenes/tunnel10_2";
+  import tunnel10_3 from "./scenes/tunnel10_3";
+  import tagger from "./scenes/tagger";
 
   export const scenes: ScenesType = {
     scene1: cataphile, //tunnel1_2 done
@@ -69,8 +69,8 @@
     scene30: tunnel9_1,
     scene31: tunnel9_2,
     // scene32: chessroom, //split
-    // scene33: tunnel10_1,
-    // scene34: tunnel10_2,
-    // scene35: tunnel10_3,
-    // scene36: tagger, //Bunker
+    scene33: tunnel10_1,
+    scene34: tunnel10_2,
+    scene35: tunnel10_3,
+    scene36: tagger, //Bunker
   };
