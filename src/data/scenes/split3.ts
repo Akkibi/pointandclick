@@ -13,5 +13,4 @@ const split3: SceneType = {
   },
   sound: "path/of/sound",
 };
-
 export default split3;
