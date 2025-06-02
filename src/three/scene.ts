@@ -64,8 +64,8 @@ class Scene {
         this.name,
         playerState.currentDialog,
       );
-      charactersData.forEach((characterData, index) => {
-        const character: Character = new Character(characterData, index);
+      charactersData.forEach((characterData, _index) => {
+        const character: Character = new Character(characterData, this.name);
         this.charactersGroup.add(character.instance);
       });
     }
