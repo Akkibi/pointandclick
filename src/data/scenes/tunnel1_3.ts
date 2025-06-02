@@ -1,7 +1,6 @@
 import type { SceneType } from "../../types/scene";
 
 const tunnel1_3: SceneType = {
-  id: 0,
   isStageLookingFront: true,
   doors: {
     front: {
