@@ -390,14 +390,6 @@ const stoneworker: SceneType = {
             { text: "Thanks. It was nice to meet you too", destination: "Thanks. It was nice to meet you too" }
           ]
         },
-        "Thanks. It was nice to meet you too": {
-          lines: {
-            0: [
-              // End of conversation
-            ]
-          },
-          options: []
-        }
       }
     }
   ],
