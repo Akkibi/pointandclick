@@ -17,7 +17,7 @@ const TesingEnvironment: React.FC = () => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "€") {
+      if (event.key === "$") {
         setTestIsOpen(!testIsOpen);
         console.log("T pressed", testIsOpen);
       }
