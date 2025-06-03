@@ -95,4 +95,51 @@ export const characters: Characters = {
       },
     },
   },
+  stoneworker: {
+    id: 1,
+    name: "Stoneworker",
+    sounds: {
+      default: ["path/to/sound", "path/to/sound", "path/to/sound"],
+      happy: ["path/to/sound", "path/to/sound", "path/to/sound"],
+      angry: ["path/to/sound", "path/to/sound", "path/to/sound"],
+      sad: ["path/to/sound", "path/to/sound", "path/to/sound"],
+    },
+    idle: {
+      stoneworker1: 3,
+    },
+    hover: {
+      stoneworker1: {
+        transition: 3,
+        default: 3,
+      },
+    },
+    onClick: {
+      stoneworker1: {
+        default: 3,
+      },
+    },
+    onLeave: {
+      stoneworker1: {
+        default: 3,
+      },
+    },
+    states: {
+      default: {
+        default: 3,
+        talking: 3,
+      },
+      happy: {
+        default: 3,
+        talking: 3,
+      },
+      angry: {
+        default: 3,
+        talking: 3,
+      },
+      sad: {
+        default: 3,
+        talking: 3,
+      },
+    },
+  },
 };
