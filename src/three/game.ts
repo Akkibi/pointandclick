@@ -34,7 +34,11 @@ class Game {
   }
 
   private handleSceneChange = () => {
-    this.scene.instance.remove(this.camera.instance);
+    // Arrête le son de la scène précédente AVANT de la remplacer
+    if (this.scene) {
+      this.scene.stopSfx();
+      this.scene.instance.remove(this.camera.instance);
+    }
     this.scene = new Scene(playerState.currentScene);
     console.log("new scene", this.scene, this.camera);
     this.scene.instance.add(this.camera.instance);

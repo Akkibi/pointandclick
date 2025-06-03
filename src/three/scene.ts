@@ -9,6 +9,7 @@ import {
   getCurrentConversation,
   getDialog,
   getScene,
+  getSfx,
 } from "./utils/getInfo";
 import { eventEmitterInstance } from "../utils/eventEmitter";
 import Character from "./character";
@@ -21,6 +22,8 @@ class Scene {
   private frontDoors: ImageData | null;
   private backDoors: ImageData | null;
   private charactersGroup: THREE.Group;
+  private audio?: HTMLAudioElement;
+
   constructor(name: string) {
     this.frontDoors = null;
     this.backDoors = null;
@@ -82,6 +85,17 @@ class Scene {
     if (playerState.currentSceneData.doors) {
       if (playerState.currentSceneData.doors.front) this.loadDoors(true);
       if (playerState.currentSceneData.doors.back) this.loadDoors(false);
+    }
+
+    // Joue le son SFX de la scène si disponible
+    const sfx = getSfx(this.name);
+    if (sfx) {
+      this.audio = new Audio(sfx);
+      this.audio.loop = true;
+      this.audio.volume = 0.5;
+      this.audio.play().catch((e) => {
+        console.warn("Impossible de jouer le son automatiquement :", e);
+      });
     }
   }
 
@@ -274,6 +288,16 @@ class Scene {
     plane.name = "background";
 
     return plane;
+  }
+
+  public stopSfx() {
+    if (this.audio) {
+      this.audio.pause();
+      this.audio.currentTime = 0;
+      this.audio.src = "";
+      this.audio.load();
+      this.audio = undefined;
+    }
   }
 }
 export default Scene;
