@@ -9,7 +9,7 @@ const stoneworker: SceneType = {
       "#00ff01": "scene12",
     },
   },
-  sound: "path/of/sound",
+  sound: "/audio/stone_worker_sfx.mp3",
   conversations: [
     {
       name: "stoneworker1",
