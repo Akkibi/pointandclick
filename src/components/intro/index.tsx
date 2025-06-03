@@ -1,38 +1,57 @@
 import "./style.css";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface IntroType {
-    setIsIntroFinished: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsIntroFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
+  const [showMainVideo, setShowMainVideo] = useState(false);
+  const mainVideoRef = useRef<HTMLVideoElement>(null);
 
-  // edit component here @valentin
   useEffect(() => {
-    const video = document.querySelector('.myvideo') as HTMLVideoElement;
-    // Define the handler once so the same reference is used for add/remove
-    const handleEnded = () => {
-      setIsIntroFinished(true);
-    };
+    const video = mainVideoRef.current;
+    if (!showMainVideo || !video) return;
 
-    if (video) {
-      video.addEventListener('ended', handleEnded);
-    }
+    const handleEnded = () => setIsIntroFinished(true);
 
+    video.addEventListener("ended", handleEnded);
     return () => {
-      if (video) {
-        video.removeEventListener('ended', handleEnded);
-      }
+      video.removeEventListener("ended", handleEnded);
     };
-  }, [setIsIntroFinished]);
+  }, [setIsIntroFinished, showMainVideo]);
+
+  const handleStart = () => {
+    setShowMainVideo(true);
+    setTimeout(() => {
+      mainVideoRef.current?.play();
+    }, 0);
+  };
 
   return (
     <div className="intro-container">
       <h1>Intro</h1>
-      <button className="intro-button" onClick={() => setIsIntroFinished(true)}>Go to game</button>
-      {/* <video className="myvideo" src="https://valentinbleuse.com/videos/metamorphoses.mp4" autoPlay  /> */}
+      {!showMainVideo && (
+        <video
+          className="loopvideo myvideo"
+          src="fenetre.mov"
+          autoPlay
+          loop
+          muted
+          onClick={handleStart}
+          style={{ cursor: "pointer" }}
+        />
+      )}
+      {showMainVideo && (
+        <video
+          className="myvideo"
+          src="suicide.mov"
+          ref={mainVideoRef}
+          autoPlay
+        />
+      )}
     </div>
   );
-}
+};
 
 export default Intro;
