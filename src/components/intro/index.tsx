@@ -40,7 +40,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
       setTextVisible(true);
     }, 50);
 
-    let fadeOutTimeout: NodeJS.Timeout | undefined;
+    let fadeOutTimeout: ReturnType<typeof setTimeout> | undefined;
     if (step === words.length - 1) {
       fadeOutTimeout = setTimeout(() => {
         setTextVisible(false);     // Fade-out après 2s
