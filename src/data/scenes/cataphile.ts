@@ -259,7 +259,7 @@ const cataphile: SceneType = {
             ],
           },
           options: [
-            { text: "Thanks", destination: "Thanks" },
+            { text: "Thanks", destination: null },
           ],
         },
         "I hope I will see what you mean": {
@@ -270,7 +270,7 @@ const cataphile: SceneType = {
             ],
           },
           options: [
-            { text: "Thanks", destination: "Thanks" },
+            { text: "Thanks", destination: null },
           ],
         },
         "I don't know. I think I'll just find my own way": {
