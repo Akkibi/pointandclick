@@ -281,17 +281,8 @@ const cataphile: SceneType = {
             ],
           },
           options: [
-            { text: "Thanks", destination: "Thanks" },
+            { text: "Thanks", destination: null },
           ],
-        },
-        "Thanks": {
-          lines: {
-            0: [
-              "No problem. If we bump into each other again, don't hesitate to say hi.",
-              "Good luck!",
-            ],
-          },
-          options: [],
         },
       },
     },
