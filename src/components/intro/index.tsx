@@ -6,47 +6,74 @@ interface IntroType {
 }
 
 const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
-  const [showMainVideo, setShowMainVideo] = useState(false);
-  const mainVideoRef = useRef<HTMLVideoElement>(null);
+  // 0 = statue, 1 = metro, 2 = escalier, 3 = fenetre, 4 = suicide
+  const [step, setStep] = useState(0);
+  const suicideRef = useRef<HTMLVideoElement>(null);
 
+  // Quand suicide.mov se termine, on termine l'intro
   useEffect(() => {
-    const video = mainVideoRef.current;
-    if (!showMainVideo || !video) return;
-
+    if (step !== 4) return;
+    const video = suicideRef.current;
+    if (!video) return;
     const handleEnded = () => setIsIntroFinished(true);
-
     video.addEventListener("ended", handleEnded);
     return () => {
       video.removeEventListener("ended", handleEnded);
     };
-  }, [setIsIntroFinished, showMainVideo]);
-
-  const handleStart = () => {
-    setShowMainVideo(true);
-    setTimeout(() => {
-      mainVideoRef.current?.play();
-    }, 0);
-  };
+  }, [step, setIsIntroFinished]);
 
   return (
     <div className="intro-container">
       <h1>Intro</h1>
-      {!showMainVideo && (
+      {step === 0 && (
         <video
-          className="loopvideo myvideo"
+          className="myvideo"
+          src="statue.mov"
+          autoPlay
+          loop
+          muted
+          onClick={() => setStep(1)}
+          style={{ cursor: "pointer" }}
+        />
+      )}
+      {step === 1 && (
+        <video
+          className="myvideo"
+          src="metro.mov"
+          autoPlay
+          loop
+          muted
+          onClick={() => setStep(2)}
+          style={{ cursor: "pointer" }}
+        />
+      )}
+      {step === 2 && (
+        <video
+          className="myvideo"
+          src="escalier.mov"
+          autoPlay
+          loop
+          muted
+          onClick={() => setStep(3)}
+          style={{ cursor: "pointer" }}
+        />
+      )}
+      {step === 3 && (
+        <video
+          className="myvideo"
           src="fenetre.mov"
           autoPlay
           loop
           muted
-          onClick={handleStart}
+          onClick={() => setStep(4)}
           style={{ cursor: "pointer" }}
         />
       )}
-      {showMainVideo && (
+      {step === 4 && (
         <video
           className="myvideo"
           src="suicide.mov"
-          ref={mainVideoRef}
+          ref={suicideRef}
           autoPlay
         />
       )}

@@ -377,7 +377,7 @@ const stoneworker: SceneType = {
             ]
           },
           options: [
-            { text: "Thanks. It was nice to meet you too", destination: "Thanks. It was nice to meet you too" }
+            { text: "Thanks. It was nice to meet you too", destination: null }
           ]
         },
         "Yeah... I'll take my time": {
@@ -387,7 +387,7 @@ const stoneworker: SceneType = {
             ]
           },
           options: [
-            { text: "Thanks. It was nice to meet you too", destination: "Thanks. It was nice to meet you too" }
+            { text: "Thanks. It was nice to meet you too", destination: null }
           ]
         },
       }
