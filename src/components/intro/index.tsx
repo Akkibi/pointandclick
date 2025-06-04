@@ -38,7 +38,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
     const fadeInTimeout = setTimeout(() => {
       setWithTransition(true);     // Transition pour le fade-in
       setTextVisible(true);
-    }, 50);
+    }, 2500);
 
     let fadeOutTimeout: ReturnType<typeof setTimeout> | undefined;
     if (step === words.length - 1) {

@@ -264,7 +264,7 @@ const cataphile: SceneType = {
         },
         "I hope I will see what you mean": {
           lines: {
-            0: [
+            0: [  
               "I'm sure you will.",
               "Here before I go, take this. It will help you find your way.",
             ],
