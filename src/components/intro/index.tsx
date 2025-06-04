@@ -46,6 +46,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
         setTextVisible(false);     // Fade-out après 2s
       }, 2000);
     }
+    // Cleanup function to clear timeouts
 
     return () => {
       clearTimeout(fadeInTimeout);
@@ -143,7 +144,8 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           className="myvideo"
           src="suicide.mov"
           ref={suicideRef}
-          autoPlay
+          autoPlay 
+          muted
           onEnded={() => setIsIntroFinished(true)}
         />
       )}
