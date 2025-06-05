@@ -54,12 +54,7 @@ const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
                     duration: 0.5,
                 })
                 .from(
-                    [
-                        saveRef.current,
-                        settingsRef.current,
-                        aboutRef.current,
-                        deleteRef.current,
-                    ],
+                    [saveRef.current, settingsRef.current, aboutRef.current, deleteRef.current],
                     {
                         x: "-100%",
                         ease: "expo.out",
@@ -108,10 +103,7 @@ const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
             <div className="menu">
                 <div ref={grayscaleRef} className="menu_filter"></div>
                 <div ref={backgroundBarRef} className="menu_background-left"></div>
-                <FloatingButton
-                    onClick={() => tl.current.timeScale(2).reverse()}
-                    isClose
-                />
+                <FloatingButton onClick={() => tl.current.timeScale(2).reverse()} isClose />
                 <div>
                     <div className="menu_buttons" ref={buttonsContainerRef}>
                         <h1 className="menu_title">Way To Lutetia</h1>

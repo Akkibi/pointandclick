@@ -1,120 +1,120 @@
 import { CharacterType } from "./character";
 
 export interface SceneType {
-  dependences?: string[];
-  isStageLookingFront: boolean;
-  doors?: Doors;
-  sound?: string;
-  conversations?: Conversation[];
+    dependences?: string[];
+    isStageLookingFront: boolean;
+    doors?: Doors;
+    sound?: string;
+    conversations?: Conversation[];
 }
 
 export interface Doors {
-  front?: DoorMap;
-  back?: DoorMap;
+    front?: DoorMap;
+    back?: DoorMap;
 }
 
 export interface DoorMap {
-  [key: string]: string;
+    [key: string]: string;
 }
 
 export interface color {
-  [key: string]: string;
+    [key: string]: string;
 }
 
 export interface Conversation {
-  // sound is optional and it overrides the current one
-  // change animation to that character talking during the time of the speech
-  name: string;
-  done: boolean;
-  dependences?: string[];
-  fallback?: Fallback;
-  characters: CharacterType[];
-  dialog?: Dialogs;
-  positions: CharacterPositions;
-  idleAnimation?: IdleAnimation;
-  hoverAnimation?: HoverAnimation;
-  enterAnimation?: EnterAnimation;
-  exitAnimation?: ExitAnimation;
+    // sound is optional and it overrides the current one
+    // change animation to that character talking during the time of the speech
+    name: string;
+    done: boolean;
+    dependences?: string[];
+    fallback?: Fallback;
+    characters: CharacterType[];
+    dialog?: Dialogs;
+    positions: CharacterPositions;
+    idleAnimation?: IdleAnimation;
+    hoverAnimation?: HoverAnimation;
+    enterAnimation?: EnterAnimation;
+    exitAnimation?: ExitAnimation;
 }
 
 export interface IdleAnimation {
-  [key: string]: string[];
+    [key: string]: string[];
 }
 
 export interface HoverAnimation {
-  [key: string]: string[];
+    [key: string]: string[];
 }
 
 export interface EnterAnimation {
-  [key: string]: string[];
+    [key: string]: string[];
 }
 
 export interface ExitAnimation {
-  [key: string]: string;
+    [key: string]: string;
 }
 
 export interface soundTypes {
-  [key: string]: string;
+    [key: string]: string;
 }
 
 export interface stateTypes {
-  [key: string]: talkTypes;
+    [key: string]: talkTypes;
 }
 
 export interface talkTypes {
-  default: string[];
-  taking: string[];
+    default: string[];
+    taking: string[];
 }
 
 export interface Fallback {
-  name: string;
-  pose: string;
-  text: string;
-  speed: string;
+    name: string;
+    pose: string;
+    text: string;
+    speed: string;
 }
 
 export interface Dialogs {
-  [key: string]: Dialog;
+    [key: string]: Dialog;
 }
 
 export interface Dialog {
-  positions?: CharacterPositions;
-  objects?: string;
-  achievements?: string;
-  sound?: string;
-  // change animation to that character talking during the time of the speech
-  lines: Lines;
-  options?: Options[];
+    positions?: CharacterPositions;
+    objects?: string;
+    achievements?: string;
+    sound?: string;
+    // change animation to that character talking during the time of the speech
+    lines: Lines;
+    options?: Options[];
 }
 
 export interface Lines {
-  [key: number]: string[];
+    [key: number]: string[];
 }
 
 export interface Options {
-  text: string;
-  destination: string | null;
-  points?: Points;
+    text: string;
+    destination: string | null;
+    points?: Points;
 }
 
 export interface Points {
-  truth?: number;
-  love?: number;
-  freedom?: number;
-  fool?: number;
+    truth?: number;
+    love?: number;
+    freedom?: number;
+    fool?: number;
 }
 
 export interface CharacterPositions {
-  [key: number]: Position;
+    [key: number]: Position;
 }
 
 export interface Position {
-  x?: number;
-  y?: number;
-  pose?: string;
-  speed?: string;
+    x?: number;
+    y?: number;
+    pose?: string;
+    speed?: string;
 }
 
 export interface ScenesType {
-  [key: string]: SceneType;
+    [key: string]: SceneType;
 }

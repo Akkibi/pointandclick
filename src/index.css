@@ -140,3 +140,11 @@ body.door-cursor {
 /* body.bottom-cursor {
     cursor: url('https://miamo.fun/assets/sprites/common/backtrack.png') 64 64, pointer;
 } */
+
+canvas { image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+     image-rendering: -webkit-optimize-contrast;
+     image-rendering: -o-crisp-edges;
+    image-rendering: optimize-contrast;
+ -ms-interpolation-mode: nearest-neighbor;
+}

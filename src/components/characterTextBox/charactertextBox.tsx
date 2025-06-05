@@ -8,21 +8,12 @@ interface CharacterTextBoxProps extends Lines {
     name: string;
 }
 
-const CharacterTextBox: React.FC<CharacterTextBoxProps> = ({
-    line,
-    name,
-    characterIndex,
-}) => {
-    const index = Math.floor(
-        Math.random() * interfaceContent.textboxBackgroundImages.length,
-    );
+const CharacterTextBox: React.FC<CharacterTextBoxProps> = ({ line, name, characterIndex }) => {
+    const index = Math.floor(Math.random() * interfaceContent.textboxBackgroundImages.length);
     const backgroundImage = interfaceContent.textboxBackgroundImages[index];
 
     return (
-        <div
-            className="character-text-box_container"
-            id={`character-text-box-${characterIndex}`}
-        >
+        <div className="character-text-box_container" id={`character-text-box-${characterIndex}`}>
             <div className="character-text-box_username">
                 <p>{name}</p>
             </div>

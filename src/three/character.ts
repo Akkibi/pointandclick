@@ -1,218 +1,339 @@
 import * as THREE from "three";
-// import { Animation, AnimControllerBuilder, AnimationController } from "animation-controller";
-// import { eventEmitterInstance } from "../utils/eventEmitter";
-import { CharacterType } from "../types/character";
 import { interfaceContent } from "../data/interface";
-// import { preloadImages } from "./utils/ImagePreloader";
+import { CharacterType } from "../types/character";
+import { playerState } from "../data/player";
+import { eventEmitterInstance } from "../utils/eventEmitter";
+import { cameraInstance } from "./camera";
+import Animation from "./animation";
+import { preloadImagesWithPromise } from "./utils/ImagePreloader";
 
-/**
- * Helper that turns a list of image paths into a frame‑by‑frame animation on a material.
- * @param framePaths – list of texture URLs in the desired order
- * @param material – the mesh material that will display the frames
- * @param frameDuration – delay in **milliseconds** between frames (1 ÷ FPS)
- */
-export const sleep = (ms: number): Promise<void> => {
-   return new Promise((resolve) => setTimeout(resolve, ms));
-};
+// external functions or files if needed
 
-// function createImageSequenceAnimation(
-//   framePaths: string[],
-//   material: THREE.MeshBasicMaterial,
-//   frameDuration: number = 200
-// ): () => Promise<void> {
-//   const loader = new THREE.TextureLoader();
-//   return async () => {
-//     for (const path of framePaths) {
-//       const texture = await loader.loadAsync(path);
-//       material.map = texture;
-//       material.needsUpdate = true;
-//       await sleep(frameDuration);
-//     }
-//   };
-// }
+type stateType =
+    | "idle"
+    | "hovered"
+    | "default"
+    | "talking"
+    | "happy"
+    | "angry"
+    | "sad"
+    | "default-talking"
+    | "happy-talking"
+    | "angry-talking"
+    | "sad-talking"
+    | "end";
 
-// type StateName = "idle" | "hovered" | "talking" | "default";
-// type TriggerName =
-//   | "hover-in"
-//   | "hover-out"
-//   | "start-talking"
-//   | "end-talking"
-//   | "click";
-
-// type CharController = AnimationController<StateName, TriggerName, never>;
+interface AnimationDataType {
+    idle?: string[];
+    hoverTransition?: string[];
+    hover?: string[];
+    clickTransition?: string[];
+    default?: string[];
+    defaultTalking?: string[];
+    happy?: string[];
+    happyTalking?: string[];
+    angry?: string[];
+    angryTalking?: string[];
+    sad?: string[];
+    sadTalking?: string[];
+    endTransition?: string[];
+}
 
 class Character {
-  public readonly instance: THREE.Mesh;
-  private readonly characterMaterial: THREE.MeshBasicMaterial;
-  private readonly data: CharacterType;
-  private readonly sceneName: string;
+    public name: string;
+    public instance: THREE.Mesh;
+    private index: number;
+    private position: THREE.Vector2;
+    private state: stateType;
+    private animation: Animation;
+    private animationData: AnimationDataType = {};
+    constructor(characterData: CharacterType, index: number) {
+        this.index = index;
+        this.state = "idle";
+        this.name = characterData.name;
+        console.log(this.name);
+        // character1
+        const material = new THREE.MeshBasicMaterial({ map: null, transparent: true });
+        this.instance = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 1, 1), material);
+        this.animation = new Animation(material, this.instance.scale);
+        this.position = new THREE.Vector2();
 
-  /** Animation controller handling all state/transition logic */
-  // private controller!: CharController;
+        this.generateAnimationData(characterData);
 
-  constructor(data: CharacterType, sceneName: string) {
-    this.sceneName = sceneName;
-    this.data = data;
+        const position = playerState.currentConversationData?.positions[this.index];
+        if (position && position.x !== undefined && position.y !== undefined) {
+            this.position.set(position.x, position.y);
+        }
+        this.instance.position.set(
+            this.position.x,
+            this.position.y,
+            -interfaceContent.sceneDeepness / 2,
+        );
 
-    // Geometry ↔ Material ↔ Mesh
-    const geometry = new THREE.PlaneGeometry(1.5, 5);
-    const material = new THREE.MeshBasicMaterial({
-      map: null,
-      transparent: true,
-      side: THREE.DoubleSide,
-    });
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.name = data.name;
-    mesh.position.set(0, -2, -interfaceContent.sceneDeepness / 4);
+        this.instance.name = "character";
+        this.instance.userData = { name: this.name, position: this.position };
 
-    this.characterMaterial = material;
-    this.instance = mesh;
+        eventEmitterInstance.on("update", this.turnTowardsCam.bind(this));
+        eventEmitterInstance.on("hover-character", this.hover.bind(this));
+        eventEmitterInstance.on("end-hover-character", this.endHover.bind(this));
+        eventEmitterInstance.on("end-character-interaction", this.endInteraction.bind(this));
+        eventEmitterInstance.on("character-start-talking", this.startTalking.bind(this));
+        eventEmitterInstance.on("character-end-talking", this.endTalking.bind(this));
+        eventEmitterInstance.on("click-character", this.click.bind(this));
+        eventEmitterInstance.on("set-character-default", this.default.bind(this));
+        eventEmitterInstance.on("set-character-happy", this.happy.bind(this));
+        eventEmitterInstance.on("set-character-angry", this.angry.bind(this));
+        eventEmitterInstance.on("set-character-sad", this.sad.bind(this));
+    }
 
-    console.log(this.characterMaterial, this.data, this.sceneName)
+    public loadAllTextures = async () => {
+        const texturesList = [];
+        for (const textures of Object.values(this.animationData)) {
+            for (const texture of textures) {
+                texturesList.push(texture);
+            }
+        }
+        return preloadImagesWithPromise(texturesList);
+    };
 
-    // // Pre‑load all textures up‑front to avoid hitches
-    // this.preloadAllTextures();
+    private generateAnimationData = (characterData: CharacterType) => {
+        // add emotions later
+        const idle: string[] = [];
+        if (characterData.idle[playerState.currentConversation ?? 0]) {
+            for (let i = 0; i < characterData.idle[playerState.currentConversation ?? 0]; i++) {
+                idle.push(
+                    `./characters/${characterData.name.toLowerCase()}/${playerState.currentConversation}/idle/idle${i}.webp`,
+                );
+            }
+        }
+        const hoverTransition: string[] = [];
+        if (
+            playerState.currentConversation &&
+            characterData.hover[playerState.currentConversation]?.transition
+        ) {
+            for (
+                let i = 0;
+                i < (characterData.hover[playerState.currentConversation].transition ?? 0);
+                i++
+            ) {
+                hoverTransition.push(
+                    `./characters/${characterData.name.toLowerCase()}/${playerState.currentConversation}/hover-transition/hover-transition${i}.webp`,
+                );
+            }
+        }
+        const hover: string[] = [];
+        if (
+            playerState.currentConversation &&
+            characterData.hover[playerState.currentConversation].default
+        ) {
+            for (
+                let i = 0;
+                i < (characterData.hover[playerState.currentConversation].default ?? 0);
+                i++
+            ) {
+                hover.push(
+                    `./characters/${characterData.name.toLowerCase()}/${playerState.currentConversation}/hover/hover${i}.webp`,
+                );
+            }
+        }
+        const clickTransition: string[] = [];
+        if (
+            playerState.currentConversation &&
+            characterData.onClick[playerState.currentConversation].transition
+        ) {
+            for (
+                let i = 0;
+                i < (characterData.onClick[playerState.currentConversation].transition ?? 0);
+                i++
+            ) {
+                clickTransition.push(
+                    `./characters/${characterData.name.toLowerCase()}/${playerState.currentConversation}/click-transition/click-transition${i}.webp`,
+                );
+            }
+        }
+        const theDefault: string[] = [];
+        if (characterData.states.default.default) {
+            for (let i = 0; i < (characterData.states.default.default ?? 0); i++) {
+                theDefault.push(
+                    `./characters/${characterData.name.toLowerCase()}/default/default${i}.webp`,
+                );
+            }
+        }
 
-    // // Create animation controller & start playback
-    // this.setupController();
+        // add new emotions types
+        const theDefaultTalking: string[] = [];
+        const happy: string[] = [];
+        const happyTalking: string[] = [];
+        const angry: string[] = [];
+        const angryTalking: string[] = [];
+        const sad: string[] = [];
+        const sadTalking: string[] = [];
+        const endTransition: string[] = [];
 
-    // // Wire external events to controller triggers
-    // this.registerEventListeners();
-  }
+        // add new emotions to the animation data
+        this.animationData.idle = idle;
+        this.animationData.hoverTransition = hoverTransition;
+        this.animationData.hover = hover;
+        this.animationData.clickTransition = clickTransition;
+        this.animationData.default = theDefault;
+        this.animationData.defaultTalking = theDefaultTalking;
+        this.animationData.happy = happy;
+        this.animationData.happyTalking = happyTalking;
+        this.animationData.angry = angry;
+        this.animationData.angryTalking = angryTalking;
+        this.animationData.sad = sad;
+        this.animationData.sadTalking = sadTalking;
+        this.animationData.endTransition = endTransition;
 
-  // private setupController(): void {
-  //   const builder = new AnimControllerBuilder<StateName, TriggerName>();
+        this.animation.set({ transition: [], loop: this.animationData.idle });
+    };
 
-  //   // 1️⃣  States ------------------------------------------------------------
-  //   builder
-  //     .addState({
-  //       name: "idle",
-  //       animation: this.buildStateAnimation("idle", /*loop*/ true),
-  //       startingState: true,
-  //     })
-  //     .addState({
-  //       name: "hovered",
-  //       animation: this.buildStateAnimation("hover", true),
-  //     })
-  //     .addState({
-  //       name: "talking",
-  //       animation: this.buildStateAnimation("talk", true),
-  //     })
-  //     .addState({
-  //       name: "default",
-  //       animation: this.buildStateAnimation("click", true),
-  //     });
+    public unload = () => {
+        eventEmitterInstance.off("hover-character");
+        eventEmitterInstance.off("end-hover-character");
+        eventEmitterInstance.off("end-character-interaction");
+        eventEmitterInstance.off("character-start-talking");
+        eventEmitterInstance.off("character-end-talking");
+        eventEmitterInstance.off("set-character-default");
+        eventEmitterInstance.off("set-character-happy");
+        eventEmitterInstance.off("set-character-angry");
+        eventEmitterInstance.off("set-character-sad");
+    };
 
-  //   // 2️⃣  Triggers ----------------------------------------------------------
-  //   builder
-  //     .addTrigger("hover-in")
-  //     .addTrigger("hover-out")
-  //     .addTrigger("start-talking")
-  //     .addTrigger("end-talking")
-  //     .addTrigger("click");
+    // the character starts on idle state (looping animation)
+    // when hovered, it will do a transition animation to hovered state
+    // when on hovered state it does a looping animation
+    // when clicked, it will do a transition animation to default state
+    // when on default state it does a looping animation
+    // when an emotion is set it will switch to the corresponding animation loop
+    // when talking is called it will switch to the talking emotion animation loop from whatever emotion is was in ex: happy -> talking happy, default -> talking default, sad -> talking sad etc
+    // when stop talking is called it will switch back to the emotion it was in before talking
+    // when end talking, it will to a transition animation to end state
+    // end state dosent have any looping animation
 
-  //   // 3️⃣  Transitions -------------------------------------------------------
-  //   // Idle ↔ Hover
-  //   builder.addTransition("idle->hovered", { trigger: "hover-in" });
-  //   builder.addTransition("hovered->idle", { trigger: "hover-out" });
+    private hover = () => {
+        if (this.state === "end" || this.state === "hovered") return;
+        if (this.state !== "idle") return;
+        this.state = "hovered";
 
-  //   // Hover/Idle → Clicking
-  //   builder.addTransition("hovered->default", { trigger: "click" });
-  //   builder.addTransition("idle->default", { trigger: "click" });
+        const animation = {
+            transition: this.animationData.hoverTransition,
+            loop: this.animationData.hover,
+        };
+        this.animation.set(animation);
+    };
 
-  //   // Talking cycle
-  //   builder.addTransition("default->talking", { trigger: "start-talking" });
-  //   builder.addTransition("hovered->talking", { trigger: "start-talking" });
-  //   builder.addTransition("talking->default", { trigger: "end-talking" });
+    private endHover = () => {
+        if (this.state === "end" || this.state !== "hovered") return;
+        this.state = "idle";
 
-  //   // 4️⃣  Build
-  //   builder.setTrigger("hover-in");
-  //   this.controller = builder.build();
-  //   this.controller.start();
-  // }
+        const reverseTransition = [...(this.animationData.hoverTransition ?? [])];
+        reverseTransition?.reverse();
 
-  /**
-   * Creates an `Animation` object for the given state using the CharacterType
-   * counts, assuming your assets follow the pattern:
-   *   ./characters/{name}/{state}/{state}{index}.webp
-   */
-  // private buildStateAnimation(
-  //   key: keyof CharacterType["idle"],
-  //   loop: boolean
-  // ): Animation<() => Promise<void>> {
+        const animation = {
+            transition: reverseTransition,
+            loop: this.animationData.idle,
+        };
+        this.animation.set(animation);
+    };
 
-  //   console.log("key", key)
-  //   // How many frames exist for this state in the current scene?
-  //   const count = (this.data as any)[key]?.[this.sceneName] ?? 0;
-  //   const framePaths = Array.from({ length: count }, (_, i) =>
-  //     `./characters/${this.data.name}/${key}/${key}${i + 1}.webp`
-  //   );
+    private click = () => {
+        if (this.state === "end") return;
+        if (this.state !== "hovered") return;
+        this.state = "default";
+        // start dialog
+        console.log("start available dialog");
+        playerState.isInteracting = true;
+        eventEmitterInstance.trigger("openInteraction");
 
-  //   const playFn = createImageSequenceAnimation(
-  //     framePaths,
-  //     this.characterMaterial,
-  //     100 // ~10 FPS — tweak as needed or make data‑driven
-  //   );
+        const animation = {
+            transition: this.animationData.clickTransition,
+            loop: this.animationData.default,
+        };
+        this.animation.set(animation);
+    };
 
-  //   return new Animation({
-  //     name: key as string,
-  //     play: playFn,
-  //     loop,
-  //   });
-  // }
+    private endInteraction = () => {
+        if (this.state === "end") return;
+        this.state = "end";
+    };
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // Event handling
-  // ──────────────────────────────────────────────────────────────────────────
+    private startTalking = () => {
+        if (this.state === "end") return;
+        if (
+            this.state === "idle" ||
+            this.state === "hovered" ||
+            this.state.search("talking") !== -1
+        )
+            return;
+        switch (this.state) {
+            case "default":
+                this.state = "default-talking";
+                break;
+            case "happy":
+                this.state = "happy-talking";
+                break;
+            case "angry":
+                this.state = "angry-talking";
+                break;
+            case "sad":
+                this.state = "sad-talking";
+                break;
+            default:
+                this.state = "default-talking";
+                break;
+        }
+    };
 
-  // private registerEventListeners(): void {
-  //   eventEmitterInstance.on("character-hover-in", this.onHoverIn.bind(this));
-  //   eventEmitterInstance.on("character-hover-out", this.onHoverOut.bind(this));
-  //   eventEmitterInstance.on("character-click", this.onClick.bind(this));
-  //   eventEmitterInstance.on("character-start-talk", this.startTalk.bind(this));
-  //   eventEmitterInstance.on("character-end-talk", this.endTalk.bind(this));
-  // }
+    private endTalking = () => {
+        if (this.state === "end") return;
+        if (this.state.search("talking") === -1) return;
+        switch (this.state) {
+            case "default-talking":
+                this.state = "default";
+                break;
+            case "happy-talking":
+                this.state = "happy";
+                break;
+            case "angry-talking":
+                this.state = "angry";
+                break;
+            case "sad-talking":
+                this.state = "sad";
+                break;
+            default:
+                this.state = "default";
+                break;
+        }
+    };
 
-  // private onHoverIn(): void {
-  //   this.controller.setTrigger("hover-in");
-  // }
+    private default = () => {
+        if (this.state === "end") return;
+        this.state = "default";
+    };
 
-  // private onHoverOut(): void {
-  //   this.controller.setTrigger("hover-out");
-  // }
+    private happy = () => {
+        if (this.state === "end") return;
+        this.state = "happy";
+    };
 
-  // private onClick(): void {
-  //   this.controller.setTrigger("click");
-  // }
+    private angry = () => {
+        if (this.state === "end") return;
+        this.state = "angry";
+    };
 
-  // private startTalk(): void {
-  //   this.controller.setTrigger("start-talking");
-  // }
+    private sad = () => {
+        if (this.state === "end") return;
+        this.state = "sad";
+    };
 
-  // private endTalk(): void {
-  //   this.controller.setTrigger("end-talking");
-  // }
+    // ...
 
-  /** Pre‑loads every texture declared in CharacterType for the current scene */
-  // private preloadAllTextures(): void {
-  //   const states: (keyof CharacterType["idle"])[] = [
-  //     "idle",
-  //     "hover",
-  //     "talk",
-  //     "click",
-  //   ] as const;
-
-  //   const paths: string[] = [];
-  //   for (const state of states) {
-  //     const count = (this.data as any)[state]?.[this.sceneName] ?? 0;
-  //     for (let i = 0; i < count; i++) {
-  //       paths.push(
-  //         `./characters/${this.data.name}/${state}/${state}${i + 1}.webp`
-  //       );
-  //     }
-  //   }
-  //   preloadImages(paths);
-  // }
+    private turnTowardsCam = () => {
+        const cameraPosition = new THREE.Vector3();
+        cameraInstance.camera.getWorldPosition(cameraPosition);
+        this.instance.lookAt(cameraPosition.multiplyScalar(0.5));
+    };
 }
 
 export default Character;

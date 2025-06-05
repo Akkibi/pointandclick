@@ -8,27 +8,27 @@ import TestActionButton from "../testActionButton/testActionButton";
 import TesingEnvironment from "../tesingEnvironment/tesingEnvironment";
 
 const UiElements: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    window.onbeforeunload = confirmExit;
-    function confirmExit() {
-      return "You have attempted to leave this page. Are you sure?";
-    }
-  }, []);
+    useEffect(() => {
+        window.onbeforeunload = confirmExit;
+        function confirmExit() {
+            return "You have attempted to leave this page. Are you sure?";
+        }
+    }, []);
 
-  return (
-    <>
-        <TesingEnvironment />
-      <div className="ui">
-        <FloatingButton onClick={() => setIsMenuOpen(true)} />
-        <Interaction />
-      </div>
-      <TestActionButton />
-      <Menu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
-      <IsLandscape />
-    </>
-  );
+    return (
+        <>
+            <TesingEnvironment />
+            <div className="ui">
+                <FloatingButton onClick={() => setIsMenuOpen(true)} />
+                <Interaction />
+            </div>
+            <TestActionButton />
+            <Menu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+            <IsLandscape />
+        </>
+    );
 };
 
 export default UiElements;

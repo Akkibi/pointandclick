@@ -5,15 +5,16 @@ interface IntroType {
 }
 
 const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
+    // edit component here @valentin
 
-  // edit component here @valentin
-
-  return (
-    <div className="intro-container">
-      <h1>Intro</h1>
-      <button className="intro-button" onClick={() => setIsIntroFinished(true)}>Go to game</button>
-    </div>
-  );
-}
+    return (
+        <div className="intro-container">
+            <h1>Intro</h1>
+            <button className="intro-button" onClick={() => setIsIntroFinished(true)}>
+                Go to game
+            </button>
+        </div>
+    );
+};
 
 export default Intro;
