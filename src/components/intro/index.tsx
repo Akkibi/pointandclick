@@ -174,5 +174,5 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
     </div>
   );
 };
-
+//forcing
 export default Intro;
