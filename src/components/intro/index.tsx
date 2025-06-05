@@ -6,10 +6,10 @@ interface IntroType {
 }
 
 const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
-  // 0 = statue, 1 = metro, 2 = escalier, 3 = fenetre, 4 = suicide
   const [step, setStep] = useState(0);
   const [textVisible, setTextVisible] = useState(false);
   const [withTransition, setWithTransition] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
   const suicideRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -31,34 +31,25 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
     "what it would feel like to just...",
     "...let go.",
   ];
+
   useEffect(() => {
-    setWithTransition(false);      // Pas de transition pour cacher
+    setClickCount(0); // reset click count at each step
+    setWithTransition(false);
     setTextVisible(false);
+  }, [step]);
 
-    const fadeInTimeout = setTimeout(() => {
-      setWithTransition(true);     // Transition pour le fade-in
-      setTextVisible(true);
-    }, 2500);
-// 2.5s pour le fade-in
-    let fadeOutTimeout: ReturnType<typeof setTimeout> | undefined;
-    if (step === words.length - 1) {
-      fadeOutTimeout = setTimeout(() => {
-        setTextVisible(false);     // Fade-out après 2s
-      }, 2000);
+  const handleVideoClick = (nextStep: number) => {
+    if (clickCount === 0) {
+      setWithTransition(true);
+      setTextVisible(true); // fade in text on first click
+      setClickCount(1);
+    } else {
+      setWithTransition(false);
+      setTextVisible(false); // hide text instantly
+      setTimeout(() => {
+        setStep(nextStep);
+      }, 50); // let the opacity go to 0 before changing step
     }
-    // Cleanup function to clear timeouts
-
-    return () => {
-      clearTimeout(fadeInTimeout);
-      if (fadeOutTimeout) clearTimeout(fadeOutTimeout);
-    };
-  }, [step, words.length]);
-
-  const handleNextStep = (nextStep: number) => {
-    setTextVisible(false); // Start fade out
-    setTimeout(() => {
-      setStep(nextStep); // Change step after fade out
-    }, 20); // 200ms is enough for opacity to reach 0
   };
 
   return (
@@ -79,7 +70,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           fontWeight: "bold",
           letterSpacing: "0.1em",
           opacity: textVisible ? 1 : 0,
-          transition: withTransition ? "opacity 1.5s" : "none",
+          transition: withTransition ? "opacity 1s" : "none",
         }}
       >
         {words[step]}
@@ -91,7 +82,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           autoPlay
           loop
           muted
-          onClick={() => handleNextStep(1)}
+          onClick={() => handleVideoClick(1)}
           style={{ cursor: "pointer" }}
         />
       )}
@@ -102,7 +93,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           autoPlay
           loop
           muted
-          onClick={() => handleNextStep(2)}
+          onClick={() => handleVideoClick(2)}
           style={{ cursor: "pointer" }}
         />
       )}
@@ -113,7 +104,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           autoPlay
           loop
           muted
-          onClick={() => handleNextStep(3)}
+          onClick={() => handleVideoClick(3)}
           style={{ cursor: "pointer" }}
         />
       )}
@@ -124,7 +115,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           autoPlay
           loop
           muted
-          onClick={() => handleNextStep(4)}
+          onClick={() => handleVideoClick(4)}
           style={{ cursor: "pointer" }}
         />
       )}
@@ -135,7 +126,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           autoPlay
           loop
           muted
-          onClick={() => handleNextStep(5)}
+          onClick={() => handleVideoClick(5)}
           style={{ cursor: "pointer" }}
         />
       )}
@@ -144,9 +135,21 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           className="myvideo"
           src="suicide.mov"
           ref={suicideRef}
-          autoPlay 
+          autoPlay
           muted
-          onEnded={() => setIsIntroFinished(true)}
+          
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            if (clickCount === 0) {
+              setWithTransition(true);
+              setTextVisible(true);
+              setClickCount(1);
+            } else {
+              setWithTransition(true);
+              setTextVisible(false);
+            }
+          }}
+          
         />
       )}
     </div>
