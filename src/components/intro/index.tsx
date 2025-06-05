@@ -52,6 +52,30 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
     }
   };
 
+  useEffect(() => {
+    if (step === 5) {
+      setWithTransition(false);
+      setTextVisible(false);
+      // Fade in automatique
+      const fadeInTimeout = setTimeout(() => {
+        setWithTransition(true);
+        setTextVisible(true);
+      }, 3000);
+
+      // Fade out automatique après 2s (mais ne termine pas l'intro ici)
+      const fadeOutTimeout = setTimeout(() => {
+        setWithTransition(true);
+        setTextVisible(false);
+        // NE PAS appeler setIsIntroFinished ici !
+      }, 7000);
+
+      return () => {
+        clearTimeout(fadeInTimeout);
+        clearTimeout(fadeOutTimeout);
+      };
+    }
+  }, [step]);
+
   return (
     <div className="intro-container">
       <div
@@ -64,7 +88,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           textAlign: "center",
           fontSize: "2.5rem",
           color: "#fff",
-          textShadow: "0 0 8px #000, 0 0 16px #000",
+          // textShadow: "0 0 8px #000, 0 0 16px #000",
           zIndex: 100000,
           pointerEvents: "none",
           fontWeight: "bold",
@@ -82,6 +106,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           autoPlay
           loop
           muted
+          preload="auto"
           onClick={() => handleVideoClick(1)}
           style={{ cursor: "pointer" }}
         />
@@ -93,6 +118,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           autoPlay
           loop
           muted
+          preload="auto"
           onClick={() => handleVideoClick(2)}
           style={{ cursor: "pointer" }}
         />
@@ -104,6 +130,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           autoPlay
           loop
           muted
+          preload="auto"
           onClick={() => handleVideoClick(3)}
           style={{ cursor: "pointer" }}
         />
@@ -115,6 +142,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           autoPlay
           loop
           muted
+          preload="auto"
           onClick={() => handleVideoClick(4)}
           style={{ cursor: "pointer" }}
         />
@@ -126,6 +154,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           autoPlay
           loop
           muted
+          preload="auto"
           onClick={() => handleVideoClick(5)}
           style={{ cursor: "pointer" }}
         />
@@ -137,19 +166,9 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           ref={suicideRef}
           autoPlay
           muted
-          
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            if (clickCount === 0) {
-              setWithTransition(true);
-              setTextVisible(true);
-              setClickCount(1);
-            } else {
-              setWithTransition(true);
-              setTextVisible(false);
-            }
-          }}
-          
+          preload="auto"
+          style={{ cursor: "default" }}
+          onEnded={() => setIsIntroFinished(true)}
         />
       )}
     </div>
