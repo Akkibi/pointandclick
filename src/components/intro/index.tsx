@@ -13,7 +13,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
   const suicideRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (step !== 5) return;
+    if (step !== 7) return;
     const video = suicideRef.current;
     if (!video) return;
     const handleEnded = () => setIsIntroFinished(true);
@@ -27,8 +27,11 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
     "Have you ever stopped to ask yourself what it means to be alive?",
     "The sound of rain, the smell of grass...",
     "...now don't seem to matter anymore.",
-    "Sometime I can't help but imagine,",
-    "what it would feel like to just...",
+    "Climate collapse, economic depression, fascism, war.",
+    "It seems that everyday this world gets better at confining us to the corner of our rooms.",
+    "But people don't seem to mind, they just continue on, their eyes glued to their screens",
+    "I wonder what went wrong to make me so dissatisfied.",
+    "Sometime I can't help but imagine, what it would feel like to just...",
     "...let go.",
   ];
 
@@ -53,7 +56,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
   };
 
   useEffect(() => {
-    if (step === 5) {
+    if (step === 7) {
       setWithTransition(false);
       setTextVisible(false);
       // Fade in automatique
@@ -88,7 +91,6 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
           textAlign: "center",
           fontSize: "2.5rem",
           color: "#fff",
-          // textShadow: "0 0 8px #000, 0 0 16px #000",
           zIndex: 100000,
           pointerEvents: "none",
           fontWeight: "bold",
@@ -114,7 +116,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
       {step === 1 && (
         <video
           className="myvideo"
-          src="statue.mov"
+          src="road.mp4"
           autoPlay
           loop
           muted
@@ -126,7 +128,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
       {step === 2 && (
         <video
           className="myvideo"
-          src="metro.mov"
+          src="statue.mov"
           autoPlay
           loop
           muted
@@ -138,7 +140,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
       {step === 3 && (
         <video
           className="myvideo"
-          src="escalier.mov"
+          src="leaf.mov"
           autoPlay
           loop
           muted
@@ -150,7 +152,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
       {step === 4 && (
         <video
           className="myvideo"
-          src="fenetre.mov"
+          src="death.mov"
           autoPlay
           loop
           muted
@@ -160,6 +162,42 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
         />
       )}
       {step === 5 && (
+        <video
+          className="myvideo"
+          src="metro.mov"
+          autoPlay
+          loop
+          muted
+          preload="auto"
+          onClick={() => handleVideoClick(6)}
+          style={{ cursor: "pointer" }}
+        />
+      )}
+      {step === 6 && (
+        <video
+          className="myvideo"
+          src="escalier.mov"
+          autoPlay
+          loop
+          muted
+          preload="auto"
+          onClick={() => handleVideoClick(7)}
+          style={{ cursor: "pointer" }}
+        />
+      )}
+      {step === 7 && (
+        <video
+          className="myvideo"
+          src="fenetre.mov"
+          autoPlay
+          loop
+          muted
+          preload="auto"
+          onClick={() => handleVideoClick(8)}
+          style={{ cursor: "pointer" }}
+        />
+      )}
+      {step === 8 && (
         <video
           className="myvideo"
           src="suicide.mov"
