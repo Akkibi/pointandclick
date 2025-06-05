@@ -48,53 +48,7 @@ export const characters: Characters = {
       },
     },
   },
-  painter: {
-    id: 0,
-    name: "Painter",
-    sounds: {
-      default: ["path/to/sound", "path/to/sound", "path/to/sound"],
-      happy: ["path/to/sound", "path/to/sound", "path/to/sound"],
-      angry: ["path/to/sound", "path/to/sound", "path/to/sound"],
-      sad: ["path/to/sound", "path/to/sound", "path/to/sound"],
-    },
-    idle: {
-      cataphile1: 3,
-    },
-    hover: {
-      cataphile1: {
-        transition: 3,
-        default: 3,
-      },
-    },
-    onClick: {
-      cataphile1: {
-        default: 3,
-      },
-    },
-    onLeave: {
-      cataphile1: {
-        default: 3,
-      },
-    },
-    states: {
-      default: {
-        default: 3,
-        talking: 3,
-      },
-      happy: {
-        default: 3,
-        talking: 3,
-      },
-      angry: {
-        default: 3,
-        talking: 3,
-      },
-      sad: {
-        default: 3,
-        talking: 3,
-      },
-    },
-  },
+  
   stoneworker: {
     id: 1,
     name: "Stoneworker",
@@ -120,6 +74,54 @@ export const characters: Characters = {
     },
     onLeave: {
       stoneworker1: {
+        default: 3,
+      },
+    },
+    states: {
+      default: {
+        default: 3,
+        talking: 3,
+      },
+      happy: {
+        default: 3,
+        talking: 3,
+      },
+      angry: {
+        default: 3,
+        talking: 3,
+      },
+      sad: {
+        default: 3,
+        talking: 3,
+      },
+    },
+  },
+  
+  artist: {
+    id: 2,
+    name: "Artist",
+    sounds: {
+      default: ["path/to/sound", "path/to/sound", "path/to/sound"],
+      happy: ["path/to/sound", "path/to/sound", "path/to/sound"],
+      angry: ["path/to/sound", "path/to/sound", "path/to/sound"],
+      sad: ["path/to/sound", "path/to/sound", "path/to/sound"],
+    },
+    idle: {
+      artist1: 3,
+    },
+    hover: {
+      artist1: {
+        transition: 3,
+        default: 3,
+      },
+    },
+    onClick: {
+      artist1: {
+        default: 3,
+      },
+    },
+    onLeave: {
+      artist1: {
         default: 3,
       },
     },
