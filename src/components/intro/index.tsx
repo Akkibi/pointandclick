@@ -32,7 +32,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
     "But people don't seem to mind, they just continue on, their eyes glued to their screens",
     "I wonder what went wrong to make me so dissatisfied.",
     "Sometime I can't help but imagine, what it would feel like to just...",
-    "...let go.",
+    "...let go.", // <-- step 8 (suicide.mov)
   ];
 
   useEffect(() => {
@@ -71,6 +71,30 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
         setTextVisible(false);
         // NE PAS appeler setIsIntroFinished ici !
       }, 7000);
+
+      return () => {
+        clearTimeout(fadeInTimeout);
+        clearTimeout(fadeOutTimeout);
+      };
+    }
+  }, [step]);
+
+  useEffect(() => {// Handle the final step (step 8)
+    if (step === 8) {
+      setWithTransition(false);
+      setTextVisible(false);
+      // Fade in automatique
+      const fadeInTimeout = setTimeout(() => {
+        setWithTransition(true);
+        setTextVisible(true);
+      }, 4000);
+
+      // Fade out automatique après 2s (mais ne termine pas l'intro ici)
+      const fadeOutTimeout = setTimeout(() => {
+        setWithTransition(true);
+        setTextVisible(false);
+        // NE PAS appeler setIsIntroFinished ici !
+      }, 8000);
 
       return () => {
         clearTimeout(fadeInTimeout);
