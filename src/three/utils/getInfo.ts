@@ -115,3 +115,7 @@ export const getOptions = (
     if (!dialog) return [];
     return dialog.options ?? [];
 };
+
+export const getSfx = (scene: string): string | undefined => {
+  return getScene(scene).sound;
+};

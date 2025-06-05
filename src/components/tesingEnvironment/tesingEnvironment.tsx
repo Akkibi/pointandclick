@@ -18,7 +18,6 @@ const TesingEnvironment: React.FC = () => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "$") {
                 setTestIsOpen(!testIsOpen);
-                console.log("T pressed", testIsOpen);
             }
         };
 
@@ -35,7 +34,7 @@ const TesingEnvironment: React.FC = () => {
     } else {
         return (
             <div className="tesing-environment">
-                <h1>Tesing Environment</h1>
+                <h1>Tesing Environment - {playerState.currentScene} </h1>
                 <div className="texting-item-group">
                     <label htmlFor="changeScene">Go to</label>
                     <input type="text" name="changeScene" id="changeScene" />
