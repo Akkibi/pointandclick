@@ -166,6 +166,10 @@ const Interaction: React.FC = () => {
                 playerState.currentConversation,
                 action,
             );
+            console.log(
+                "playerState.currentConversationData",
+                playerState.currentDialogData?.positions,
+            );
             setLines(lines);
             setOptions(options ? options : []);
         };

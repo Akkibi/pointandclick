@@ -70,7 +70,7 @@ export interface Fallback {
     name: string;
     pose: string;
     text: string;
-    speed: string;
+    speed: number;
 }
 
 export interface Dialogs {
@@ -112,7 +112,7 @@ export interface Position {
     x?: number;
     y?: number;
     pose?: string;
-    speed?: string;
+    speed?: number;
 }
 
 export interface ScenesType {

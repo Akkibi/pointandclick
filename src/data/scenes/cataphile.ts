@@ -23,20 +23,20 @@ const cataphile: SceneType = {
                 name: "cataphile",
                 pose: "default",
                 text: "it's not the right moment",
-                speed: "400ms",
+                speed: 400,
             },
             positions: {
                 0: {
                     x: -2,
                     y: -1.5,
                     pose: "default",
-                    speed: "400ms",
+                    speed: 400,
                 },
                 1: {
                     x: 2,
                     y: -1.5,
                     pose: "default",
-                    speed: "400ms",
+                    speed: 400,
                 },
             },
             enterAnimation: {
@@ -73,7 +73,20 @@ const cataphile: SceneType = {
                             "what the hell are you doing down here without a light!",
                         ],
                     },
-
+                    positions: {
+                        0: {
+                            x: 2,
+                            y: -1.5,
+                            pose: "default",
+                            speed: 200,
+                        },
+                        1: {
+                            x: -2,
+                            y: -1.5,
+                            pose: "default",
+                            speed: 200,
+                        },
+                    },
                     options: [
                         {
                             text: "Where am I?",
@@ -145,14 +158,14 @@ const cataphile: SceneType = {
                 name: "cataphile",
                 pose: "default",
                 text: "it's not the right moment",
-                speed: "400ms",
+                speed: 400,
             },
             positions: {
                 0: {
                     x: -2,
                     y: -1.5,
                     pose: "default",
-                    speed: "400ms",
+                    speed: 400,
                 },
             },
             enterAnimation: {
