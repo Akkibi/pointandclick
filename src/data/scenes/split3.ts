@@ -12,6 +12,6 @@ const split3: SceneType = {
             "#00ff01": "scene28", // derrière option 2
         },
     },
-    audioProgressive: { ...artistAudio, current: "scene27" },   
+    audioProgressive: { ...artistAudio, current: "scene27", volume: 0.1 },   
 };
 export default split3;

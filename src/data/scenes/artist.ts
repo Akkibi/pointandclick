@@ -9,7 +9,7 @@ const artist: SceneType = {
             "#fe0000": "scene28",
         },
     },
-    audioProgressive: { ...artistAudio, current: "scene29" },
+    audioProgressive: { ...artistAudio, current: "scene29", volume: 0.5 },
     conversations: [
         {
             name: "artist1",

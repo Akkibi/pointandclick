@@ -124,8 +124,11 @@ class Scene {
                         console.warn("Impossible de jouer le son progressif :", e);
                     });
                 }
-                // Calcule le volume en fonction de la progression
-                const volume = minVolume + ((maxVolume - minVolume) * step) / (scenes.length - 1);
+                // Calcule le volume en fonction de la progression OU prend le volume personnalisé
+                const volume =
+                    typeof audioProgressive.volume === "number"
+                        ? audioProgressive.volume
+                        : minVolume + ((maxVolume - minVolume) * step) / (scenes.length - 1);
                 if (Scene.progressiveAudio) Scene.progressiveAudio.volume = volume;
             }
 

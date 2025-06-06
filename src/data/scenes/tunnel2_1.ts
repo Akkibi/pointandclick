@@ -11,6 +11,6 @@ const tunnel2_1: SceneType = {
             "#fe0000": "scene2",
         },
     },
-    audioProgressive: { ...stoneWorkerAudio, current: "scene10" },
+    audioProgressive: { ...stoneWorkerAudio, current: "scene10", volume: 0.1 },
 };
 export default tunnel2_1;

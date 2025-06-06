@@ -10,7 +10,7 @@ const stoneworker: SceneType = {
             "#00ff01": "scene12",
         },
     },
-audioProgressive: { ...stoneWorkerAudio, current: "scene13" },
+audioProgressive: { ...stoneWorkerAudio, current: "scene13", volume: 0.5 },
     conversations: [
         {
             name: "stoneworker1",

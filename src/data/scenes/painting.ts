@@ -9,7 +9,7 @@ const painting: SceneType = {
             "#fe0000": "scene8",
         },
     },
-    audioProgressive: { ...paintingAudio, current: "scene9" },
+    audioProgressive: { ...paintingAudio, current: "scene9", volume: 0.5 },
     conversations: [
         {
             name: "painting1",

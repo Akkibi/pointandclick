@@ -23,6 +23,7 @@ export interface SceneType {
         scenes: string[];
         last: string;
         current?: string;
+        volume?: number; // <-- ajoute cette ligne
     };
 }
 
