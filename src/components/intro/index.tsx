@@ -7,7 +7,7 @@ interface IntroType {
 
 const videoSteps = [
     { video: "fenetre.mov", audio: "fenetre.wav" },
-    { video: "road.mp4", audio: "road.wav" },
+    { video: "road.mov", audio: "road.wav" },
     { video: "statue.mov", audio: "statue.wav" },
     { video: "leaf.mov", audio: "leaf.wav" },
     { video: "death.mov", audio: "death.wav" },
