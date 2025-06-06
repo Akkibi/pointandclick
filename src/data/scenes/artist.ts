@@ -277,7 +277,7 @@ const artist: SceneType = {
                     },
                     options: [
                         {
-                            text: "So you're painting took you to Lutetia...",
+                            text: "So your painting took you to Lutetia...",
                             destination: "So you're painting took you to Lutetia...",
                         },
                         {

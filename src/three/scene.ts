@@ -24,6 +24,11 @@ class Scene {
     private charactersGroup: THREE.Group;
     private characters: Character[];
     private audio?: HTMLAudioElement;
+
+    // Ajoute ces propriétés statiques pour l'audio progressif
+    private static progressiveAudio?: HTMLAudioElement;
+    private static progressiveAudioSrc?: string;
+
     constructor(name: string) {
         this.frontDoors = null;
         this.backDoors = null;
@@ -97,35 +102,39 @@ class Scene {
             if (playerState.currentSceneData.doors.back) this.loadDoors(false);
         }
 
-        const sfx = getSfx(this.name);
-        if (sfx) {
-            this.audio = new Audio(sfx);
-            this.audio.loop = true;
-            this.audio.volume = 0.5;
-            this.audio.play().catch((e) => {
-                console.warn("Impossible de jouer le son automatiquement :", e);
-            });
-        }
+        // === AUDIO PROGRESSIF ===
+        const audioProgressive = playerState.currentSceneData?.audioProgressive;
+        if (audioProgressive) {
+            const { src, minVolume, maxVolume, scenes, last, current } = audioProgressive;
+            const step = scenes.indexOf(current ?? name);
 
-        const sceneData = playerState.currentSceneData;
-
-        // Gestion audio avancée
-        if (sceneData && sceneData.audio && sceneData.audio.src) {
-            this.audio = new Audio(sceneData.audio.src);
-            this.audio.loop = !sceneData.audio.stopAfter; // loop si pas de stopAfter
-            this.audio.volume = sceneData.audio.volume ?? 1;
-            this.audio.play().catch((e) => {
-                console.warn("Impossible de jouer le son automatiquement :", e);
-            });
-
-            // Stopper après un certain temps si demandé
-            if (sceneData.audio.stopAfter) {
-                setTimeout(() => this.stopSfx(), sceneData.audio.stopAfter);
+            // Si la scène fait partie de la progression
+            if (step !== -1) {
+                // Si l'audio n'est pas déjà lancé ou a changé de source
+                if (!Scene.progressiveAudio || Scene.progressiveAudioSrc !== src) {
+                    if (Scene.progressiveAudio) {
+                        Scene.progressiveAudio.pause();
+                        Scene.progressiveAudio = undefined;
+                    }
+                    Scene.progressiveAudio = new Audio(src);
+                    Scene.progressiveAudio.loop = true;
+                    Scene.progressiveAudioSrc = src;
+                    Scene.progressiveAudio.volume = minVolume;
+                    Scene.progressiveAudio.play().catch((e) => {
+                        console.warn("Impossible de jouer le son progressif :", e);
+                    });
+                }
+                // Calcule le volume en fonction de la progression
+                const volume = minVolume + ((maxVolume - minVolume) * step) / (scenes.length - 1);
+                if (Scene.progressiveAudio) Scene.progressiveAudio.volume = volume;
             }
 
-            // Stopper sur clic personnage si demandé
-            if (sceneData.audio.stopOnCharacterClick) {
-                eventEmitterInstance.on("click-character", () => this.stopSfx());
+            // Si on est dans la salle "last", on coupe le son
+            if ((current ?? name) === last && Scene.progressiveAudio) {
+                Scene.progressiveAudio.pause();
+                Scene.progressiveAudio.currentTime = 0;
+                Scene.progressiveAudio = undefined;
+                Scene.progressiveAudioSrc = undefined;
             }
         }
     }
@@ -234,7 +243,7 @@ class Scene {
                             this.frontBackground.material as THREE.ShaderMaterial
                         ).uniforms.depthMap.value = texture;
                     },
-                ),
+                )
             )
             .then(() =>
                 loadImage(`/scenes/${this.name}/back-depth.opti.webp`, (texture: THREE.Texture) => {
@@ -306,6 +315,16 @@ class Scene {
             this.audio.src = "";
             this.audio.load();
             this.audio = undefined;
+        }
+    }
+
+    // Ajoute une méthode statique pour couper le son depuis un clic sur un personnage
+    static stopProgressiveAudio() {
+        if (Scene.progressiveAudio) {
+            Scene.progressiveAudio.pause();
+            Scene.progressiveAudio.currentTime = 0;
+            Scene.progressiveAudio = undefined;
+            Scene.progressiveAudioSrc = undefined;
         }
     }
 }
