@@ -113,8 +113,22 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
     const stopAllAudios = () => {
         audioRefs.current.forEach(audio => {
             if (audio) {
-                audio.pause();
-                audio.currentTime = 0;
+                const fadeDuration = 3000; // ms
+                const fadeStep = 100; // ms
+                let elapsed = 0;
+                const startVolume = audio.volume;
+                const fade = setInterval(() => {
+                    elapsed += fadeStep;
+                    // Ease out quadratique
+                    const progress = Math.min(elapsed / fadeDuration, 1);
+                    audio.volume = startVolume * (1 - progress) * (1 - progress);
+                    if (progress >= 1) {
+                        audio.volume = 0;
+                        audio.pause();
+                        audio.currentTime = 0;
+                        clearInterval(fade);
+                    }
+                }, fadeStep);
             }
         });
     };
