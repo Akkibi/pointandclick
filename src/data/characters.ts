@@ -115,7 +115,7 @@ export const characters: Characters = {
         },
         onClick: {
             stoneworker1: {
-                transition: 1,
+                transition: 0,
             },
         },
         onLeave: {
