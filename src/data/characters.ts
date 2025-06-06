@@ -63,7 +63,7 @@ export const characters: Characters = {
         hover: {
             artist1: {
                 transition: 32,
-                default: 30,
+                default: 8,
             },
         },
         onClick: {
@@ -78,8 +78,8 @@ export const characters: Characters = {
         },
         states: {
             default: {
-                default: 2,
-                talking: 2,
+                default: 30,
+                talking: 30,
             },
             happy: {
                 default: 2,
@@ -125,8 +125,8 @@ export const characters: Characters = {
         },
         states: {
             default: {
-                default: 1,
-                talking: 1,
+                default: 25,
+                talking: 25,
             },
             happy: {
                 default: 1,
