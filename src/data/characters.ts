@@ -58,17 +58,17 @@ export const characters: Characters = {
             sad: ["path/to/sound"],
         },
         idle: {
-            artist1: 2,
+            artist1: 50,
         },
         hover: {
             artist1: {
-                transition: 1,
-                default: 2,
+                transition: 32,
+                default: 30,
             },
         },
         onClick: {
             artist1: {
-                transition: 2,
+                transition: 50,
             },
         },
         onLeave: {
@@ -105,12 +105,12 @@ export const characters: Characters = {
             sad: ["path/to/sound"],
         },
         idle: {
-            stoneworker1: 1,
+            stoneworker1: 32,
         },
         hover: {
             stoneworker1: {
-                transition: 1,
-                default: 1,
+                transition: 14,
+                default: 8,
             },
         },
         onClick: {

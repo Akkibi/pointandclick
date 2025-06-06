@@ -234,7 +234,9 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
                     onEnded={() => setIsIntroFinished(true)}
                 />
             )}
+            <button className="intro-button" onClick={() => setIsIntroFinished(true)}>Go to game</button>
         </div>
+        
     );
 };
 //forcing
