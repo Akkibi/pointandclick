@@ -1,4 +1,5 @@
 import type { SceneType } from "../../types/scene";
+import {artistAudio } from "../audio/artistAudio";
 
 const split3: SceneType = {
     isStageLookingFront: true,
@@ -11,6 +12,6 @@ const split3: SceneType = {
             "#00ff01": "scene28", // derrière option 2
         },
     },
-    sound: "path/of/sound",
+    audioProgressive: { ...artistAudio, current: "scene27" },   
 };
 export default split3;

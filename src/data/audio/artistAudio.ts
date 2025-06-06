@@ -1,8 +1,8 @@
-export const paintingAudio = {
-    src: "/audio/painting.wav",
+export const artistAudio = {
+    src: "/audio/artist.wav",
     minVolume: 0.1,
     maxVolume: 1,
-    scenes: ["scene6", "scene7", "scene8", "scene9"],
+    scenes: ["scene27", "scene28", "scene29"],
     last: "",
     current: "", // à surcharger dans chaque scène concernée
 };

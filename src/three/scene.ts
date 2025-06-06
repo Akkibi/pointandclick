@@ -136,6 +136,9 @@ class Scene {
                 Scene.progressiveAudio = undefined;
                 Scene.progressiveAudioSrc = undefined;
             }
+        } else {
+            // Si la salle n'est pas concernée par un audio progressif, on coupe tout
+            Scene.stopProgressiveAudio?.();
         }
     }
     public unload = () => {
@@ -319,12 +322,28 @@ class Scene {
     }
 
     // Ajoute une méthode statique pour couper le son depuis un clic sur un personnage
-    static stopProgressiveAudio() {
+    static stopProgressiveAudio(fadeDuration = 1000) {
         if (Scene.progressiveAudio) {
-            Scene.progressiveAudio.pause();
-            Scene.progressiveAudio.currentTime = 0;
-            Scene.progressiveAudio = undefined;
-            Scene.progressiveAudioSrc = undefined;
+            const audio = Scene.progressiveAudio;
+            const initialVolume = audio.volume;
+            const steps = 20;
+            const stepTime = fadeDuration / steps;
+            let currentStep = 0;
+
+            const fade = () => {
+                currentStep++;
+                audio.volume = initialVolume * (1 - currentStep / steps);
+                if (currentStep < steps) {
+                    setTimeout(fade, stepTime);
+                } else {
+                    audio.pause();
+                    audio.currentTime = 0;
+                    Scene.progressiveAudio = undefined;
+                    Scene.progressiveAudioSrc = undefined;
+                }
+            };
+
+            fade();
         }
     }
 }

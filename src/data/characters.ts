@@ -98,6 +98,7 @@ export const characters: Characters = {
     stoneworker: {
         id: 2,
         name: "Stoneworker",
+        stopProgressiveAudio: true,
         sounds: {
             default: ["path/to/sound"],
             happy: ["path/to/sound"],
