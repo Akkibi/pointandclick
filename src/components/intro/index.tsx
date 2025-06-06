@@ -201,9 +201,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
                             <b>L’équipe des cataphiles vous remercie de plonger avec nous dans la première version de notre jeu !</b>
                             <br />
                             Bienvenue dans Sous Lutèce, une expérience virtuelle immersive qui vous invite à explorer les catacombes de Paris à travers un jeu point-and-click.<br /><br />
-                            Excédé par le monde de la surface, le joueur choisit de disparaître. Il saute du haut d’un toit… et se réveille, seul, au cœur des tunnels.<br /><br />
-                            En avançant, il découvre l’histoire des catacombes tout en entamant une recherche plus intime : celle du royaume de Lutèce.<br /><br />
-                            Son parcours, entre réalité et fiction, est ponctué de rencontres avec plusieurs figures du monde souterrain parisien.<br /><br />
+                           
                             <b>Pour une expérience optimale, nous vous recommandons de jouer avec le son, au casque ou avec des écouteurs.</b><br />
                             Cliquez tout du long pour avancer !<br /><br />
                             Merci de votre intérêt et bonne exploration !<br /><br />
@@ -222,21 +220,20 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
                             }}
                         />
                         <div style={{ color: "#fff", flex: 1, fontSize: "1.1rem", lineHeight: 1.6, maxWidth: 500 }}>
-                            <b>Hello from the Cataphiles team, <br /> <br /> and thank you for diving into the first version of our game!</b>
-                            <br />
-                            Welcome, to The way to Lutetia, an immersive virtual experience that invites you to explore the Paris catacombs through a point-and-click adventure.<br /><br />
-                            {/* Disillusioned with life on the surface, the player decides to disappear. They jump from a rooftop… and wake up deep inside the tunnels beneath the city.<br /><br />
-                            As they move forward, they begin to discover the history of the catacombs, while also embarking on a more personal journey : the search for the Kingdom of Lutetia.<br /><br />
-                            Their path, suspended between reality and fiction, is shaped by encounters with figures from Paris’s underground world.<br /><br /> */}
-                            <b>For the best experience, we recommend playing with sound, using headphones or earphones.</b><br />
-                            Keep clicking to move forward !<br /><br />
-                            Thank you for playing and enjoy your journey !<br /><br />
-                            If you’d like to get in touch, here’s our contact info:<br />
-                            <a href="mailto:contact@souslutece.com" style={{ color: "#fff", textDecoration: "underline" }}>contact@souslutece.com</a> <br /> <br />
-                            If you'de like to know more about the project, you can also read our dossier : <br /> <br />
-                            <a href="/dossier_thewaytoluetia.pdf" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Read the dossier !</a>
-                        </div>
-                    </div>
+<b>Hello and bonjour from your resident Cataphiles! <br /> <br />Thank you for diving into the first version of our game!</b>
+<br />
+The way to Lutetia is an immersive virtual experience that invites you to explore the Paris catacombs through a point-and-click narrative adventure.<br /><br />
+{/* Disillusioned with life on the surface, the player decides to disappear. They jump from a rooftop… and wake up deep inside the tunnels beneath the city.<br /><br />
+As they move forward, they begin to discover the history of the catacombs, while also embarking on a more personal journey : the search for the Kingdom of Lutetia.<br /><br />
+Their path, suspended between reality and fiction, is shaped by encounters with figures from Paris’s underground world.<br /><br /> */}
+<b>For the best experience, we recommend playing with sound, using headphones or earphones.</b><br />
+Keep clicking to move forward !<br /><br />
+We have big plans to expand this project much much more and we are currently looking into ways to fund and develop the next stage. For more information <a href="/dossier_thewaytoluetia.pdf" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>here is a link to our dossier </a> and if you would like to get in touch feel free to send us an email at
+<br /><br />
+<a href="mailto:contact@souslutece.com" style={{ color: "#fff", textDecoration: "underline" }}>contact@souslutece.com</a> <br /> <br />
+If you'de like to know more about the project, you can also read our dossier : <br /> <br />
+</div>
+</div>
                     {preloadLinks}
                     <button
                         style={{
@@ -309,7 +306,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
                             </>
                         ) : null
                     )}
-                    <button className="intro-button" onClick={() => { stopAllAudios(); handleGoToGame(); }}>Skip intro & close all sound</button>
+                    <button className="intro-button" onClick={() => { stopAllAudios(); handleGoToGame(); }}>Skip Intro</button>
                 </>
             )}
         </div>

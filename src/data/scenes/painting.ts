@@ -279,9 +279,9 @@ const painting: SceneType = {
                         ],
                     },
                     options: [
-                        { text: "What does that mean?", destination: "What does that mean?" },
-                        { text: "Like what? A drawing? A scream?", destination: "Like what? A drawing? A scream?" },
-                        { text: "Why would it give me anything back?", destination: "Why would it give me anything back?" },
+                        { text: "What does that mean?", destination: null },
+                        { text: "Like what? A drawing? A scream?", destination: null },
+                        { text: "Why would it give me anything back?", destination: null },
                     ],
                 },
                 "What does that mean?": {
@@ -291,7 +291,9 @@ const painting: SceneType = {
                             "Here. Take this. It’s not much. But it’s a beginning.",
                         ],
                     },
-                    options: [],
+                   options: [
+{ text: "... I guess I'll give it a shot.", destination: null },
+],
                 },
                 "Like what? A drawing? A scream?": {
                     lines: {
@@ -300,7 +302,9 @@ const painting: SceneType = {
                             "Here. Take this. It’s not much. But it’s a beginning.",
                         ],
                     },
-                    options: [],
+                    options: [
+{ text: "... I guess I'll give it a shot.", destination: null },
+],
                 },
                 "Why would it give me anything back?": {
                     lines: {
@@ -310,7 +314,9 @@ const painting: SceneType = {
                             "Here. Take this. It’s not much. But it’s a beginning.",
                         ],
                     },
-                    options: [],
+                    options: [
+{ text: "... I guess I'll give it a shot.", destination: null },
+],
                 },
             },
         },
