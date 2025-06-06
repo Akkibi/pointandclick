@@ -163,22 +163,33 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
             </div>
             {videoSteps.map((item, idx) =>
                 step === idx ? (
-                    <video
-                        key={item.video + idx}
-                        className="myvideo"
-                        src={item.video}
-                        autoPlay
-                        loop={idx !== 8}
-                        muted
-                        preload="auto"
-                        onClick={idx !== 8 ? () => handleVideoClick(idx + 1) : undefined}
-                        ref={idx === 8 ? suicideRef : undefined}
-                        style={{ cursor: idx !== 8 ? "pointer" : "default" }}
-                        onEnded={idx === 8 ? () => {
-                            stopAllAudios();
-                            setIsIntroFinished(true);
-                        } : undefined}
-                    />
+                    <>
+                        <video
+                            key={item.video + idx}
+                            className="myvideo"
+                            src={item.video}
+                            autoPlay
+                            loop={idx !== 8}
+                            muted
+                            preload="auto"
+                            onClick={idx !== 8 ? () => handleVideoClick(idx + 1) : undefined}
+                            ref={idx === 8 ? suicideRef : undefined}
+                            style={{ cursor: idx !== 8 ? "pointer" : "default" }}
+                            onEnded={idx === 8 ? () => {
+                                stopAllAudios();
+                                setIsIntroFinished(true);
+                            } : undefined}
+                        />
+                        {/* Précharge la vidéo suivante si elle existe */}
+                        {videoSteps[idx + 1] && (
+                            <link
+                                rel="preload"
+                                as="video"
+                                href={videoSteps[idx + 1].video}
+                                key={"preload-" + videoSteps[idx + 1].video}
+                            />
+                        )}
+                    </>
                 ) : null
             )}
             <button className="intro-button" onClick={handleGoToGame}>Skip intro</button>
