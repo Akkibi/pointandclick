@@ -1,10 +1,12 @@
 import { Conversation, Dialog, SceneType } from "./scene";
 
 export interface PlayerState {
-    love: number;
-    truth: number;
-    freedom: number;
-    fool: number;
+    points: {
+        love: number;
+        truth: number;
+        freedom: number;
+        fool: number;
+    };
     achievements: string[];
     places: string[];
     objects: string[];
@@ -29,4 +31,5 @@ export interface PlayerState {
             y: number;
         };
     };
+    cutScene: boolean;
 }

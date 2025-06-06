@@ -103,6 +103,7 @@ export interface Options {
     text: string;
     destination: string | null;
     points?: Points;
+    customFunction?: () => void;
 }
 
 export interface Points {
@@ -113,12 +114,16 @@ export interface Points {
 }
 
 export interface CharacterPositions {
-    [key: number]: Position;
+    [key: number]: PositionType;
 }
 
-export interface Position {
+export interface PositionType {
     x?: number;
     y?: number;
+    z?: number;
+    scale?: number;
+    transition?: boolean;
+    orientation?: "front" | "back";
     pose?: string;
     speed?: number;
 }

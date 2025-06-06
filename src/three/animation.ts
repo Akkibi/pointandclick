@@ -10,7 +10,7 @@ class Animation {
     private material: THREE.MeshBasicMaterial;
     private scale: THREE.Vector3;
     private textureLoader: THREE.TextureLoader;
-    public speed: number = 200; // in ms
+    public speed: number; // in ms
     private deltatime: number = 0;
     private currentIndex: number = 0;
     private transition: Array<THREE.Texture> = [];
@@ -18,6 +18,7 @@ class Animation {
     private istransitionDone: boolean = false;
 
     constructor(material: THREE.MeshBasicMaterial, scale: THREE.Vector3) {
+        this.speed = 200;
         this.scale = scale;
         this.material = material;
         this.textureLoader = new THREE.TextureLoader();
@@ -35,6 +36,11 @@ class Animation {
                 (err) => reject(err),
             );
         });
+    };
+
+    public setSpeed = (speed: number) => {
+        console.log("set animation speed", speed);
+        this.speed = speed;
     };
 
     public set = async (animData: animationType) => {
@@ -69,6 +75,7 @@ class Animation {
     private update = (_time: number, deltatime: number) => {
         this.deltatime += deltatime;
         if (this.deltatime < this.speed) return;
+        // console.log(this.speed);
         this.deltatime = 0;
 
         if (!this.istransitionDone) {

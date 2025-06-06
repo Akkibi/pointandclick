@@ -95,6 +95,14 @@ class Camera {
             y: playerState.isLookingFront ? 0 : Math.PI,
             duration: 1,
             ease: "expo.inOut",
+            onComplete: () => {
+                console.log(
+                    this.camera.position,
+                    this.cameraGroup.position,
+                    this.instance.position,
+                    this.instance.rotation,
+                );
+            },
         });
     };
 

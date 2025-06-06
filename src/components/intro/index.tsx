@@ -54,7 +54,6 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
             audio.play();
         }
         // No cleanup: audios keep playing
-        // eslint-disable-next-line
     }, [step]);
 
     useEffect(() => {
@@ -111,7 +110,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
 
     // Stop all audios when intro is finished
     const stopAllAudios = () => {
-        audioRefs.current.forEach(audio => {
+        audioRefs.current.forEach((audio) => {
             if (audio) {
                 const fadeDuration = 3000; // ms
                 const fadeStep = 100; // ms
@@ -146,6 +145,16 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
             video.removeEventListener("ended", handleEnded);
         };
     }, [step, setIsIntroFinished]);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "$") {
+            handleGoToGame();
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("keydown", handleKeyDown);
+    }, []);
 
     // Aussi sur le bouton "Go to game"
     const handleGoToGame = () => {
@@ -189,10 +198,14 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
                             onClick={idx !== 8 ? () => handleVideoClick(idx + 1) : undefined}
                             ref={idx === 8 ? suicideRef : undefined}
                             style={{ cursor: idx !== 8 ? "pointer" : "default" }}
-                            onEnded={idx === 8 ? () => {
-                                stopAllAudios();
-                                setIsIntroFinished(true);
-                            } : undefined}
+                            onEnded={
+                                idx === 8
+                                    ? () => {
+                                          stopAllAudios();
+                                          setIsIntroFinished(true);
+                                      }
+                                    : undefined
+                            }
                         />
                         {/* Précharge la vidéo suivante si elle existe */}
                         {videoSteps[idx + 1] && (
@@ -204,9 +217,11 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
                             />
                         )}
                     </>
-                ) : null
+                ) : null,
             )}
-            <button className="intro-button" onClick={handleGoToGame}>Skip intro</button>
+            <button className="intro-button" onClick={handleGoToGame}>
+                Skip intro
+            </button>
         </div>
     );
 };

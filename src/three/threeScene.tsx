@@ -70,9 +70,9 @@ const ThreeScene: React.FC = () => {
             if (playerState.isMenuOpen) return;
             playerState.mouse.target.x = event.clientX;
             playerState.mouse.target.y = event.clientY;
-            if (event.target instanceof HTMLCanvasElement) {
-                eventEmitterInstance.trigger("mouseDown", [event]);
-            }
+            // if ((event.target as HTMLDivElement).id === "intro-game") {
+            eventEmitterInstance.trigger("mouseDown", [event]);
+            // }
         };
 
         window.addEventListener("mousemove", handleMouseMove);

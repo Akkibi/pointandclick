@@ -5,6 +5,7 @@ import { playerState } from "../../data/player";
 import {
     FormatedLine,
     getCurrentConversation,
+    getDialog,
     getLines,
     getOptions,
     setConversationDone,
@@ -166,10 +167,6 @@ const Interaction: React.FC = () => {
                 playerState.currentConversation,
                 action,
             );
-            console.log(
-                "playerState.currentConversationData",
-                playerState.currentDialogData?.positions,
-            );
             setLines(lines);
             setOptions(options ? options : []);
         };
@@ -178,6 +175,35 @@ const Interaction: React.FC = () => {
             tlBack.current.play();
             playerState.lastDialog = playerState.currentDialog;
             playerState.currentDialog = destination ?? "start";
+            if (playerState.currentConversation && destination !== "close-dialog") {
+                playerState.currentDialogData = getDialog(
+                    playerState.currentScene,
+                    playerState.currentConversation,
+                    destination ?? "start",
+                );
+                if (playerState.currentDialogData?.positions) {
+                    for (const [key, value] of Object.entries(
+                        playerState.currentDialogData.positions,
+                    )) {
+                        eventEmitterInstance.trigger(`set-character-${key}-position`, [value]);
+                    }
+                }
+                // add objects to player
+                const objects = playerState.currentDialogData?.objects;
+                if (objects) {
+                    playerState.objects.push(objects);
+                    console.log("new object accuired !!", objects);
+                }
+                // add achievements to player
+                const achievements = playerState.currentDialogData?.achievements;
+                if (achievements) {
+                    playerState.achievements.push(achievements);
+                    console.log("new achievement unlocked !!", achievements);
+                }
+            }
+            if (destination === "close-dialog") {
+                playerState.isInteracting = false;
+            }
             if (destination === null) {
                 setConversationDone(
                     playerState.currentScene,
@@ -208,6 +234,14 @@ const Interaction: React.FC = () => {
 
     return (
         <div className="interaction" ref={containerRef}>
+            <div
+                className="close-dialog"
+                onClick={() => {
+                    eventEmitterInstance.trigger("goto", ["close-dialog"]);
+                }}
+            >
+                Close dialog
+            </div>
             <div className="interaction_perspective-container">
                 <div className="interaction_character-text-container" ref={characterTextRef}>
                     {lines.length > 0 &&

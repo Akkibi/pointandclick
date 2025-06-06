@@ -2,10 +2,12 @@ import { PlayerState } from "../types/playerState";
 import { scenes } from "./scenes";
 
 export const playerState: PlayerState = {
-    love: 0,
-    truth: 0,
-    freedom: 0,
-    fool: 0,
+    points: {
+        love: 0,
+        truth: 0,
+        freedom: 0,
+        fool: 0,
+    },
     achievements: ["puzzle_1"],
     places: ["scene1"],
     objects: ["map"],
@@ -30,4 +32,5 @@ export const playerState: PlayerState = {
             y: 0,
         },
     },
+    cutScene: true,
 };

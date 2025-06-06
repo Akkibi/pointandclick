@@ -1,9 +1,23 @@
 import { interfaceContent } from "../../data/interface";
+import { playerState } from "../../data/player";
 import { Options } from "../../types/scene";
 import { eventEmitterInstance } from "../../utils/eventEmitter";
 import "./style.css";
 
 const interaction = (option: Options) => {
+    console.log("options", option);
+    // add points to player
+    if (option.points) {
+        playerState.points.fool += option.points.fool ?? 0;
+        playerState.points.freedom += option.points.freedom ?? 0;
+        playerState.points.love += option.points.love ?? 0;
+        playerState.points.truth += option.points.truth ?? 0;
+    }
+    if (option.customFunction) {
+        const customFunction = option.customFunction;
+        customFunction();
+        console.log("play function");
+    }
     eventEmitterInstance.trigger("goto", [option.destination]);
 };
 

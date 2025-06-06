@@ -19,7 +19,7 @@ class Game {
         this.renderer = new THREE.WebGLRenderer({
             antialias: false,
         });
-        this.renderer.setPixelRatio(window.devicePixelRatio / 2);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
         this.raycaster = new THREE.Raycaster();
         console.log("this.raycaster", this.raycaster);
         this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -77,6 +77,8 @@ class Game {
             document.body.classList.remove("door-cursor");
         } else {
             document.body.classList.remove("bottom-cursor");
+            if (playerState.cutScene) return;
+            if (playerState.isInteracting) return;
             const intersect = this.raycast();
             const intersectName = intersect[0]?.object.name;
             console.log("hover", intersectName);
@@ -107,10 +109,14 @@ class Game {
         if (playerState.mouse.target.y >= window.innerHeight * 0.9) {
             eventEmitterInstance.trigger("turnCamera", []);
         } else {
+            console.log(playerState.cutScene, playerState.isInteracting);
+            if (playerState.cutScene) return;
+            if (playerState.isInteracting) return;
             const intersect = this.raycast();
             const intersectName = intersect[0].object.name;
             if (!intersectName) return;
             const sceneTarget = this.scene.checkDoor();
+            console.log("sceneTarget", sceneTarget);
             if (intersectName === "background") {
                 if (sceneTarget === null) return;
                 playerState.currentScene = sceneTarget;

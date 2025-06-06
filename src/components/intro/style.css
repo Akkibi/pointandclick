@@ -12,14 +12,14 @@
 
 .intro-button {
     position: absolute;
-    top: 5%;
-    left: 2%;
-    background-color: black;
+    top: 3vh;
+    left: 3vh;
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 2vh 2vh;
-    border-radius: 2vh;
+    border-radius: 999px;
     font-size: 1rem;
-    border: 1px solid red;
+    border: 1px solid black;
     /* min-width: fit-content; */
     z-index: 4;
     cursor: pointer;

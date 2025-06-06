@@ -1,4 +1,5 @@
 import type { SceneType } from "../../types/scene";
+import { eventEmitterInstance } from "../../utils/eventEmitter";
 import { characters } from "../characters";
 
 const cataphile: SceneType = {
@@ -27,16 +28,13 @@ const cataphile: SceneType = {
             },
             positions: {
                 0: {
-                    x: -2,
-                    y: -1.5,
-                    pose: "default",
-                    speed: 400,
-                },
-                1: {
-                    x: 2,
-                    y: -1.5,
-                    pose: "default",
-                    speed: 400,
+                    x: 1,
+                    y: -30,
+                    z: -0,
+                    scale: 1,
+                    transition: false,
+                    orientation: "front",
+                    speed: 200,
                 },
             },
             enterAnimation: {
@@ -63,6 +61,11 @@ const cataphile: SceneType = {
                         {
                             text: "That doesn't make any sense",
                             destination: "That doesn't make any sense",
+                            points: {
+                                fool: 10,
+                                freedom: 20,
+                                love: 30,
+                            },
                         },
                     ],
                 },
@@ -258,7 +261,14 @@ const cataphile: SceneType = {
                             "Here, before I go, take this. I hope it helps you find your way.",
                         ],
                     },
-                    options: [{ text: "Thanks", destination: null }],
+                    options: [
+                        {
+                            text: "Thanks",
+                            destination: null,
+                            customFunction: () =>
+                                eventEmitterInstance.trigger("custom-close-intro", []),
+                        },
+                    ],
                 },
                 "I hope I will see what you mean": {
                     lines: {
@@ -267,7 +277,14 @@ const cataphile: SceneType = {
                             "Here before I go, take this. It will help you find your way.",
                         ],
                     },
-                    options: [{ text: "Thanks", destination: null }],
+                    options: [
+                        {
+                            text: "Thanks",
+                            destination: null,
+                            customFunction: () =>
+                                eventEmitterInstance.trigger("custom-close-intro", []),
+                        },
+                    ],
                 },
                 "I don't know. I think I'll just find my own way": {
                     lines: {
@@ -276,7 +293,14 @@ const cataphile: SceneType = {
                             "Here, before I go, take this. I hope it helps you find your way.",
                         ],
                     },
-                    options: [{ text: "Thanks", destination: null }],
+                    options: [
+                        {
+                            text: "Thanks",
+                            destination: null,
+                            customFunction: () =>
+                                eventEmitterInstance.trigger("custom-close-intro", []),
+                        },
+                    ],
                 },
             },
         },

@@ -81,6 +81,9 @@ class Scene {
             const charactersData = getConversationCharacters(this.name, playerState.currentDialog);
             charactersData.forEach((characterData, index) => {
                 const character: Character = new Character(characterData, index);
+                if (playerState.currentConversationData?.positions[index]) {
+                    character.setPosition(playerState.currentConversationData?.positions[index]);
+                }
                 this.charactersGroup.add(character.instance);
                 this.characters.push(character);
                 character.loadAllTextures();
@@ -167,6 +170,7 @@ class Scene {
 
         const widthScaledUp =
             interfaceContent.doorMapSize.width *
+            0.8 *
             (window.innerHeight / interfaceContent.doorMapSize.height);
         // console.log("widthScaledUp", widthScaledUp)
         const troncatedWidth = playerState.mouse.target.x - (window.innerWidth - widthScaledUp) / 2;

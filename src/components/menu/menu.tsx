@@ -25,19 +25,17 @@ const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
     const tl = useRef(gsap.timeline());
     const backgroundBarRef = useRef<HTMLDivElement>(null);
     const buttonsContainerRef = useRef<HTMLDivElement>(null);
-    const saveRef = useRef<HTMLButtonElement>(null);
+    // const saveRef = useRef<HTMLButtonElement>(null);
     const settingsRef = useRef<HTMLButtonElement>(null);
     const aboutRef = useRef<HTMLButtonElement>(null);
-    const deleteRef = useRef<HTMLButtonElement>(null);
+    // const deleteRef = useRef<HTMLButtonElement>(null);
     const grayscaleRef = useRef<HTMLDivElement>(null);
     useGSAP(
         () => {
             if (
                 !buttonsContainerRef.current ||
-                !saveRef.current ||
                 !settingsRef.current ||
                 !aboutRef.current ||
-                !deleteRef.current ||
                 !backgroundBarRef.current ||
                 !grayscaleRef.current
             )
@@ -54,7 +52,7 @@ const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
                     duration: 0.5,
                 })
                 .from(
-                    [saveRef.current, settingsRef.current, aboutRef.current, deleteRef.current],
+                    [settingsRef.current, aboutRef.current],
                     {
                         x: "-100%",
                         ease: "expo.out",

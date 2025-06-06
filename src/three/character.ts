@@ -6,6 +6,7 @@ import { eventEmitterInstance } from "../utils/eventEmitter";
 import { cameraInstance } from "./camera";
 import Animation from "./animation";
 import { preloadImagesWithPromise } from "./utils/ImagePreloader";
+import { PositionType } from "../types/scene";
 
 // external functions or files if needed
 
@@ -40,13 +41,15 @@ interface AnimationDataType {
 }
 
 class Character {
+    private defaultPosition: THREE.Vector3;
+    private position: THREE.Vector3;
     public name: string;
     public instance: THREE.Mesh;
     private index: number;
-    private position: THREE.Vector2;
     private state: stateType;
     private animation: Animation;
     private animationData: AnimationDataType = {};
+    private orientation: "front" | "back";
     constructor(characterData: CharacterType, index: number) {
         this.index = index;
         this.state = "idle";
@@ -56,22 +59,13 @@ class Character {
         const material = new THREE.MeshBasicMaterial({ map: null, transparent: true });
         this.instance = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 1, 1), material);
         this.animation = new Animation(material, this.instance.scale);
-        this.position = new THREE.Vector2();
-
+        this.defaultPosition = new THREE.Vector3(0, 0, -interfaceContent.sceneDeepness / 2);
+        this.position = new THREE.Vector3().copy(this.defaultPosition);
         this.generateAnimationData(characterData);
-
-        const position = playerState.currentConversationData?.positions[this.index];
-        if (position && position.x !== undefined && position.y !== undefined) {
-            this.position.set(position.x, position.y);
-        }
-        this.instance.position.set(
-            this.position.x,
-            this.position.y,
-            -interfaceContent.sceneDeepness / 2,
-        );
+        this.orientation = "front";
 
         this.instance.name = "character";
-        this.instance.userData = { name: this.name, position: this.position };
+        this.instance.userData = { name: this.name };
 
         eventEmitterInstance.on("update", this.turnTowardsCam.bind(this));
         eventEmitterInstance.on("hover-character", this.hover.bind(this));
@@ -84,7 +78,65 @@ class Character {
         eventEmitterInstance.on("set-character-happy", this.happy.bind(this));
         eventEmitterInstance.on("set-character-angry", this.angry.bind(this));
         eventEmitterInstance.on("set-character-sad", this.sad.bind(this));
+        eventEmitterInstance.on(
+            `set-character-${this.index}-position`,
+            this.setPosition.bind(this),
+        );
     }
+
+    public setPosition = (data: PositionType) => {
+        if (data.speed) {
+            this.animation.setSpeed(data.speed);
+        }
+        if (data.orientation) {
+            if (data.orientation === "front") {
+                this.orientation = "front";
+                this.defaultPosition.z = -interfaceContent.sceneDeepness / 2;
+                this.instance.rotation.y = 0;
+                this.position.z = this.defaultPosition.z;
+            } else {
+                this.orientation = "back";
+                this.defaultPosition.z = interfaceContent.sceneDeepness;
+                this.instance.rotation.y = Math.PI;
+                this.position.z = this.defaultPosition.z;
+            }
+        }
+        if (data.x) {
+            this.position.x =
+                this.defaultPosition.x + (this.orientation === "front" ? data.x : data.x * -1);
+        }
+        if (data.y) {
+            this.position.y = data.y + this.defaultPosition.y;
+        }
+        if (data.z) {
+            this.position.z =
+                this.defaultPosition.z + (this.orientation === "front" ? data.z : data.z * -1);
+        }
+        this.instance.position.copy(this.position);
+        switch (data.pose) {
+            case "default":
+                this.default();
+                break;
+            case "happy":
+                this.happy();
+                break;
+            case "angry":
+                this.angry();
+                break;
+            case "sad":
+                this.sad();
+                break;
+            default:
+                break;
+        }
+        // console.log(
+        //     "character set data position",
+        //     data,
+        //     this.instance.position,
+        //     this.position,
+        //     this.defaultPosition,
+        // );
+    };
 
     public loadAllTextures = async () => {
         const texturesList = [];
