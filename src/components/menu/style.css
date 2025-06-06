@@ -53,7 +53,8 @@
     color: var(--yellow-color);
     position: relative;
     z-index: 1;
-    font-size: 2rem;
+    font-size: 2rem; 
+    cursor: pointer;
 }
 .menu_button:focus > span,
 .menu_button:hover > span {

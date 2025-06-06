@@ -107,30 +107,34 @@ const Menu: React.FC<MenuProps> = ({ isOpen, setIsOpen }) => {
                 <div>
                     <div className="menu_buttons" ref={buttonsContainerRef}>
                         <h1 className="menu_title">Way To Lutetia</h1>
-                        <button ref={saveRef} className="menu_button-container">
+                        {/* <button ref={saveRef} className="menu_button-container">
                             <div className="menu_button">
                                 <span>Save</span>
                             </div>
-                        </button>
+                        </button> */}
                         <button
                             ref={settingsRef}
                             onClick={fullscreenHandler}
                             className="menu_button-container"
                         >
                             <div className="menu_button">
-                                <span>Settings</span>
+                                <span>Full Screen</span>
                             </div>
                         </button>
-                        <button ref={aboutRef} className="menu_button-container">
+                        <button
+                            ref={aboutRef}
+                            className="menu_button-container"
+                            onClick={() => window.open("/dossier_thewaytolutetia.pdf", "_blank")}
+                        >
                             <div className="menu_button">
                                 <span>About</span>
                             </div>
                         </button>
-                        <button ref={deleteRef} className="menu_button-container">
+                        {/* <button ref={deleteRef} className="menu_button-container">
                             <div className="menu_button">
                                 <span>Delete save</span>
                             </div>
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </div>
