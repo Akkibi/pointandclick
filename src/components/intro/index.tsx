@@ -309,7 +309,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
                             </>
                         ) : null
                     )}
-                    <button className="intro-button" onClick={handleGoToGame}>Skip intro</button>
+                    <button className="intro-button" onClick={() => { stopAllAudios(); handleGoToGame(); }}>Skip intro & close all sound</button>
                 </>
             )}
         </div>

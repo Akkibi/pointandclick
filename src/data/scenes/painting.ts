@@ -1,5 +1,6 @@
 import type { SceneType } from "../../types/scene";
 import { characters } from "../characters";
+import { paintingAudio } from "../audio/paintingAudio";
 
 const painting: SceneType = {
     isStageLookingFront: true,
@@ -8,7 +9,7 @@ const painting: SceneType = {
             "#fe0000": "scene8",
         },
     },
-    sound: "path/of/sound",
+    audioProgressive: { ...paintingAudio, current: "scene9" },
     conversations: [
         {
             name: "painting1",
