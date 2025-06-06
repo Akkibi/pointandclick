@@ -181,7 +181,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
                     />
                 ) : null
             )}
-            <button className="intro-button" onClick={handleGoToGame}>Go to game</button>
+            <button className="intro-button" onClick={handleGoToGame}>Skip intro</button>
         </div>
     );
 };

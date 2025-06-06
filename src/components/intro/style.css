@@ -13,15 +13,14 @@
 .intro-button {
     position: absolute;
     top: 5%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: darkred;
+    left: 2%;
+    background-color: black;
     color: white;
     padding: 2vh 2vh;
     border-radius: 2vh;
     font-size: 1rem;
     border: 1px solid red;
-    min-width: fit-content;
+    /* min-width: fit-content; */
     z-index: 4;
     cursor: pointer;
 }

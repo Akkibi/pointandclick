@@ -1,11 +1,19 @@
 import { CharacterType } from "./character";
 
+export type SceneAudio = {
+    src: string;
+    volume?: number;
+    stopAfter?: number;
+    stopOnCharacterClick?: boolean;
+};
+
 export interface SceneType {
     dependences?: string[];
     isStageLookingFront: boolean;
     doors?: Doors;
     sound?: string;
     conversations?: Conversation[];
+    audio?: SceneAudio;
 }
 
 export interface Doors {

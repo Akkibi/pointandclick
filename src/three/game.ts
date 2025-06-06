@@ -116,6 +116,9 @@ class Game {
                 playerState.currentScene = sceneTarget;
                 console.log("Scene transition start");
                 eventEmitterInstance.trigger("sceneChangeOut", [intersect[0].point]);
+            } else if (intersectName === "character") {
+                eventEmitterInstance.trigger("click-character");
+                // console.log("click", intersectName);
             } else {
                 eventEmitterInstance.trigger(`click-${intersectName}`);
                 // console.log("click", intersectName);

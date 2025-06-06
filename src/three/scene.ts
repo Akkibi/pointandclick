@@ -106,6 +106,28 @@ class Scene {
                 console.warn("Impossible de jouer le son automatiquement :", e);
             });
         }
+
+        const sceneData = playerState.currentSceneData;
+
+        // Gestion audio avancée
+        if (sceneData && sceneData.audio && sceneData.audio.src) {
+            this.audio = new Audio(sceneData.audio.src);
+            this.audio.loop = !sceneData.audio.stopAfter; // loop si pas de stopAfter
+            this.audio.volume = sceneData.audio.volume ?? 1;
+            this.audio.play().catch((e) => {
+                console.warn("Impossible de jouer le son automatiquement :", e);
+            });
+
+            // Stopper après un certain temps si demandé
+            if (sceneData.audio.stopAfter) {
+                setTimeout(() => this.stopSfx(), sceneData.audio.stopAfter);
+            }
+
+            // Stopper sur clic personnage si demandé
+            if (sceneData.audio.stopOnCharacterClick) {
+                eventEmitterInstance.on("click-character", () => this.stopSfx());
+            }
+        }
     }
     public unload = () => {
         this.characters.map((character) => {

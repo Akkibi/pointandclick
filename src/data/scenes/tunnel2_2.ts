@@ -10,6 +10,11 @@ const tunnel2_2: SceneType = {
             "#fe0000": "scene10",
         },
     },
-    sound: "path/of/sound",
+    audio: {
+        src: "audio/stone_worker_sfx.mp3",
+        volume: 0.2,
+        stopAfter: 12000, // en ms, optionnel
+        stopOnCharacterClick: true, // optionnel
+    },
 };
 export default tunnel2_2;

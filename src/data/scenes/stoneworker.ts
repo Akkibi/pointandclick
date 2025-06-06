@@ -9,7 +9,12 @@ const stoneworker: SceneType = {
             "#00ff01": "scene12",
         },
     },
-    sound: "/audio/stone_worker_sfx.mp3",
+    audio: {
+        src: "audio/stone_worker_sfx.mp3",
+        volume: 0.6,
+        stopAfter: 12000, // en ms, optionnel
+        stopOnCharacterClick: true, // optionnel
+    },
     conversations: [
         {
             name: "stoneworker1",
