@@ -9,7 +9,6 @@ import {
     getCurrentConversation,
     getDialog,
     getScene,
-    getSfx,
 } from "./utils/getInfo";
 import { eventEmitterInstance } from "../utils/eventEmitter";
 import Character from "./character";
@@ -253,7 +252,7 @@ class Scene {
                             this.frontBackground.material as THREE.ShaderMaterial
                         ).uniforms.depthMap.value = texture;
                     },
-                )
+                ),
             )
             .then(() =>
                 loadImage(`/scenes/${this.name}/back-depth.opti.webp`, (texture: THREE.Texture) => {

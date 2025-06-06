@@ -53,7 +53,6 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
             audioRefs.current[step] = audio;
             audio.play();
         }
-        // eslint-disable-next-line
     }, [step, showBlackScreen]);
 
     useEffect(() => {
@@ -170,7 +169,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
     };
 
     // Précharge toutes les vidéos pendant l'écran noir
-    const preloadLinks = videoSteps.map((item, idx) => (
+    const preloadLinks = videoSteps.map((item, _idx) => (
         <link rel="preload" as="video" href={item.video} key={"preload-" + item.video} />
     ));
 
