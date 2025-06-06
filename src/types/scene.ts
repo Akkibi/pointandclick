@@ -14,6 +14,17 @@ export interface SceneType {
     sound?: string;
     conversations?: Conversation[];
     audio?: SceneAudio;
+
+    // Ajoute ceci :
+    audioProgressive?: {
+        src: string;
+        minVolume: number;
+        maxVolume: number;
+        scenes: string[];
+        last: string;
+        current?: string;
+        volume?: number; // <-- ajoute cette ligne
+    };
 }
 
 export interface Doors {

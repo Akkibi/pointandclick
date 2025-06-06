@@ -11,6 +11,7 @@ export interface CharacterType {
     onClick: CharacterAnimation;
     onLeave: CharacterAnimation;
     states: stateTypes;
+    stopProgressiveAudio?: boolean; // <-- ajoute cette ligne ici
 }
 
 export interface Sounds {

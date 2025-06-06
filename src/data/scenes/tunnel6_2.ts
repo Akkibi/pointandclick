@@ -1,4 +1,5 @@
 import type { SceneType } from "../../types/scene";
+import { paintingAudio } from "../audio/paintingAudio";
 
 const tunnel6_2: SceneType = {
     isStageLookingFront: true,
@@ -10,7 +11,7 @@ const tunnel6_2: SceneType = {
             "#fe0000": "scene6", // scène précédente
         },
     },
-    sound: "path/of/sound",
+    audioProgressive: { ...paintingAudio, current: "scene7", volume: 0.2 },
 };
 
 export default tunnel6_2;

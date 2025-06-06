@@ -98,6 +98,7 @@ export const characters: Characters = {
     stoneworker: {
         id: 2,
         name: "Stoneworker",
+        stopProgressiveAudio: true,
         sounds: {
             default: ["path/to/sound"],
             happy: ["path/to/sound"],
@@ -127,6 +128,53 @@ export const characters: Characters = {
             default: {
                 default: 25,
                 talking: 25,
+            },
+            happy: {
+                default: 1,
+                talking: 1,
+            },
+            sad: {
+                default: 1,
+                talking: 1,
+            },
+            angry: {
+                default: 1,
+                talking: 1,
+            },
+        },
+    },
+    painting: {
+        id: 3,
+        name: "Painting",
+        sounds: {
+            default: ["path/to/sound"],
+            happy: ["path/to/sound"],
+            angry: ["path/to/sound"],
+            sad: ["path/to/sound"],
+        },
+        idle: {
+            painting1: 12,
+        },
+        hover: {
+            painting1: {
+                transition: 2,
+                default: 6,
+            },
+        },
+        onClick: {
+            painting1: {
+                transition: 1,
+            },
+        },
+        onLeave: {
+            painting1: {
+                transition: 1,
+            },
+        },
+        states: {
+            default: {
+                default: 6,
+                talking: 6,
             },
             happy: {
                 default: 1,

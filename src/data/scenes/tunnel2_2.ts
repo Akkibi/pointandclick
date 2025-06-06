@@ -1,4 +1,5 @@
 import type { SceneType } from "../../types/scene";
+import { stoneWorkerAudio } from "../audio/stoneWorkerAudio";
 
 const tunnel2_2: SceneType = {
     isStageLookingFront: true,
@@ -10,11 +11,6 @@ const tunnel2_2: SceneType = {
             "#fe0000": "scene10",
         },
     },
-    audio: {
-        src: "audio/stone_worker_sfx.mp3",
-        volume: 0.2,
-        stopAfter: 12000, // en ms, optionnel
-        stopOnCharacterClick: true, // optionnel
-    },
+    audioProgressive: { ...stoneWorkerAudio, current: "scene11", volume: 0.2 },
 };
 export default tunnel2_2;

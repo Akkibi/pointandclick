@@ -1,5 +1,6 @@
 import type { SceneType } from "../../types/scene";
 import { characters } from "../characters";
+import { artistAudio } from "../audio/artistAudio";
 
 const artist: SceneType = {
     isStageLookingFront: true,
@@ -8,7 +9,7 @@ const artist: SceneType = {
             "#fe0000": "scene28",
         },
     },
-    sound: "path/of/sound",
+    audioProgressive: { ...artistAudio, current: "scene29", volume: 0.5 },
     conversations: [
         {
             name: "artist1",
@@ -277,7 +278,7 @@ const artist: SceneType = {
                     },
                     options: [
                         {
-                            text: "So you're painting took you to Lutetia...",
+                            text: "So your painting took you to Lutetia...",
                             destination: "So you're painting took you to Lutetia...",
                         },
                         {

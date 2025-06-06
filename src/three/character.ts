@@ -7,6 +7,7 @@ import { cameraInstance } from "./camera";
 import Animation from "./animation";
 import { preloadImagesWithPromise } from "./utils/ImagePreloader";
 import { PositionType } from "../types/scene";
+import Scene from "./scene";
 
 // external functions or files if needed
 
@@ -50,7 +51,9 @@ class Character {
     private animation: Animation;
     private animationData: AnimationDataType = {};
     private orientation: "front" | "back";
+    private characterData: CharacterType;
     constructor(characterData: CharacterType, index: number) {
+        this.characterData = characterData;
         this.index = index;
         this.state = "idle";
         this.name = characterData.name;
@@ -292,6 +295,12 @@ class Character {
     private click = () => {
         if (this.state === "end") return;
         if (this.state !== "hovered") return;
+
+        // Coupe le son progressif seulement si le personnage le demande
+        if (this.characterData.stopProgressiveAudio) {
+            Scene.stopProgressiveAudio();
+        }
+
         this.state = "default";
         // start dialog
         console.log("start available dialog");
