@@ -236,7 +236,7 @@ const Interaction: React.FC = () => {
 
     return (
         <>
-            {playerState.isInteracting && (
+            {playerState.isInteracting && playerState.cutScene === false && (
                 <div
                     className="close-dialog"
                     onClick={() => {
