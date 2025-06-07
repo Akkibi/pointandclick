@@ -13,7 +13,7 @@ export const playerState: PlayerState = {
     objects: ["map"],
     currentScene: "scene1",
     lastScene: "scene1",
-    currentSceneData: scenes[0],
+    currentSceneData: scenes["scene1"],
     currentDialog: "start",
     lastDialog: "start",
     currentDialogData: null,

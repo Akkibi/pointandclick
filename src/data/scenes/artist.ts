@@ -9,7 +9,7 @@ const artist: SceneType = {
             "#fe0000": "scene28",
         },
     },
-    audioProgressive: { ...artistAudio, current: "scene29", volume: 0.5 },
+    audioProgressive: { ...artistAudio, current: "artist", volume: 0.5 },
     conversations: [
         {
             name: "artist1",
@@ -19,7 +19,7 @@ const artist: SceneType = {
             fallback: {
                 name: "artist",
                 text: "Now's not the time.",
-                pose: "default",
+                pose: "idle",
                 speed: 200,
             },
             positions: {

@@ -5,7 +5,7 @@ import Intro from "./components/intro";
 import IsLandscape from "./components/isLandscape/isLandscape";
 import Menu from "./components/menu/menu";
 import FloatingButton from "./components/floatingButton/floatingButton";
-import { preloadVideos } from "./three/utils/ImagePreloader";
+import { preloadVideos, preloadAudios } from "./three/utils/ImagePreloader";
 
 function App() {
     const [isIntroFinished, setIsIntroFinished] = useState(false);
@@ -14,14 +14,33 @@ function App() {
     console.log("full reload");
 
     useEffect(() => {
-        const urls = [
+        const videoUrls = [
             "./intro/beginning.webm",
             "./intro/walk-up.webm",
             "./intro/dialogue.mp4",
             "./intro/leave.webm",
+            "./fenetre.webm",
+            "./death.webm",
+            "./metro.webm",
+            "./escalier.webm",
+            "./suicide.webm",
+            "./leaf.webm",
+            "./road.mov",
         ];
 
-        preloadVideos(urls);
+        const audioUrls = [
+            "./fenetre.wav",
+            "./road.wav",
+            "./statue.wav",
+            "./leaf.wav",
+            "./death.wav",
+            "./metro.wav",
+            "./escalier.wav",
+            "./suicide.wav",
+        ];
+
+        preloadVideos(videoUrls);
+        preloadAudios(audioUrls);
     }, []);
 
     return (

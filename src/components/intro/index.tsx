@@ -6,15 +6,15 @@ interface IntroType {
 }
 
 const videoSteps = [
-    { video: "fenetre.mov", audio: "fenetre.wav" },
+    { video: "fenetre.webm", audio: "fenetre.wav" },
     { video: "road.mov", audio: "road.wav" },
-    { video: "statue.mov", audio: "statue.wav" },
-    { video: "leaf.mov", audio: "leaf.wav" },
-    { video: "death.mov", audio: "death.wav" },
-    { video: "metro.mov", audio: "metro.wav" },
-    { video: "escalier.mov", audio: "escalier.wav" },
-    { video: "fenetre.mov", audio: "fenetre.wav" },
-    { video: "suicide.mov", audio: "suicide.wav" },
+    { video: "statue.webm", audio: "statue.wav" },
+    { video: "leaf.webm", audio: "leaf.wav" },
+    { video: "death.webm", audio: "death.wav" },
+    { video: "metro.webm", audio: "metro.wav" },
+    { video: "escalier.webm", audio: "escalier.wav" },
+    { video: "fenetre.webm", audio: "fenetre.wav" },
+    { video: "suicide.webm", audio: "suicide.wav" },
 ];
 
 const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
@@ -54,25 +54,6 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
             audio.play();
         }
     }, [step, showBlackScreen]);
-
-    useEffect(() => {
-        if (step === 7) {
-            setWithTransition(false);
-            setTextVisible(false);
-            const fadeInTimeout = setTimeout(() => {
-                setWithTransition(true);
-                setTextVisible(true);
-            }, 3000);
-            const fadeOutTimeout = setTimeout(() => {
-                setWithTransition(true);
-                setTextVisible(false);
-            }, 7000);
-            return () => {
-                clearTimeout(fadeInTimeout);
-                clearTimeout(fadeOutTimeout);
-            };
-        }
-    }, [step]);
 
     useEffect(() => {
         if (step === 8) {
@@ -167,11 +148,6 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
     const handleGoToGame = () => {
         setIsIntroFinished(true);
     };
-
-    // Précharge toutes les vidéos pendant l'écran noir
-    const preloadLinks = videoSteps.map((item, _idx) => (
-        <link rel="preload" as="video" href={item.video} key={"preload-" + item.video} />
-    ));
 
     return (
         <div className="intro-container">
@@ -313,7 +289,6 @@ Their path, suspended between reality and fiction, is shaped by encounters with 
                             dossier : <br /> <br />
                         </div>
                     </div>
-                    {preloadLinks}
                     <button
                         style={{
                             background: "#111",
@@ -329,7 +304,7 @@ Their path, suspended between reality and fiction, is shaped by encounters with 
                         }}
                         onClick={() => setShowBlackScreen(false)}
                     >
-                        Commencer
+                        Start
                     </button>
                 </div>
             ) : (
@@ -379,15 +354,6 @@ Their path, suspended between reality and fiction, is shaped by encounters with 
                                             : undefined
                                     }
                                 />
-                                {/* Précharge la vidéo suivante si elle existe */}
-                                {videoSteps[idx + 1] && (
-                                    <link
-                                        rel="preload"
-                                        as="video"
-                                        href={videoSteps[idx + 1].video}
-                                        key={"preload-" + videoSteps[idx + 1].video}
-                                    />
-                                )}
                             </>
                         ) : null,
                     )}

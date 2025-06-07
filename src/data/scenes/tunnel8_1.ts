@@ -8,7 +8,7 @@ const tunnel8_1: SceneType = {
             "#fe0000": "scene27", // scène suivante
         },
         back: {
-            "#fe0000": "scene29", // scène précédente
+            "#fe0000": "artist", // scène précédente
         },
     },
     audioProgressive: { ...artistAudio, current: "scene28", volume: 0.35 },
