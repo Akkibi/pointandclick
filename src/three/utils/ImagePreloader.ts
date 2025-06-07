@@ -12,9 +12,29 @@ const preloadImage = (src: string) => {
     });
 };
 
+const preloadVideo = (src: string) => {
+    return new Promise<string>((resolve) => {
+        const video = document.createElement("video");
+        video.preload = "auto";
+        video.src = src;
+        video.onloadeddata = () => {
+            resolve(src);
+        };
+        video.onerror = video.onabort = () => {
+            console.error(`ERROR LOADING VIDEO: ${src}`);
+            resolve(src);
+        };
+    });
+};
+
 export const preloadImages = async (srcList: string[]) => {
     await Promise.all(srcList.map(preloadImage));
     console.log(`PRELOADED ${srcList.length} IMAGES`);
+};
+
+export const preloadVideos = async (srcList: string[]) => {
+    await Promise.all(srcList.map(preloadVideo));
+    console.log(`PRELOADED ${srcList.length} VIDEOS`);
 };
 
 export const preloadAllImages = async () => {

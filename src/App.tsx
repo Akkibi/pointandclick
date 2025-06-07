@@ -1,16 +1,28 @@
 import ThreeScene from "./three/threeScene";
 import UiElements from "./components/uiElements/uiElements";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Intro from "./components/intro";
 import IsLandscape from "./components/isLandscape/isLandscape";
 import Menu from "./components/menu/menu";
 import FloatingButton from "./components/floatingButton/floatingButton";
+import { preloadVideos } from "./three/utils/ImagePreloader";
 
 function App() {
     const [isIntroFinished, setIsIntroFinished] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     console.log("full reload");
+
+    useEffect(() => {
+        const urls = [
+            "./intro/beginning.webm",
+            "./intro/walk-up.webm",
+            "./intro/dialogue.mp4",
+            "./intro/leave.webm",
+        ];
+
+        preloadVideos(urls);
+    }, []);
 
     return (
         <>
