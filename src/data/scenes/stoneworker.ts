@@ -27,11 +27,7 @@ const stoneworker: SceneType = {
                 0: {
                     x: -1,
                     y: -1.5,
-                    speed: 200,
-                },
-                1: {
-                    x: 2,
-                    y: -1.5,
+                    z: 2,
                     speed: 200,
                 },
             },

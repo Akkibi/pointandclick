@@ -6,15 +6,15 @@ interface IntroType {
 }
 
 const videoSteps = [
-    { video: "fenetre.mov", audio: "fenetre.wav" },
+    { video: "fenetre.webm", audio: "fenetre.wav" },
     { video: "road.mov", audio: "road.wav" },
-    { video: "statue.mov", audio: "statue.wav" },
-    { video: "leaf.mov", audio: "leaf.wav" },
-    { video: "death.mov", audio: "death.wav" },
-    { video: "metro.mov", audio: "metro.wav" },
-    { video: "escalier.mov", audio: "escalier.wav" },
-    { video: "fenetre.mov", audio: "fenetre.wav" },
-    { video: "suicide.mov", audio: "suicide.wav" },
+    { video: "statue.webm", audio: "statue.wav" },
+    { video: "leaf.webm", audio: "leaf.wav" },
+    { video: "death.webm", audio: "death.wav" },
+    { video: "metro.webm", audio: "metro.wav" },
+    { video: "escalier.webm", audio: "escalier.wav" },
+    { video: "fenetre.webm", audio: "fenetre.wav" },
+    { video: "suicide.webm", audio: "suicide.wav" },
 ];
 
 const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {

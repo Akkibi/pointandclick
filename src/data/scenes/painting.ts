@@ -17,7 +17,7 @@ const painting: SceneType = {
             dependences: [],
             characters: [characters.painting],
             positions: {
-                0: { x: 0, y: 0, pose: "default", speed: 800 },
+                0: { x: -2, y: 0, z: 5, pose: "default", speed: 200 },
             },
             dialog: {
                 start: {
