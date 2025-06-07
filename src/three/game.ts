@@ -116,7 +116,7 @@ class Game {
             const intersectName = intersect[0].object.name;
             if (!intersectName) return;
             const sceneTarget = this.scene.checkDoor();
-            console.log("sceneTarget", sceneTarget);
+            // console.log("sceneTarget", sceneTarget);
             if (intersectName === "background") {
                 if (sceneTarget === null) return;
                 playerState.currentScene = sceneTarget;

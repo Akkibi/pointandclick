@@ -130,3 +130,19 @@ body.door-cursor {
         url("/mouseDoor.png") 64 64,
         help;
 }
+
+.blue-tint{
+    position: absolute;
+    inset: 0;
+    z-index: 999;
+    user-select: none;
+    pointer-events: none;
+    background-color: blue;
+    mix-blend-mode: overlay;
+    opacity: 0.1;
+}
+
+.filter-stauration{
+    backdrop-filter: contrast(2) brightness(1.5) saturate(1.5);
+    /* filter: brightness(0.5) saturate(1.5); */
+}

@@ -16,12 +16,6 @@ const artist: SceneType = {
             done: false,
             dependences: [], // Ajoute ici des dépendances si besoin
             characters: [characters.artist],
-            fallback: {
-                name: "artist",
-                text: "Now's not the time.",
-                pose: "idle",
-                speed: 50,
-            },
             positions: {
                 0: {
                     x: 2,
@@ -47,7 +41,8 @@ const artist: SceneType = {
                         },
                         {
                             text: "You’ve been staring at this for a while, haven’t you?",
-                            destination: "Uhm... Hello?",
+                            // destination: "Uhm... Hello?",
+                            destination: "Something's missing.",
                         },
                     ],
                 },
@@ -328,6 +323,24 @@ const artist: SceneType = {
                     ],
                 },
             },
+        },
+        {
+            name: "artist2",
+            done: false,
+            dependences: ["no-access"], // Ajoute ici des dépendences si besoin
+            characters: [characters.artist],
+            fallback: {
+                name: "artist",
+                text: "I can see silence too.",
+                position: {
+                    x: 1.5,
+                    y: -2,
+                    z: 2,
+                    speed: 1,
+                    orientation: "back",
+                },
+            },
+            positions: {},
         },
     ],
 };

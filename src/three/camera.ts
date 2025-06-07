@@ -50,8 +50,8 @@ class Camera {
         point.z -= 35;
         // console.log("point", point);
         gsap.to(this.camera.position, {
-            duration: 0.5,
-            ease: "expo.in",
+            duration: 1,
+            ease: "power3.inOut",
             x: point.x,
             y: point.y,
             z: point.z,

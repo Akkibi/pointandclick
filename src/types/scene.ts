@@ -87,9 +87,10 @@ export interface talkTypes {
 
 export interface Fallback {
     name: string;
-    pose: string;
+    // pose: string;
     text: string;
-    speed: number;
+    // speed: number;
+    position: PositionType;
 }
 
 export interface Dialogs {

@@ -5,6 +5,7 @@ import { playerState } from "../../data/player";
 import {
     FormatedLine,
     getCurrentConversation,
+    getCurrentFallback,
     getDialog,
     getLines,
     getOptions,
@@ -28,7 +29,10 @@ const Interaction: React.FC = () => {
         gsap.timeline({
             onComplete: () => {
                 if (tl.current.progress() < 0.5) return;
-                if (playerState.currentDialog !== null) {
+                if (
+                    playerState.currentDialog !== null &&
+                    playerState.currentConversation !== null
+                ) {
                     eventEmitterInstance.trigger("openInteraction", [playerState.currentDialog]);
                 } else {
                     // if (!playerState.currentConversation) return;
@@ -143,6 +147,17 @@ const Interaction: React.FC = () => {
                 "currentConversation",
                 playerState.currentConversation,
             );
+
+            if (!playerState.currentConversation) {
+                const fallback = getCurrentFallback(playerState.currentScene);
+                console.log("getCurrentFallback", fallback);
+                if (!fallback) return;
+                const line: FormatedLine[] = [{ name: fallback.name, line: [fallback.text] }];
+                const options: Options[] = [{ text: "...", destination: null }];
+                setLines(line);
+                setOptions(options);
+                eventEmitterInstance.trigger("set-character-0-position", [fallback.position]);
+            }
             if (
                 !playerState.currentScene ||
                 !playerState.currentDialog ||

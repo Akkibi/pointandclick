@@ -59,15 +59,23 @@ export const characters: Characters = {
         },
         idle: {
             artist1: 50,
+            fallback: 50,
         },
         hover: {
             artist1: {
                 transition: 13,
                 default: 8,
             },
+            fallback: {
+                transition: 13,
+                default: 8,
+            },
         },
         onClick: {
             artist1: {
+                transition: 50,
+            },
+            fallback: {
                 transition: 50,
             },
         },

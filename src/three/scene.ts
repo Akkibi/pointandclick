@@ -7,6 +7,7 @@ import rgbToHex from "../utils/rgbToHex";
 import {
     getConversationCharacters,
     getCurrentConversation,
+    getCurrentFallback,
     getDialog,
     getScene,
 } from "./utils/getInfo";
@@ -14,6 +15,7 @@ import { eventEmitterInstance } from "../utils/eventEmitter";
 import Character from "./character";
 import loadImage from "./utils/loadImage";
 import hexDistance from "../utils/hexDistance";
+import { characters } from "../data/characters";
 class Scene {
     public instance: THREE.Scene;
     public name: string;
@@ -93,7 +95,20 @@ class Scene {
                 this.characters.push(character);
                 character.loadAllTextures();
             });
+        } else {
+            const fallback = getCurrentFallback(playerState.currentScene);
+            console.log(fallback);
+            if (fallback) {
+                const characterData = characters[fallback.name];
+                console.log(characterData);
+                const character: Character = new Character(characterData, 0);
+                character.setPosition(fallback.position);
+                character.loadAllTextures();
+                this.charactersGroup.add(character.instance);
+                this.characters.push(character);
+            }
         }
+
         this.charactersGroup.position.set(0, 0, -interfaceContent.sceneDeepness / 4);
         this.instance.add(this.charactersGroup);
 
@@ -235,7 +250,6 @@ class Scene {
                     let target = null;
                     Object.entries(doors).forEach(([key, value]) => {
                         if (hexDistance(rgbToHex(rgb), key, 10)) {
-                            console.log("sceneTarget", value);
                             target = value;
                         }
                     });
@@ -246,82 +260,6 @@ class Scene {
             return null;
         }
     }
-
-    // public loadBackgrounds() {
-    //     loadImage(`/scenes/${this.name}/front-albedo.opti.webp`, (texture: THREE.Texture) => {
-    //         (this.frontBackground.material as THREE.ShaderMaterial).uniforms.albedoMap.value =
-    //             texture;
-    //     })
-    //         .then(() =>
-    //             loadImage(
-    //                 `/scenes/${this.name}/back-albedo.opti.webp`,
-    //                 (texture: THREE.Texture) => {
-    //                     (
-    //                         this.backBackground.material as THREE.ShaderMaterial
-    //                     ).uniforms.albedoMap.value = texture;
-    //                 },
-    //             ),
-    //         )
-    //         .then(() =>
-    //             loadImage(
-    //                 `/scenes/${this.name}/front-depth.opti.webp`,
-    //                 (texture: THREE.Texture) => {
-    //                     (
-    //                         this.frontBackground.material as THREE.ShaderMaterial
-    //                     ).uniforms.depthMap.value = texture;
-    //                 },
-    //             ),
-    //         )
-    //         .then(() =>
-    //             loadImage(`/scenes/${this.name}/back-depth.opti.webp`, (texture: THREE.Texture) => {
-    //                 (this.backBackground.material as THREE.ShaderMaterial).uniforms.depthMap.value =
-    //                     texture;
-    //             }),
-    //         )
-    //         .then(() => {
-    //             eventEmitterInstance.trigger("sceneChangeIn");
-    //             console.log("Scene transition end");
-    //         })
-    //         .catch((err) => {
-    //             console.error("Error during loading sequence", err);
-    //         });
-    // }
-    // public loadBackgrounds() {
-    //     loadImage(`/scenes/${this.name}/front-albedo.opti.webp`)
-    //         .then((texture: THREE.Texture) => {
-    //             (this.frontBackground.material as THREE.ShaderMaterial).uniforms.albedoMap.value =
-    //                 texture;
-    //         })
-    //         .catch((err) => {
-    //             console.error("Error during loading front", err);
-    //         });
-    //     loadImage(`/scenes/${this.name}/back-albedo.opti.webp`)
-    //         .then((texture: THREE.Texture) => {
-    //             (this.backBackground.material as THREE.ShaderMaterial).uniforms.albedoMap.value =
-    //                 texture;
-    //         })
-    //         .catch((err) => {
-    //             console.error("Error during loading back", err);
-    //         });
-    //     loadImage(`/scenes/${this.name}/front-depth.opti.webp`)
-    //         .then((texture: THREE.Texture) => {
-    //             (this.frontBackground.material as THREE.ShaderMaterial).uniforms.depthMap.value =
-    //                 texture;
-    //         })
-    //         .catch((err) => {
-    //             console.error("Error during loading front door", err);
-    //         });
-    //     loadImage(`/scenes/${this.name}/back-depth.opti.webp`)
-    //         .then((texture: THREE.Texture) => {
-    //             (this.backBackground.material as THREE.ShaderMaterial).uniforms.depthMap.value =
-    //                 texture;
-    //         })
-    //         .catch((err) => {
-    //             console.error("Error during loading back door", err);
-    //         });
-    //     eventEmitterInstance.trigger("sceneChangeIn");
-    //     console.log("Scene transition end");
-    // }
     public async loadBackgrounds() {
         try {
             const [frontAlbedo, backAlbedo, frontDepth, backDepth] = await Promise.all([

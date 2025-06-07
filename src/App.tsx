@@ -62,6 +62,7 @@ function App() {
             />
             <Menu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
             <IsLandscape />
+            <div className="blue-tint"></div>
         </>
     );
 }

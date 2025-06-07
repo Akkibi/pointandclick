@@ -153,56 +153,37 @@ class Character {
 
     private generateAnimationData = (characterData: CharacterType) => {
         // add emotions later
+
+        const conversation = playerState.currentConversation ?? "fallback";
         const idle: string[] = [];
-        if (characterData.idle[playerState.currentConversation ?? 0]) {
-            for (let i = 0; i < characterData.idle[playerState.currentConversation ?? 0]; i++) {
+        if (characterData.idle[conversation ?? 0]) {
+            for (let i = 0; i < characterData.idle[conversation ?? 0]; i++) {
                 idle.push(
-                    `./characters/${characterData.name.toLowerCase()}/${playerState.currentConversation}/idle/idle${i}.webp`,
+                    `./characters/${characterData.name.toLowerCase()}/${conversation}/idle/idle${i}.webp`,
                 );
             }
         }
         const hoverTransition: string[] = [];
-        if (
-            playerState.currentConversation &&
-            characterData.hover[playerState.currentConversation]?.transition
-        ) {
-            for (
-                let i = 0;
-                i < (characterData.hover[playerState.currentConversation].transition ?? 0);
-                i++
-            ) {
+        if (conversation && characterData.hover[conversation]?.transition) {
+            for (let i = 0; i < (characterData.hover[conversation].transition ?? 0); i++) {
                 hoverTransition.push(
-                    `./characters/${characterData.name.toLowerCase()}/${playerState.currentConversation}/hover-transition/hover-transition${i}.webp`,
+                    `./characters/${characterData.name.toLowerCase()}/${conversation}/hover-transition/hover-transition${i}.webp`,
                 );
             }
         }
         const hover: string[] = [];
-        if (
-            playerState.currentConversation &&
-            characterData.hover[playerState.currentConversation].default
-        ) {
-            for (
-                let i = 0;
-                i < (characterData.hover[playerState.currentConversation].default ?? 0);
-                i++
-            ) {
+        if (conversation && characterData.hover[conversation].default) {
+            for (let i = 0; i < (characterData.hover[conversation].default ?? 0); i++) {
                 hover.push(
-                    `./characters/${characterData.name.toLowerCase()}/${playerState.currentConversation}/hover/hover${i}.webp`,
+                    `./characters/${characterData.name.toLowerCase()}/${conversation}/hover/hover${i}.webp`,
                 );
             }
         }
         const clickTransition: string[] = [];
-        if (
-            playerState.currentConversation &&
-            characterData.onClick[playerState.currentConversation].transition
-        ) {
-            for (
-                let i = 0;
-                i < (characterData.onClick[playerState.currentConversation].transition ?? 0);
-                i++
-            ) {
+        if (conversation && characterData.onClick[conversation].transition) {
+            for (let i = 0; i < (characterData.onClick[conversation].transition ?? 0); i++) {
                 clickTransition.push(
-                    `./characters/${characterData.name.toLowerCase()}/${playerState.currentConversation}/click-transition/click-transition${i}.webp`,
+                    `./characters/${characterData.name.toLowerCase()}/${conversation}/click-transition/click-transition${i}.webp`,
                 );
             }
         }

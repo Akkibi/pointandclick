@@ -1,7 +1,14 @@
 import { playerState } from "../../data/player";
 import { scenes } from "../../data/scenes";
 import { CharacterType } from "../../types/character";
-import { CharacterPositions, Conversation, Dialog, Options, SceneType } from "../../types/scene";
+import {
+    CharacterPositions,
+    Conversation,
+    Dialog,
+    Fallback,
+    Options,
+    SceneType,
+} from "../../types/scene";
 
 export const getScene = (scene: string): SceneType => {
     const currentScene: SceneType | undefined = scenes[scene];
@@ -26,6 +33,11 @@ export const getCurrentConversation = (scene: string): Conversation | null => {
         ) ?? null;
 
     return conversation;
+};
+
+export const getCurrentFallback = (scene: string): Fallback | null => {
+    const conversation = getScene(scene).conversations?.find((c) => c.done === false);
+    return conversation?.fallback ?? null;
 };
 
 function checkDependences(
