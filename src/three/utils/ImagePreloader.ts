@@ -27,6 +27,21 @@ const preloadVideo = (src: string) => {
     });
 };
 
+const preloadAudio = (src: string) => {
+    return new Promise<string>((resolve) => {
+        const audio = new Audio();
+        audio.preload = "auto";
+        audio.src = src;
+        audio.oncanplaythrough = () => {
+            resolve(src);
+        };
+        audio.onerror = audio.onabort = () => {
+            console.error(`ERROR LOADING AUDIO: ${src}`);
+            resolve(src);
+        };
+    });
+};
+
 export const preloadImages = async (srcList: string[]) => {
     await Promise.all(srcList.map(preloadImage));
     console.log(`PRELOADED ${srcList.length} IMAGES`);
@@ -35,6 +50,11 @@ export const preloadImages = async (srcList: string[]) => {
 export const preloadVideos = async (srcList: string[]) => {
     await Promise.all(srcList.map(preloadVideo));
     console.log(`PRELOADED ${srcList.length} VIDEOS`);
+};
+
+export const preloadAudios = async (srcList: string[]) => {
+    await Promise.all(srcList.map(preloadAudio));
+    console.log(`PRELOADED ${srcList.length} AUDIOS`);
 };
 
 export const preloadAllImages = async () => {
