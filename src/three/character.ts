@@ -317,8 +317,17 @@ class Character {
     };
 
     private endInteraction = () => {
-        if (this.state === "end") return;
-        this.state = "end";
+        if (this.state === "idle") return;
+        this.state = "idle";
+
+        const reverseTransition = [...(this.animationData.hoverTransition ?? [])];
+        reverseTransition?.reverse();
+
+        const animation = {
+            transition: reverseTransition,
+            loop: this.animationData.idle,
+        };
+        this.animation.set(animation);
     };
 
     private startTalking = () => {

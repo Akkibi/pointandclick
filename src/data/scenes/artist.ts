@@ -26,13 +26,9 @@ const artist: SceneType = {
                 0: {
                     x: 2,
                     y: -2,
+                    z: 2,
                     speed: 200,
-                },
-                1: {
-                    x: 2,
-                    y: -1.5,
-                    pose: "hover-transition",
-                    speed: 100,
+                    orientation: "back",
                 },
             },
             enterAnimation: {

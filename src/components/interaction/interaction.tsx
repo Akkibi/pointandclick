@@ -203,6 +203,7 @@ const Interaction: React.FC = () => {
             }
             if (destination === "close-dialog") {
                 playerState.isInteracting = false;
+                eventEmitterInstance.trigger("end-character-interaction");
             }
             if (destination === null) {
                 setConversationDone(
@@ -218,6 +219,7 @@ const Interaction: React.FC = () => {
                     getCurrentConversation(playerState.currentScene),
                 );
                 playerState.isInteracting = false;
+                eventEmitterInstance.trigger("end-character-interaction");
             }
         };
         eventEmitterInstance.on("openInteraction", handleInteractionOpen);

@@ -59,9 +59,9 @@ const UiElements: React.FC = () => {
             <div
                 onClick={() => {
                     if (introVideo === "beginning" && showIntroAnimation) {
-                        eventEmitterInstance.trigger("openInteraction");
-                        console.log("open interraction");
-                        playerState.isInteracting = true;
+                        // eventEmitterInstance.trigger("openInteraction");
+                        // console.log("open interraction");
+                        // playerState.isInteracting = true;
                         setIntroVideo("walk-up");
                     }
                 }}
@@ -84,6 +84,9 @@ const UiElements: React.FC = () => {
                         autoPlay
                         src="./intro/walk-up.webm"
                         onEnded={() => {
+                            eventEmitterInstance.trigger("openInteraction");
+                            console.log("open interraction");
+                            playerState.isInteracting = true;
                             setIntroVideo("dialogue");
                         }}
                     ></video>
