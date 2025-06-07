@@ -56,25 +56,6 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
     }, [step, showBlackScreen]);
 
     useEffect(() => {
-        if (step === 7) {
-            setWithTransition(false);
-            setTextVisible(false);
-            const fadeInTimeout = setTimeout(() => {
-                setWithTransition(true);
-                setTextVisible(true);
-            }, 3000);
-            const fadeOutTimeout = setTimeout(() => {
-                setWithTransition(true);
-                setTextVisible(false);
-            }, 7000);
-            return () => {
-                clearTimeout(fadeInTimeout);
-                clearTimeout(fadeOutTimeout);
-            };
-        }
-    }, [step]);
-
-    useEffect(() => {
         if (step === 8) {
             setWithTransition(false);
             setTextVisible(false);
@@ -167,11 +148,6 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
     const handleGoToGame = () => {
         setIsIntroFinished(true);
     };
-
-    // Précharge toutes les vidéos pendant l'écran noir
-    const preloadLinks = videoSteps.map((item, _idx) => (
-        <link rel="preload" as="video" href={item.video} key={"preload-" + item.video} />
-    ));
 
     return (
         <div className="intro-container">
@@ -313,7 +289,6 @@ Their path, suspended between reality and fiction, is shaped by encounters with 
                             dossier : <br /> <br />
                         </div>
                     </div>
-                    {preloadLinks}
                     <button
                         style={{
                             background: "#111",
@@ -379,15 +354,6 @@ Their path, suspended between reality and fiction, is shaped by encounters with 
                                             : undefined
                                     }
                                 />
-                                {/* Précharge la vidéo suivante si elle existe */}
-                                {videoSteps[idx + 1] && (
-                                    <link
-                                        rel="preload"
-                                        as="video"
-                                        href={videoSteps[idx + 1].video}
-                                        key={"preload-" + videoSteps[idx + 1].video}
-                                    />
-                                )}
                             </>
                         ) : null,
                     )}
