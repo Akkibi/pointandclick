@@ -26,7 +26,7 @@ const artist: SceneType = {
                 0: {
                     x: 2,
                     y: -2,
-                    z: 2,
+                    z: 5,
                     speed: 50,
                     orientation: "back",
                 },
