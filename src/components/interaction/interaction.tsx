@@ -236,11 +236,12 @@ const Interaction: React.FC = () => {
 
     return (
         <>
-            {playerState.isInteracting && playerState.cutScene === false && (
+            {playerState.isInteracting && (
                 <div
                     className="close-dialog"
                     onClick={() => {
                         eventEmitterInstance.trigger("goto", ["close-dialog"]);
+                        eventEmitterInstance.trigger("close-cutscene");
                     }}
                 >
                     Close dialog

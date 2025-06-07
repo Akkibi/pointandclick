@@ -27,11 +27,18 @@ const UiElements: React.FC = () => {
             setIntroVideo(state);
         };
 
+        const handleCloseCutScene = () => {
+            playerState.cutScene = false;
+            setShowIntroAnimation(false);
+        };
+
         eventEmitterInstance.on("custom-intro-video-state", handleIntroVideoState);
         eventEmitterInstance.on("custom-close-intro", handleCloseIntro);
+        eventEmitterInstance.on("close-cutscene", handleCloseCutScene);
 
         return () => {
             eventEmitterInstance.off("custom-close-intro");
+            eventEmitterInstance.off("close-cutscene");
         };
     }, []);
 
