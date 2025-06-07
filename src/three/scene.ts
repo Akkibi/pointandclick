@@ -230,7 +230,7 @@ class Scene {
             } else if (!playerState.isLookingFront && this.backDoors) {
                 const rgb = getPixelColor(this.backDoors, normalizedPos.x, normalizedPos.y);
 
-                const doors = playerState.currentSceneData.doors?.front;
+                const doors = playerState.currentSceneData.doors?.back;
                 if (doors) {
                     let target = null;
                     Object.entries(doors).forEach(([key, value]) => {
