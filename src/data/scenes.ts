@@ -65,7 +65,7 @@ export const scenes: ScenesType = {
     scene26: tunnel7_5,
     scene27: split3,
     scene28: tunnel8_1,
-    scene29: artist,
+    artist: artist,
     scene30: tunnel9_1,
     scene31: tunnel9_2,
     // scene32: chessroom, //split

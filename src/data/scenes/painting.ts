@@ -17,7 +17,7 @@ const painting: SceneType = {
             dependences: [],
             characters: [characters.painting],
             positions: {
-                0: { x: 0, y: 0, pose: "default", speed: 800 },
+                0: { x: 0, y: 0, pose: "idle", speed: 800 },
             },
             dialog: {
                 start: {
@@ -26,7 +26,10 @@ const painting: SceneType = {
                     },
                     options: [
                         { text: "Who are you??", destination: "Who are you??" },
-                        { text: "Did that...thing just insult me?", destination: "Did that...thing just insult me?" },
+                        {
+                            text: "Did that...thing just insult me?",
+                            destination: "Did that...thing just insult me?",
+                        },
                         { text: "Okay, rude.", destination: "Okay, rude." },
                     ],
                 },
@@ -37,8 +40,14 @@ const painting: SceneType = {
                         ],
                     },
                     options: [
-                        { text: "I’m not thinking anything.", destination: "I’m not thinking anything." },
-                        { text: "You’re kind of an asshole.", destination: "You’re kind of an asshole." },
+                        {
+                            text: "I’m not thinking anything.",
+                            destination: "I’m not thinking anything.",
+                        },
+                        {
+                            text: "You’re kind of an asshole.",
+                            destination: "You’re kind of an asshole.",
+                        },
                         { text: "Are you alive...?", destination: "Are you alive...?" },
                     ],
                 },
@@ -49,8 +58,14 @@ const painting: SceneType = {
                         ],
                     },
                     options: [
-                        { text: "I’m not thinking anything.", destination: "I’m not thinking anything." },
-                        { text: "You’re kind of an asshole.", destination: "You’re kind of an asshole." },
+                        {
+                            text: "I’m not thinking anything.",
+                            destination: "I’m not thinking anything.",
+                        },
+                        {
+                            text: "You’re kind of an asshole.",
+                            destination: "You’re kind of an asshole.",
+                        },
                         { text: "Are you alive...?", destination: "Are you alive...?" },
                     ],
                 },
@@ -61,8 +76,14 @@ const painting: SceneType = {
                         ],
                     },
                     options: [
-                        { text: "I’m not thinking anything.", destination: "I’m not thinking anything." },
-                        { text: "You’re kind of an asshole.", destination: "You’re kind of an asshole." },
+                        {
+                            text: "I’m not thinking anything.",
+                            destination: "I’m not thinking anything.",
+                        },
+                        {
+                            text: "You’re kind of an asshole.",
+                            destination: "You’re kind of an asshole.",
+                        },
                         { text: "Are you alive...?", destination: "Are you alive...?" },
                     ],
                 },
@@ -74,8 +95,14 @@ const painting: SceneType = {
                         ],
                     },
                     options: [
-                        { text: "What kind of weird creature are you?", destination: "What kind of weird creature are you?" },
-                        { text: "Wait... are you that artist’s painting?", destination: "Wait... are you that artist’s painting?" },
+                        {
+                            text: "What kind of weird creature are you?",
+                            destination: "What kind of weird creature are you?",
+                        },
+                        {
+                            text: "Wait... are you that artist’s painting?",
+                            destination: "Wait... are you that artist’s painting?",
+                        },
                     ],
                 },
                 "You’re kind of an asshole.": {
@@ -86,8 +113,14 @@ const painting: SceneType = {
                         ],
                     },
                     options: [
-                        { text: "What kind of weird creature are you?", destination: "What kind of weird creature are you?" },
-                        { text: "Wait... are you that artist’s painting?", destination: "Wait... are you that artist’s painting?" },
+                        {
+                            text: "What kind of weird creature are you?",
+                            destination: "What kind of weird creature are you?",
+                        },
+                        {
+                            text: "Wait... are you that artist’s painting?",
+                            destination: "Wait... are you that artist’s painting?",
+                        },
                     ],
                 },
                 "Are you alive...?": {
@@ -98,18 +131,25 @@ const painting: SceneType = {
                         ],
                     },
                     options: [
-                        { text: "What kind of weird creature are you?", destination: "What kind of weird creature are you?" },
-                        { text: "Wait... are you that artist’s painting?", destination: "Wait... are you that artist’s painting?" },
+                        {
+                            text: "What kind of weird creature are you?",
+                            destination: "What kind of weird creature are you?",
+                        },
+                        {
+                            text: "Wait... are you that artist’s painting?",
+                            destination: "Wait... are you that artist’s painting?",
+                        },
                     ],
                 },
                 "What kind of weird creature are you?": {
                     lines: {
-                        0: [
-                            "Weird? Says the stupid fleshy blob talking to a piece of art.",
-                        ],
+                        0: ["Weird? Says the stupid fleshy blob talking to a piece of art."],
                     },
                     options: [
-                        { text: "Wait... are you that artist’s painting?", destination: "Wait... are you that artist’s painting?" },
+                        {
+                            text: "Wait... are you that artist’s painting?",
+                            destination: "Wait... are you that artist’s painting?",
+                        },
                     ],
                 },
                 "Wait... are you that artist’s painting?": {
@@ -120,8 +160,14 @@ const painting: SceneType = {
                         ],
                     },
                     options: [
-                        { text: "She told me you could help me find Lutetia.", destination: "She told me you could help me find Lutetia." },
-                        { text: "She said you showed her something important.", destination: "She said you showed her something important." },
+                        {
+                            text: "She told me you could help me find Lutetia.",
+                            destination: "She told me you could help me find Lutetia.",
+                        },
+                        {
+                            text: "She said you showed her something important.",
+                            destination: "She said you showed her something important.",
+                        },
                     ],
                 },
                 "She told me you could help me find Lutetia.": {
@@ -131,8 +177,14 @@ const painting: SceneType = {
                         ],
                     },
                     options: [
-                        { text: "So you don't know the way?", destination: "So you don't know the way?" },
-                        { text: "So you forgot how to get there?", destination: "So you forgot how to get there?" },
+                        {
+                            text: "So you don't know the way?",
+                            destination: "So you don't know the way?",
+                        },
+                        {
+                            text: "So you forgot how to get there?",
+                            destination: "So you forgot how to get there?",
+                        },
                     ],
                 },
                 "She said you showed her something important.": {
@@ -142,31 +194,45 @@ const painting: SceneType = {
                         ],
                     },
                     options: [
-                        { text: "So you don't know the way?", destination: "So you don't know the way?" },
-                        { text: "So you forgot how to get there?", destination: "So you forgot how to get there?" },
+                        {
+                            text: "So you don't know the way?",
+                            destination: "So you don't know the way?",
+                        },
+                        {
+                            text: "So you forgot how to get there?",
+                            destination: "So you forgot how to get there?",
+                        },
                     ],
                 },
                 "So you don't know the way?": {
                     lines: {
-                        0: [
-                            "There is no way, don't you understand??",
-                        ],
+                        0: ["There is no way, don't you understand??"],
                     },
                     options: [
-                        { text: "So no one can really help me.", destination: "So no one can really help me." },
-                        { text: "So I have to figure it out alone.", destination: "So I have to figure it out alone." },
+                        {
+                            text: "So no one can really help me.",
+                            destination: "So no one can really help me.",
+                        },
+                        {
+                            text: "So I have to figure it out alone.",
+                            destination: "So I have to figure it out alone.",
+                        },
                         { text: "This is going to suck", destination: "This is going to suck" },
                     ],
                 },
                 "So you forgot how to get there?": {
                     lines: {
-                        0: [
-                            "There is no way, don't you understand??",
-                        ],
+                        0: ["There is no way, don't you understand??"],
                     },
                     options: [
-                        { text: "So no one can really help me.", destination: "So no one can really help me." },
-                        { text: "So I have to figure it out alone.", destination: "So I have to figure it out alone." },
+                        {
+                            text: "So no one can really help me.",
+                            destination: "So no one can really help me.",
+                        },
+                        {
+                            text: "So I have to figure it out alone.",
+                            destination: "So I have to figure it out alone.",
+                        },
                         { text: "This is going to suck", destination: "This is going to suck" },
                     ],
                 },
@@ -180,8 +246,14 @@ const painting: SceneType = {
                     },
                     options: [
                         { text: "But how??", destination: "But how??" },
-                        { text: "And what if I’m not enough?", destination: "And what if I’m not enough?" },
-                        { text: "I don’t know where to start.", destination: "I don’t know where to start." },
+                        {
+                            text: "And what if I’m not enough?",
+                            destination: "And what if I’m not enough?",
+                        },
+                        {
+                            text: "I don’t know where to start.",
+                            destination: "I don’t know where to start.",
+                        },
                     ],
                 },
                 "So I have to figure it out alone.": {
@@ -194,8 +266,14 @@ const painting: SceneType = {
                     },
                     options: [
                         { text: "But how??", destination: "But how??" },
-                        { text: "And what if I’m not enough?", destination: "And what if I’m not enough?" },
-                        { text: "I don’t know where to start.", destination: "I don’t know where to start." },
+                        {
+                            text: "And what if I’m not enough?",
+                            destination: "And what if I’m not enough?",
+                        },
+                        {
+                            text: "I don’t know where to start.",
+                            destination: "I don’t know where to start.",
+                        },
                     ],
                 },
                 "This is going to suck": {
@@ -205,8 +283,14 @@ const painting: SceneType = {
                         ],
                     },
                     options: [
-                        { text: "So no one can really help me.", destination: "So no one can really help me." },
-                        { text: "So I have to figure it out alone.", destination: "So I have to figure it out alone." },
+                        {
+                            text: "So no one can really help me.",
+                            destination: "So no one can really help me.",
+                        },
+                        {
+                            text: "So I have to figure it out alone.",
+                            destination: "So I have to figure it out alone.",
+                        },
                     ],
                 },
                 "But how??": {
@@ -217,7 +301,10 @@ const painting: SceneType = {
                     },
                     options: [
                         { text: "I don’t get it.", destination: "I don’t get it." },
-                        { text: "I don’t know how to do that.", destination: "I don’t know how to do that." },
+                        {
+                            text: "I don’t know how to do that.",
+                            destination: "I don’t know how to do that.",
+                        },
                         { text: "That sounds exhausting.", destination: "That sounds exhausting." },
                     ],
                 },
@@ -229,7 +316,10 @@ const painting: SceneType = {
                     },
                     options: [
                         { text: "I don’t get it.", destination: "I don’t get it." },
-                        { text: "I don’t know how to do that.", destination: "I don’t know how to do that." },
+                        {
+                            text: "I don’t know how to do that.",
+                            destination: "I don’t know how to do that.",
+                        },
                         { text: "That sounds exhausting.", destination: "That sounds exhausting." },
                     ],
                 },
@@ -241,7 +331,10 @@ const painting: SceneType = {
                     },
                     options: [
                         { text: "I don’t get it.", destination: "I don’t get it." },
-                        { text: "I don’t know how to do that.", destination: "I don’t know how to do that." },
+                        {
+                            text: "I don’t know how to do that.",
+                            destination: "I don’t know how to do that.",
+                        },
                         { text: "That sounds exhausting.", destination: "That sounds exhausting." },
                     ],
                 },
@@ -254,8 +347,14 @@ const painting: SceneType = {
                     },
                     options: [
                         { text: "What does that mean?", destination: "What does that mean?" },
-                        { text: "Like what? A drawing? A scream?", destination: "Like what? A drawing? A scream?" },
-                        { text: "Why would it give me anything back?", destination: "Why would it give me anything back?" },
+                        {
+                            text: "Like what? A drawing? A scream?",
+                            destination: "Like what? A drawing? A scream?",
+                        },
+                        {
+                            text: "Why would it give me anything back?",
+                            destination: "Why would it give me anything back?",
+                        },
                     ],
                 },
                 "I don’t know how to do that.": {
@@ -267,8 +366,14 @@ const painting: SceneType = {
                     },
                     options: [
                         { text: "What does that mean?", destination: "What does that mean?" },
-                        { text: "Like what? A drawing? A scream?", destination: "Like what? A drawing? A scream?" },
-                        { text: "Why would it give me anything back?", destination: "Why would it give me anything back?" },
+                        {
+                            text: "Like what? A drawing? A scream?",
+                            destination: "Like what? A drawing? A scream?",
+                        },
+                        {
+                            text: "Why would it give me anything back?",
+                            destination: "Why would it give me anything back?",
+                        },
                     ],
                 },
                 "That sounds exhausting.": {
@@ -291,9 +396,7 @@ const painting: SceneType = {
                             "Here. Take this. It’s not much. But it’s a beginning.",
                         ],
                     },
-                   options: [
-{ text: "... I guess I'll give it a shot.", destination: null },
-],
+                    options: [{ text: "... I guess I'll give it a shot.", destination: null }],
                 },
                 "Like what? A drawing? A scream?": {
                     lines: {
@@ -302,9 +405,7 @@ const painting: SceneType = {
                             "Here. Take this. It’s not much. But it’s a beginning.",
                         ],
                     },
-                    options: [
-{ text: "... I guess I'll give it a shot.", destination: null },
-],
+                    options: [{ text: "... I guess I'll give it a shot.", destination: null }],
                 },
                 "Why would it give me anything back?": {
                     lines: {
@@ -314,9 +415,7 @@ const painting: SceneType = {
                             "Here. Take this. It’s not much. But it’s a beginning.",
                         ],
                     },
-                    options: [
-{ text: "... I guess I'll give it a shot.", destination: null },
-],
+                    options: [{ text: "... I guess I'll give it a shot.", destination: null }],
                 },
             },
         },

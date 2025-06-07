@@ -117,5 +117,5 @@ export const getOptions = (
 };
 
 export const getSfx = (scene: string): string | undefined => {
-  return getScene(scene).sound;
+    return getScene(scene).sound;
 };
