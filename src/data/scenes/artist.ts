@@ -41,8 +41,8 @@ const artist: SceneType = {
                         },
                         {
                             text: "You’ve been staring at this for a while, haven’t you?",
-                            // destination: "Uhm... Hello?",
-                            destination: "Something's missing.",
+                            destination: "Uhm... Hello?",
+                            // destination: "Something's missing.",
                         },
                     ],
                 },
@@ -325,9 +325,9 @@ const artist: SceneType = {
             },
         },
         {
-            name: "artist2",
+            name: "end",
             done: false,
-            dependences: ["no-access"], // Ajoute ici des dépendences si besoin
+            dependences: ["no-access"], // impossible to get dependence
             characters: [characters.artist],
             fallback: {
                 name: "artist",
