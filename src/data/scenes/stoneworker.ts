@@ -19,7 +19,7 @@ const stoneworker: SceneType = {
             characters: [characters.stoneworker],
             fallback: {
                 name: "stoneworker",
-                pose: "default",
+                pose: "idle",
                 text: "The stoneworker is busy.",
                 speed: 200,
             },

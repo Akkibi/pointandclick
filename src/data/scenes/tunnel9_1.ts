@@ -4,7 +4,7 @@ const tunnel9_1: SceneType = {
     isStageLookingFront: true,
     doors: {
         front: {
-            "#fe0000": "scene29", // scène suivante
+            "#fe0000": "artist", // scène suivante
         },
         back: {
             "#fe0000": "scene31", // scène précédente

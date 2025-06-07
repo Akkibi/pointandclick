@@ -68,7 +68,7 @@ class Camera {
             {
                 x: 0,
                 y: 0,
-                z: 2 * interfaceContent.sceneDeepness,
+                z: 4 * interfaceContent.sceneDeepness,
             },
             {
                 duration: 0.5,

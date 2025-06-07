@@ -304,7 +304,7 @@ Their path, suspended between reality and fiction, is shaped by encounters with 
                         }}
                         onClick={() => setShowBlackScreen(false)}
                     >
-                        Commencer
+                        Start
                     </button>
                 </div>
             ) : (

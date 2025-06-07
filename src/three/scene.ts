@@ -247,44 +247,80 @@ class Scene {
         }
     }
 
+    // public loadBackgrounds() {
+    //     loadImage(`/scenes/${this.name}/front-albedo.opti.webp`, (texture: THREE.Texture) => {
+    //         (this.frontBackground.material as THREE.ShaderMaterial).uniforms.albedoMap.value =
+    //             texture;
+    //     })
+    //         .then(() =>
+    //             loadImage(
+    //                 `/scenes/${this.name}/back-albedo.opti.webp`,
+    //                 (texture: THREE.Texture) => {
+    //                     (
+    //                         this.backBackground.material as THREE.ShaderMaterial
+    //                     ).uniforms.albedoMap.value = texture;
+    //                 },
+    //             ),
+    //         )
+    //         .then(() =>
+    //             loadImage(
+    //                 `/scenes/${this.name}/front-depth.opti.webp`,
+    //                 (texture: THREE.Texture) => {
+    //                     (
+    //                         this.frontBackground.material as THREE.ShaderMaterial
+    //                     ).uniforms.depthMap.value = texture;
+    //                 },
+    //             ),
+    //         )
+    //         .then(() =>
+    //             loadImage(`/scenes/${this.name}/back-depth.opti.webp`, (texture: THREE.Texture) => {
+    //                 (this.backBackground.material as THREE.ShaderMaterial).uniforms.depthMap.value =
+    //                     texture;
+    //             }),
+    //         )
+    //         .then(() => {
+    //             eventEmitterInstance.trigger("sceneChangeIn");
+    //             console.log("Scene transition end");
+    //         })
+    //         .catch((err) => {
+    //             console.error("Error during loading sequence", err);
+    //         });
+    // }
     public loadBackgrounds() {
-        loadImage(`/scenes/${this.name}/front-albedo.opti.webp`, (texture: THREE.Texture) => {
-            (this.frontBackground.material as THREE.ShaderMaterial).uniforms.albedoMap.value =
-                texture;
-        })
-            .then(() =>
-                loadImage(
-                    `/scenes/${this.name}/back-albedo.opti.webp`,
-                    (texture: THREE.Texture) => {
-                        (
-                            this.backBackground.material as THREE.ShaderMaterial
-                        ).uniforms.albedoMap.value = texture;
-                    },
-                ),
-            )
-            .then(() =>
-                loadImage(
-                    `/scenes/${this.name}/front-depth.opti.webp`,
-                    (texture: THREE.Texture) => {
-                        (
-                            this.frontBackground.material as THREE.ShaderMaterial
-                        ).uniforms.depthMap.value = texture;
-                    },
-                ),
-            )
-            .then(() =>
-                loadImage(`/scenes/${this.name}/back-depth.opti.webp`, (texture: THREE.Texture) => {
-                    (this.backBackground.material as THREE.ShaderMaterial).uniforms.depthMap.value =
-                        texture;
-                }),
-            )
-            .then(() => {
-                eventEmitterInstance.trigger("sceneChangeIn");
-                console.log("Scene transition end");
+        loadImage(`/scenes/${this.name}/front-albedo.opti.webp`)
+            .then((texture: THREE.Texture) => {
+                (this.frontBackground.material as THREE.ShaderMaterial).uniforms.albedoMap.value =
+                    texture;
             })
             .catch((err) => {
-                console.error("Error during loading sequence", err);
+                console.error("Error during loading front", err);
             });
+        loadImage(`/scenes/${this.name}/back-albedo.opti.webp`)
+            .then((texture: THREE.Texture) => {
+                (this.backBackground.material as THREE.ShaderMaterial).uniforms.albedoMap.value =
+                    texture;
+            })
+            .catch((err) => {
+                console.error("Error during loading back", err);
+            });
+        loadImage(`/scenes/${this.name}/front-depth.opti.webp`)
+            .then((texture: THREE.Texture) => {
+                (this.frontBackground.material as THREE.ShaderMaterial).uniforms.depthMap.value =
+                    texture;
+            })
+            .catch((err) => {
+                console.error("Error during loading front door", err);
+            });
+        loadImage(`/scenes/${this.name}/back-depth.opti.webp`)
+            .then((texture: THREE.Texture) => {
+                (this.backBackground.material as THREE.ShaderMaterial).uniforms.depthMap.value =
+                    texture;
+            })
+            .catch((err) => {
+                console.error("Error during loading back door", err);
+            });
+        eventEmitterInstance.trigger("sceneChangeIn");
+        console.log("Scene transition end");
     }
 
     public backgroundElementsLoader() {
