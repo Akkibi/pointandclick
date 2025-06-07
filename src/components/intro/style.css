@@ -13,7 +13,7 @@
 .intro-button {
     position: absolute;
     top: 3vh;
-    left: 3vh;
+    right: 3vh;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 2vh 2vh;

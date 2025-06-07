@@ -181,7 +181,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
                         position: "fixed",
                         inset: 0,
                         background: "#000",
-                        zIndex: 1000000,
+                        zIndex: 10,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -195,6 +195,7 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
                             display: "flex",
                             flexDirection: "row",
                             gap: "4vw",
+                            height: "fit-content",
                             maxWidth: 1200,
                             width: "100%",
                             justifyContent: "center",
@@ -253,8 +254,9 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
                                 width: 2,
                                 background: "rgba(255,255,255,0.25)",
                                 margin: "0 2vw",
-                                minHeight: 350,
                                 alignSelf: "center",
+                                height: "50%",
+                                flex: "none",
                             }}
                         />
                         <div
@@ -396,7 +398,7 @@ Their path, suspended between reality and fiction, is shaped by encounters with 
                             handleGoToGame();
                         }}
                     >
-                        Skip Intro
+                        Skip Intro →
                     </button>
                 </>
             )}

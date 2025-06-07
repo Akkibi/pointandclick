@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
-import Menu from "../menu/menu";
 import "./style.css";
 import FloatingButton from "../floatingButton/floatingButton";
 import Interaction from "../interaction/interaction";
-import IsLandscape from "../isLandscape/isLandscape";
 import TestActionButton from "../testActionButton/testActionButton";
 import TesingEnvironment from "../tesingEnvironment/tesingEnvironment";
 import { eventEmitterInstance } from "../../utils/eventEmitter";
 import { playerState } from "../../data/player";
 
 const UiElements: React.FC = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showIntroAnimation, setShowIntroAnimation] = useState(true);
     const [introVideo, setIntroVideo] = useState("beginning");
 
@@ -43,7 +40,6 @@ const UiElements: React.FC = () => {
         <>
             <TesingEnvironment />
             <div className="ui">
-                <FloatingButton onClick={() => setIsMenuOpen(true)} />
                 <Interaction />
             </div>
             <div
@@ -101,8 +97,6 @@ const UiElements: React.FC = () => {
                 )}
             </div>
             <TestActionButton />
-            <Menu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
-            <IsLandscape />
         </>
     );
 };

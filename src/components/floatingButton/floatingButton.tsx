@@ -3,11 +3,12 @@ import "./style.css";
 interface FloatingButtonProps {
     onClick?: () => void;
     isClose?: boolean;
+    style?: React.CSSProperties;
 }
 
-const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick, isClose }) => {
+const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick, isClose, style }) => {
     return (
-        <div className="floating-button_container">
+        <div className="floating-button_container" style={style}>
             <button className="floating-button_icon-container" onClick={onClick}>
                 <div className={`floating-button_icon  ${!isClose && "floating - button_hide"}`}>
                     {isClose ? (
