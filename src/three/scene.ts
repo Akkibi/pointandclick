@@ -13,6 +13,7 @@ import {
 import { eventEmitterInstance } from "../utils/eventEmitter";
 import Character from "./character";
 import loadImage from "./utils/loadImage";
+import hexDistance from "../utils/hexDistance";
 class Scene {
     public instance: THREE.Scene;
     public name: string;
@@ -215,16 +216,33 @@ class Scene {
         } else {
             if (playerState.isLookingFront && this.frontDoors) {
                 const rgb = getPixelColor(this.frontDoors, normalizedPos.x, normalizedPos.y);
-                // console.log("tgb",rgb)
-                if (playerState.currentSceneData.doors?.front?.[rgbToHex(rgb)]) {
-                    return playerState.currentSceneData.doors.front[rgbToHex(rgb)];
+
+                const doors = playerState.currentSceneData.doors?.front;
+                if (doors) {
+                    let target = null;
+                    Object.entries(doors).map(([key, value]) => {
+                        if (hexDistance(rgbToHex(rgb), key, 10)) {
+                            target = value;
+                        }
+                    });
+                    return target;
                 }
             } else if (!playerState.isLookingFront && this.backDoors) {
                 const rgb = getPixelColor(this.backDoors, normalizedPos.x, normalizedPos.y);
-                if (playerState.currentSceneData.doors?.back?.[rgbToHex(rgb)]) {
-                    return playerState.currentSceneData.doors.back[rgbToHex(rgb)];
+
+                const doors = playerState.currentSceneData.doors?.front;
+                if (doors) {
+                    let target = null;
+                    Object.entries(doors).forEach(([key, value]) => {
+                        if (hexDistance(rgbToHex(rgb), key, 10)) {
+                            console.log("sceneTarget", value);
+                            target = value;
+                        }
+                    });
+                    return target;
                 }
             }
+            console.log("sceneTarget", null);
             return null;
         }
     }

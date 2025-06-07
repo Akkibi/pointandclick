@@ -1,6 +1,6 @@
 import type { SceneType } from "../../types/scene";
 import { characters } from "../characters";
-import { stoneWorkerAudio } from "../audio/stoneWorkerAudio";   
+import { stoneWorkerAudio } from "../audio/stoneWorkerAudio";
 
 const stoneworker: SceneType = {
     isStageLookingFront: true,
@@ -10,7 +10,7 @@ const stoneworker: SceneType = {
             "#00ff01": "scene12",
         },
     },
-audioProgressive: { ...stoneWorkerAudio, current: "scene13", volume: 0.5 },
+    audioProgressive: { ...stoneWorkerAudio, current: "scene13", volume: 0.5 },
     conversations: [
         {
             name: "stoneworker1",
@@ -21,20 +21,18 @@ audioProgressive: { ...stoneWorkerAudio, current: "scene13", volume: 0.5 },
                 name: "stoneworker",
                 pose: "default",
                 text: "The stoneworker is busy.",
-                speed: 400,
+                speed: 200,
             },
             positions: {
                 0: {
                     x: -1,
                     y: -1.5,
-                    pose: "default",
-                    speed: 400,
+                    speed: 200,
                 },
                 1: {
                     x: 2,
                     y: -1.5,
-                    pose: "default",
-                    speed: 400,
+                    speed: 200,
                 },
             },
             enterAnimation: {

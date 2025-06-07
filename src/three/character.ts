@@ -267,6 +267,7 @@ class Character {
     // end state dosent have any looping animation
 
     private hover = () => {
+        console.log("hover", this.state);
         if (this.state === "end" || this.state === "hovered") return;
         if (this.state !== "idle") return;
         this.state = "hovered";
@@ -279,6 +280,7 @@ class Character {
     };
 
     private endHover = () => {
+        console.log("end-hover", this.state);
         if (this.state === "end" || this.state !== "hovered") return;
         this.state = "idle";
 

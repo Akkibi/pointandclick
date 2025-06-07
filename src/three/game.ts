@@ -109,7 +109,7 @@ class Game {
         if (playerState.mouse.target.y >= window.innerHeight * 0.9) {
             eventEmitterInstance.trigger("turnCamera", []);
         } else {
-            console.log(playerState.cutScene, playerState.isInteracting);
+            console.log("cutscene, isinteracting", playerState.cutScene, playerState.isInteracting);
             if (playerState.cutScene) return;
             if (playerState.isInteracting) return;
             const intersect = this.raycast();

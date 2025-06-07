@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./style.css";
-import FloatingButton from "../floatingButton/floatingButton";
 import Interaction from "../interaction/interaction";
 import TestActionButton from "../testActionButton/testActionButton";
 import TesingEnvironment from "../tesingEnvironment/tesingEnvironment";
@@ -36,6 +35,21 @@ const UiElements: React.FC = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "$") {
+                playerState.cutScene = false;
+                playerState.isInteracting = false;
+                setShowIntroAnimation(false);
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [setShowIntroAnimation]);
+
     return (
         <>
             <TesingEnvironment />
@@ -44,7 +58,7 @@ const UiElements: React.FC = () => {
             </div>
             <div
                 onClick={() => {
-                    if (introVideo === "beginning") {
+                    if (introVideo === "beginning" && showIntroAnimation) {
                         eventEmitterInstance.trigger("openInteraction");
                         console.log("open interraction");
                         playerState.isInteracting = true;

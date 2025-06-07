@@ -233,30 +233,34 @@ const Interaction: React.FC = () => {
     }, []);
 
     return (
-        <div className="interaction" ref={containerRef}>
-            <div
-                className="close-dialog"
-                onClick={() => {
-                    eventEmitterInstance.trigger("goto", ["close-dialog"]);
-                }}
-            >
-                Close dialog
-            </div>
-            <div className="interaction_perspective-container">
-                <div className="interaction_character-text-container" ref={characterTextRef}>
-                    {lines.length > 0 &&
-                        lines.map((line, index) => (
-                            <CharacterTextBox
-                                line={line.line}
-                                name={line.name}
-                                key={index}
-                                characterIndex={index}
-                            />
-                        ))}
+        <>
+            {playerState.isInteracting && (
+                <div
+                    className="close-dialog"
+                    onClick={() => {
+                        eventEmitterInstance.trigger("goto", ["close-dialog"]);
+                    }}
+                >
+                    Close dialog
                 </div>
+            )}
+            <div className="interaction" ref={containerRef}>
+                <div className="interaction_perspective-container">
+                    <div className="interaction_character-text-container" ref={characterTextRef}>
+                        {lines.length > 0 &&
+                            lines.map((line, index) => (
+                                <CharacterTextBox
+                                    line={line.line}
+                                    name={line.name}
+                                    key={index}
+                                    characterIndex={index}
+                                />
+                            ))}
+                    </div>
+                </div>
+                {options.length > 0 && <UserSelectBox options={options} />}
             </div>
-            {options.length > 0 && <UserSelectBox options={options} />}
-        </div>
+        </>
     );
 };
 

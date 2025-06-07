@@ -62,7 +62,7 @@ export const characters: Characters = {
         },
         hover: {
             artist1: {
-                transition: 32,
+                transition: 13,
                 default: 8,
             },
         },

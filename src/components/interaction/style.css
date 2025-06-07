@@ -30,7 +30,7 @@
 }
 
 .close-dialog{
-    position: fixed;
+    position: absolute;
     z-index: 40;
     top: 3vh;
     right: 3vh;

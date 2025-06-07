@@ -18,15 +18,14 @@ const artist: SceneType = {
             characters: [characters.artist],
             fallback: {
                 name: "artist",
-                pose: "default",
                 text: "Now's not the time.",
-                speed: 400,
+                pose: "default",
+                speed: 200,
             },
             positions: {
                 0: {
                     x: 2,
                     y: -2,
-                    pose: "default",
                     speed: 200,
                 },
                 1: {

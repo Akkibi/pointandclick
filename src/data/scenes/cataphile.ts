@@ -22,8 +22,8 @@ const cataphile: SceneType = {
             // optional fallback
             fallback: {
                 name: "cataphile",
-                pose: "default",
                 text: "it's not the right moment",
+                pose: "default",
                 speed: 400,
             },
             positions: {
