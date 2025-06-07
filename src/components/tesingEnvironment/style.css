@@ -1,29 +1,31 @@
 .tesing-environment{
     position: absolute;
-    z-index: 999;
+    z-index: 9999;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    inset: 0;
     background-color: rgba(0, 0, 0, 0.9);
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 3vh;
+    gap: 2vh;
 }
 
 
 .texting-item-group{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 1vh;
     background-color: black;
     padding: 2vh;
     width: 50vh;
     border-radius: 3vh;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e8edcb;
 }
 
 .texting-item-group input{
@@ -32,4 +34,24 @@
     background-color: darkslategray;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 1vh;
+}
+
+.testing-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1vh;
+}
+
+.testing-btn{
+    padding: 1vh;
+    background-color: #e8edcb10;
+    color: #e8edcb;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1vh;
+    transition: all 200ms ease-out;
+}
+
+.testing-btn:hover{
+    background-color: #e8edcb;
+    color: black;
 }
