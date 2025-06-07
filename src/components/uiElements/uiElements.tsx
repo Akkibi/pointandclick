@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./style.css";
 import Interaction from "../interaction/interaction";
-import TestActionButton from "../testActionButton/testActionButton";
+// import TestActionButton from "../testActionButton/testActionButton";
 import TesingEnvironment from "../tesingEnvironment/tesingEnvironment";
 import { eventEmitterInstance } from "../../utils/eventEmitter";
 import { playerState } from "../../data/player";
