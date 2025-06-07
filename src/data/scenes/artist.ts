@@ -20,14 +20,14 @@ const artist: SceneType = {
                 name: "artist",
                 text: "Now's not the time.",
                 pose: "idle",
-                speed: 200,
+                speed: 50,
             },
             positions: {
                 0: {
                     x: 2,
                     y: -2,
                     z: 2,
-                    speed: 200,
+                    speed: 50,
                     orientation: "back",
                 },
             },

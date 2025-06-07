@@ -110,7 +110,7 @@ export const characters: Characters = {
         },
         hover: {
             stoneworker1: {
-                transition: 14,
+                transition: 6,
                 default: 8,
             },
         },

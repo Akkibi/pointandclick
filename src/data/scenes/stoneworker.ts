@@ -21,14 +21,14 @@ const stoneworker: SceneType = {
                 name: "stoneworker",
                 pose: "idle",
                 text: "The stoneworker is busy.",
-                speed: 200,
+                speed: 100,
             },
             positions: {
                 0: {
                     x: -1,
                     y: -1.5,
                     z: 2,
-                    speed: 200,
+                    speed: 100,
                 },
             },
             enterAnimation: {
