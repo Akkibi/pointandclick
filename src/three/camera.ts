@@ -68,10 +68,11 @@ class Camera {
             {
                 x: 0,
                 y: 0,
-                z: 4 * interfaceContent.sceneDeepness,
+                z: 1.5 * interfaceContent.sceneDeepness,
             },
             {
-                duration: 0.5,
+                duration: 1.5,
+                delay: 0.1,
                 ease: "expo.out",
                 x: 0,
                 y: 0,
