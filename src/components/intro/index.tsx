@@ -290,6 +290,7 @@ Their path, suspended between reality and fiction, is shaped by encounters with 
                         </div>
                     </div>
                     <button
+                        className="clickable"
                         style={{
                             background: "#111",
                             color: "#fff",
@@ -358,7 +359,7 @@ Their path, suspended between reality and fiction, is shaped by encounters with 
                         ) : null,
                     )}
                     <button
-                        className="intro-button"
+                        className="intro-button clickable"
                         onClick={() => {
                             stopAllAudios();
                             handleGoToGame();

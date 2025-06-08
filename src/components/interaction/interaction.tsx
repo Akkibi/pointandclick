@@ -253,13 +253,13 @@ const Interaction: React.FC = () => {
         <>
             {playerState.isInteracting && (
                 <div
-                    className="close-dialog"
+                    className="close-dialog clickable"
                     onClick={() => {
                         eventEmitterInstance.trigger("goto", ["close-dialog"]);
                         eventEmitterInstance.trigger("close-cutscene");
                     }}
                 >
-                    Close dialog
+                    Close dialogue
                 </div>
             )}
             <div className="interaction" ref={containerRef}>

@@ -22,9 +22,8 @@ class Animation {
         this.scale = scale;
         this.material = material;
         this.textureLoader = new THREE.TextureLoader();
-        this.material.map = this.textureLoader.load(
-            "https://cdn3.emoji.gg/emojis/6304-whitesmalldot.png",
-        );
+        this.material.map = this.textureLoader.load("./default.png");
+        this.scale.set(5, 5, 5);
         eventEmitterInstance.on("update", this.update.bind(this));
     }
     private loadTexture = (src: string): Promise<THREE.Texture> => {

@@ -35,7 +35,7 @@ const UserSelectBox: React.FC<{ options: Options[] }> = ({ options }) => {
                 <h3 className="user-select-box_title">My response :</h3>
                 {options.map((option: Options, index: number) => (
                     <button
-                        className="user-select-box_option"
+                        className="user-select-box_option clickable"
                         key={index}
                         onClick={(element) => {
                             interaction(option);

@@ -9,7 +9,7 @@ interface FloatingButtonProps {
 const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick, isClose, style }) => {
     return (
         <div className="floating-button_container" style={style}>
-            <button className="floating-button_icon-container" onClick={onClick}>
+            <button className="floating-button_icon-container clickable" onClick={onClick}>
                 <div className={`floating-button_icon  ${!isClose && "floating - button_hide"}`}>
                     {isClose ? (
                         <svg viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">

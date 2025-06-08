@@ -81,7 +81,7 @@ class Game {
             if (playerState.isInteracting) return;
             const intersect = this.raycast();
             const intersectName = intersect[0]?.object.name;
-            console.log("hover", intersectName);
+            // console.log("hover", intersectName);
             if (intersectName === "background" || !intersectName) {
                 if (this.scene.checkDoor() === null) {
                     document.body.classList.remove("door-cursor");
@@ -93,12 +93,14 @@ class Game {
             }
             if (intersectName === "character" && this.currentHoveredElement !== intersectName) {
                 eventEmitterInstance.trigger(`hover-${intersectName}`, []);
+                document.body.classList.add("clickable");
             }
             if (
                 this.currentHoveredElement === "character" &&
                 this.currentHoveredElement !== intersectName
             ) {
                 eventEmitterInstance.trigger(`end-hover-${this.currentHoveredElement}`, []);
+                document.body.classList.remove("clickable");
             }
 
             this.currentHoveredElement = intersectName;

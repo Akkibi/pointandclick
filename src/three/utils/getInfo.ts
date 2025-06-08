@@ -10,14 +10,16 @@ import {
     SceneType,
 } from "../../types/scene";
 
-export const getScene = (scene: string): SceneType => {
+export const getScene = (scene: string): SceneType | null => {
     const currentScene: SceneType | undefined = scenes[scene];
-    return currentScene ?? scenes["scene1"];
+    return currentScene ?? null;
 };
 
 export const getConversation = (scene: string, conversationName: string): Conversation | null => {
-    const conversation = getScene(scene).conversations?.find((c) => c.name === conversationName);
-    return conversation ?? getScene(scene).conversations?.[0] ?? null;
+    const sceneData = getScene(scene);
+    if (!sceneData) return null;
+    const conversation = sceneData.conversations?.find((c) => c.name === conversationName);
+    return conversation ?? sceneData.conversations?.[0] ?? null;
 };
 
 export const setConversationDone = (scene: string, conversationName: string): void => {
@@ -27,8 +29,10 @@ export const setConversationDone = (scene: string, conversationName: string): vo
 };
 
 export const getCurrentConversation = (scene: string): Conversation | null => {
+    const sceneData = getScene(scene);
+    if (!sceneData) return null;
     const conversation =
-        getScene(scene).conversations?.find(
+        sceneData.conversations?.find(
             (c) => c.done === false && checkDependences(playerState.achievements, c.dependences),
         ) ?? null;
 
@@ -36,7 +40,9 @@ export const getCurrentConversation = (scene: string): Conversation | null => {
 };
 
 export const getCurrentFallback = (scene: string): Fallback | null => {
-    const conversation = getScene(scene).conversations?.find((c) => c.done === false);
+    const sceneData = getScene(scene);
+    if (!sceneData) return null;
+    const conversation = sceneData.conversations?.find((c) => c.done === false);
     return conversation?.fallback ?? null;
 };
 
@@ -129,5 +135,7 @@ export const getOptions = (
 };
 
 export const getSfx = (scene: string): string | undefined => {
-    return getScene(scene).sound;
+    const sceneData = getScene(scene);
+    if (!sceneData) return undefined;
+    return sceneData.sound;
 };

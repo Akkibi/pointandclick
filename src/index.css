@@ -143,3 +143,7 @@ body.door-cursor {
 
 .filter-stauration{
 }
+
+.clickable {
+    cursor: pointer;
+}

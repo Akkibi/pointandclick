@@ -16,6 +16,8 @@ import Character from "./character";
 import loadImage from "./utils/loadImage";
 import hexDistance from "../utils/hexDistance";
 import { characters } from "../data/characters";
+import { scenes } from "../data/scenes";
+import { preloadImages } from "./utils/ImagePreloader";
 class Scene {
     public instance: THREE.Scene;
     public name: string;
@@ -65,7 +67,10 @@ class Scene {
         this.instance.add(this.backBackground);
 
         playerState.currentScene = this.name;
-        playerState.currentSceneData = getScene(name);
+        const sceneData = scenes[this.name];
+        if (sceneData) {
+            playerState.currentSceneData = sceneData;
+        }
         playerState.currentConversation = getCurrentConversation(this.name)?.name ?? null;
         playerState.currentConversationData = getCurrentConversation(this.name) ?? null;
         if (playerState.currentConversation) {
@@ -93,7 +98,6 @@ class Scene {
                 }
                 this.charactersGroup.add(character.instance);
                 this.characters.push(character);
-                character.loadAllTextures();
             });
         } else {
             const fallback = getCurrentFallback(playerState.currentScene);
@@ -103,18 +107,49 @@ class Scene {
                 console.log(characterData);
                 const character: Character = new Character(characterData, 0);
                 character.setPosition(fallback.position);
-                character.loadAllTextures();
                 this.charactersGroup.add(character.instance);
                 this.characters.push(character);
             }
         }
-
         this.charactersGroup.position.set(0, 0, -interfaceContent.sceneDeepness / 4);
         this.instance.add(this.charactersGroup);
 
+        // noise effect shader
         eventEmitterInstance.on("update", this.updateShaderTime.bind(this));
-        // plane.lookAt(0, 0, 0);
-        // this.instance.add(plane);
+
+        //preload other scenes background and characters
+        if (sceneData.doors) {
+            if (sceneData.doors.front) {
+                const doors = sceneData.doors.back ? Object.values(sceneData.doors.back) : null;
+                if (doors) {
+                    doors.forEach((value, _key) => {
+                        preloadImages([
+                            `/scenes/${value}/front-albedo.webp`,
+                            `/scenes/${value}/back-albedo.webp`,
+                            `/scenes/${value}/front-depth.opti.webp`,
+                            `/scenes/${value}/back-depth.opti.webp`,
+                        ]);
+                    });
+                }
+            }
+            if (sceneData.doors.back) {
+                const doors = sceneData.doors.front ? Object.values(sceneData.doors.front) : null;
+                if (doors) {
+                    doors.forEach((value, _key) => {
+                        preloadImages([
+                            `/scenes/${value}/front-albedo.webp`,
+                            `/scenes/${value}/back-albedo.webp`,
+                            `/scenes/${value}/front-depth.opti.webp`,
+                            `/scenes/${value}/back-depth.opti.webp`,
+                        ]);
+                    });
+                }
+            }
+        }
+        // preloadImage(`/scenes/${this.name}/front-albedo.webp`),
+        // preloadImage(`/scenes/${this.name}/back-albedo.webp`),
+        // preloadImage(`/scenes/${this.name}/front-depth.opti.webp`),
+        // preloadImage(`/scenes/${this.name}/back-depth.opti.webp`),
 
         if (playerState.currentSceneData.doors) {
             if (playerState.currentSceneData.doors.front) this.loadDoors(true);
@@ -284,7 +319,16 @@ class Scene {
             (this.backBackground.material as THREE.ShaderMaterial).uniforms.depthMap.value =
                 backDepth;
 
-            eventEmitterInstance.trigger("sceneChangeIn");
+            if (this.characters.length > 0) {
+                const texturePromises = this.characters.map((character) =>
+                    character.loadAllTextures(),
+                );
+                Promise.all(texturePromises).then(() => {
+                    eventEmitterInstance.trigger("sceneChangeIn");
+                });
+            } else {
+                eventEmitterInstance.trigger("sceneChangeIn");
+            }
             console.log("Scene transition end");
         } catch (err) {
             console.error("Error loading images", err);
