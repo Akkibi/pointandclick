@@ -6,10 +6,13 @@ import { getScene } from "../../three/utils/getInfo";
 
 const handleOnchange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const sceneName = event.target.value;
-    console.log(getScene(sceneName).conversations);
+    const sceneData = getScene(sceneName);
+    let conversation = null;
+    if (sceneData) {
+        conversation = sceneData.conversations;
+    }
     const goto = document.querySelector<HTMLSpanElement>("#goto");
     const name = document.querySelector<HTMLSpanElement>("#name");
-    const conversation = getScene(sceneName).conversations;
     if (name && conversation && conversation.length > 0) {
         const nameText = conversation[0].characters[0].name;
         name.innerHTML = nameText;

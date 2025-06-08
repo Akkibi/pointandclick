@@ -9,7 +9,6 @@ import {
     getCurrentConversation,
     getCurrentFallback,
     getDialog,
-    getScene,
 } from "./utils/getInfo";
 import { eventEmitterInstance } from "../utils/eventEmitter";
 import Character from "./character";
