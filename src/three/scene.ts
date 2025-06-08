@@ -112,6 +112,7 @@ class Scene {
         this.charactersGroup.position.set(0, 0, -interfaceContent.sceneDeepness / 4);
         this.instance.add(this.charactersGroup);
 
+        eventEmitterInstance.on("update", this.updateShaderTime.bind(this));
         // plane.lookAt(0, 0, 0);
         // this.instance.add(plane);
 
@@ -167,6 +168,11 @@ class Scene {
             character.unload();
         });
     };
+
+    private updateShaderTime(time: number) {
+        (this.frontBackground.material as THREE.ShaderMaterial).uniforms.time.value = time;
+        (this.backBackground.material as THREE.ShaderMaterial).uniforms.time.value = time;
+    }
     private loadDoors(isFront: boolean) {
         // import an image from `/scenes/${sceneName}/front-doors.jpg` and store its imagedata in this.frontDoors
         const image = new Image();
@@ -263,8 +269,8 @@ class Scene {
     public async loadBackgrounds() {
         try {
             const [frontAlbedo, backAlbedo, frontDepth, backDepth] = await Promise.all([
-                loadImage(`/scenes/${this.name}/front-albedo.opti.webp`),
-                loadImage(`/scenes/${this.name}/back-albedo.opti.webp`),
+                loadImage(`/scenes/${this.name}/front-albedo.webp`),
+                loadImage(`/scenes/${this.name}/back-albedo.webp`),
                 loadImage(`/scenes/${this.name}/front-depth.opti.webp`),
                 loadImage(`/scenes/${this.name}/back-depth.opti.webp`),
             ]);
@@ -309,9 +315,25 @@ class Scene {
         const fragmentShader = `
         uniform sampler2D albedoMap;
         uniform sampler2D depthMap;
+        uniform float time;
+        uniform vec2 resolution;
         varying vec2 vUv;
+
+        float random (vec2 st) {
+            return fract(sin(dot(st.xy,
+                                 vec2(12.9898,78.233)))*
+                43758.5453123);
+        }
+
         void main() {
           vec4 albedo = texture2D(albedoMap, vUv);
+
+          vec2 st = gl_FragCoord.xy/resolution.xy;
+
+          float rnd = random( st + time * 0.01 ) * 0.25;
+          albedo.rgb = mix(albedo.rgb, vec3(0.0), rnd);
+          albedo.b += rnd * 0.1;
+
           gl_FragColor = vec4(albedo.rgb, 1.0);
         }
       `;
@@ -320,6 +342,8 @@ class Scene {
             uniforms: {
                 albedoMap: { value: null },
                 depthMap: { value: null },
+                time: { value: 0 },
+                resolution: { value: new THREE.Vector2(5000, 1000) },
             },
             vertexShader,
             fragmentShader,

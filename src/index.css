@@ -137,12 +137,9 @@ body.door-cursor {
     z-index: 999;
     user-select: none;
     pointer-events: none;
-    background-color: blue;
-    mix-blend-mode: overlay;
-    opacity: 0.1;
+    backdrop-filter: contrast(2) brightness(1.5) saturate(1.5);
+    /* filter: brightness(0.5) saturate(1.5); */
 }
 
 .filter-stauration{
-    backdrop-filter: contrast(2) brightness(1.5) saturate(1.5);
-    /* filter: brightness(0.5) saturate(1.5); */
 }
