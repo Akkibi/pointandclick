@@ -373,9 +373,9 @@ class Scene {
 
           vec2 st = gl_FragCoord.xy/resolution.xy;
 
-          float rnd = random( st + time * 0.01 ) * 0.25;
-          albedo.rgb = mix(albedo.rgb, vec3(0.0), rnd);
-          albedo.b += rnd * 0.1;
+          // float rnd = random( st + time * 0.01 ) * 0.25;
+          // albedo.rgb = mix(albedo.rgb, vec3(0.0), rnd);
+          // calbedo.b += rnd * 0.1;
 
           gl_FragColor = vec4(albedo.rgb, 1.0);
         }
