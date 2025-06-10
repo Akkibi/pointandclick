@@ -182,111 +182,31 @@ const Intro: React.FC<IntroType> = ({ setIsIntroFinished }) => {
                             style={{
                                 color: "#fff",
                                 flex: 1,
-                                fontSize: "1.1rem",
-                                lineHeight: 1.6,
-                                maxWidth: 500,
+                                fontSize: "1.5rem",
+                                lineHeight: 2,
+                                maxWidth: 700, // Limite la largeur du texte
                             }}
                         >
-                            <b>
-                                L’équipe des cataphiles vous remercie de plonger avec nous dans la
-                                première version de notre jeu !
-                            </b>
-                            <br />
-                            Bienvenue dans Sous Lutèce, une expérience virtuelle immersive qui vous
-                            invite à explorer les catacombes de Paris à travers un jeu
-                            point-and-click.
-                            <br />
-                            <br />
-                            <b>
-                                Pour une expérience optimale, nous vous recommandons de jouer avec
-                                le son, au casque ou avec des écouteurs.
-                            </b>
-                            <br />
-                            Cliquez tout du long pour avancer !<br />
-                            <br />
-                            Merci de votre intérêt et bonne exploration !<br />
-                            <br />
-                            Si vous souhaitez nous contacter, voici nos informations :<br />
-                            <a
-                                href="mailto:contact@souslutece.com"
-                                style={{ color: "#fff", textDecoration: "underline" }}
-                            >
-                                contact@souslutece.com
-                            </a>
-                            <br /> <br />
-                            Vous souhaitez en savoir plus sur le projet ? Lisez notre dossier :{" "}
-                            <br /> <br />
-                            <a
+                            <b>Hello and bonjour from all of us at team Lutetia!</b>
+                            <br /><br />
+                            The way to Lutetia is an immersive virtual experience that invites you to explore the Paris Catacombs through a point and click narrative adventure.<br /><br />
+                            This vertical slice is still in early development so there will surely be a few bugs but we thank you for taking the time to play through this demo and we hope you can imagine a bit of the full extent we would like to push this project!<br /><br />
+                            We have a lot of big plans for future development and we are currently looking for ways to finance the next steps. If you are interested in being part of this journey with us or would like to get in contact for questions or more info a link to our dossier can be found <a
                                 href="/dossier_thewaytoluetia.pdf"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 style={{ color: "#fff", textDecoration: "underline" }}
                             >
-                                J'accède au dossier !
-                            </a>
-                        </div>
-                        <div
-                            style={{
-                                width: 2,
-                                background: "rgba(255,255,255,0.25)",
-                                margin: "0 2vw",
-                                alignSelf: "center",
-                                height: "50%",
-                                flex: "none",
-                            }}
-                        />
-                        <div
-                            style={{
-                                color: "#fff",
-                                flex: 1,
-                                fontSize: "1.1rem",
-                                lineHeight: 1.6,
-                                maxWidth: 500,
-                            }}
-                        >
-                            <b>
-                                Hello and bonjour from your resident Cataphiles! <br /> <br />
-                                Thank you for diving into the first version of our game!
-                            </b>
+                                here
+                            </a>:<br />
+                            
                             <br />
-                            The way to Lutetia is an immersive virtual experience that invites you
-                            to explore the Paris catacombs through a point-and-click narrative
-                            adventure.
-                            <br />
-                            <br />
-                            {/* Disillusioned with life on the surface, the player decides to disappear. They jump from a rooftop… and wake up deep inside the tunnels beneath the city.<br /><br />
-As they move forward, they begin to discover the history of the catacombs, while also embarking on a more personal journey : the search for the Kingdom of Lutetia.<br /><br />
-Their path, suspended between reality and fiction, is shaped by encounters with figures from Paris’s underground world.<br /><br /> */}
-                            <b>
-                                For the best experience, we recommend playing with sound, using
-                                headphones or earphones.
-                            </b>
-                            <br />
-                            Keep clicking to move forward !<br />
-                            <br />
-                            We have big plans to expand this project much much more and we are
-                            currently looking into ways to fund and develop the next stage. For more
-                            information{" "}
-                            <a
-                                href="/dossier_thewaytoluetia.pdf"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ color: "#fff", textDecoration: "underline" }}
-                            >
-                                here is a link to our dossier{" "}
-                            </a>{" "}
-                            and if you would like to get in touch feel free to send us an email at
-                            <br />
-                            <br />
-                            <a
-                                href="mailto:contact@souslutece.com"
-                                style={{ color: "#fff", textDecoration: "underline" }}
-                            >
-                                contact@souslutece.com
-                            </a>{" "}
-                            <br /> <br />
-                            If you'de like to know more about the project, you can also read our
-                            dossier : <br /> <br />
+                            And feel free to send us an email at <a href="mailto:souslutece@gmail.com" style={{ color: "#fff", textDecoration: "underline" }}>souslutece@gmail.com</a>
+                            <br /><br />
+                            For the best experience we suggest wearing headphones and turning off the lights!  <b>Just keep clicking to move forward</b> and we hope you enjoy!
+                            <br /><br />
+                            Sincerely,<br />
+                            Team Lutetia
                         </div>
                     </div>
                     <button
