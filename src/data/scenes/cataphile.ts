@@ -303,6 +303,24 @@ const cataphile: SceneType = {
                 },
             },
         },
+        {
+            name: "end",
+            done: false,
+            dependences: ["no-access"], // impossible to get dependence
+            characters: [characters.artist],
+            fallback: {
+                name: "Cataphile",
+                text: "I am tired, please let me rest.",
+                position: {
+                    x: 1.5,
+                    y: -2,
+                    z: 2,
+                    speed: 1,
+                    orientation: "front",
+                },
+            },
+            positions: {},
+        },
     ],
 };
 
