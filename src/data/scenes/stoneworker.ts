@@ -437,7 +437,7 @@ const stoneworker: SceneType = {
             dependences: ["no-access"], // impossible to get dependence
             characters: [characters.artist],
             fallback: {
-                name: "Cataphile",
+                name: "Stoneworker",
                 text: "I am tired, please let me rest.",
                 position: {
                     x: -1,
