@@ -423,7 +423,7 @@ const painting: SceneType = {
             name: "end",
             done: false,
             dependences: ["no-access"], // impossible to get dependence
-            characters: [characters.artist],
+            characters: [characters.painting],
             fallback: {
                 name: "Painting",
                 text: "Hahahah, I have other business to attend to! Let me be!",
