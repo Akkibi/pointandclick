@@ -1,0 +1,46 @@
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_294_132)">
+<rect width="28" height="28" fill="black"/>
+<rect x="10" y="8" width="8" height="12" fill="black"/>
+<g filter="url(#filter0_g_294_132)">
+<path d="M18 8L28 0V28L18 20V8Z" fill="#D9D9D9"/>
+<path d="M18 8L28 0V28L18 20V8Z" fill="url(#paint0_linear_294_132)"/>
+<path d="M10 8L0 0V28L10 20V8Z" fill="#D9D9D9"/>
+<path d="M10 8L0 0V28L10 20V8Z" fill="url(#paint1_linear_294_132)"/>
+<path d="M18 8L28 0L0 0L10 8L18 8Z" fill="url(#paint2_linear_294_132)"/>
+<path d="M18 20L28 28L0 28L10 20H18Z" fill="#D9D9D9"/>
+<path d="M18 20L28 28L0 28L10 20H18Z" fill="url(#paint3_linear_294_132)"/>
+</g>
+<path d="M12 0L12.8556 10.1444L23 11L12.8556 11.8556L12 22L11.1444 11.8556L1 11L11.1444 10.1444L12 0Z" fill="white"/>
+</g>
+<defs>
+<filter id="filter0_g_294_132" x="-1" y="-1" width="30" height="30" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feTurbulence type="fractalNoise" baseFrequency="0.25 0.25" numOctaves="3" seed="5759" />
+<feDisplacementMap in="shape" scale="2" xChannelSelector="R" yChannelSelector="G" result="displacedImage" width="100%" height="100%" />
+<feMerge result="effect1_texture_294_132">
+<feMergeNode in="displacedImage"/>
+</feMerge>
+</filter>
+<linearGradient id="paint0_linear_294_132" x1="18" y1="14" x2="28" y2="14" gradientUnits="userSpaceOnUse">
+<stop stop-color="#AAAAAA"/>
+<stop offset="1"/>
+</linearGradient>
+<linearGradient id="paint1_linear_294_132" x1="10" y1="14" x2="0" y2="14" gradientUnits="userSpaceOnUse">
+<stop stop-color="#AAAAAA"/>
+<stop offset="1"/>
+</linearGradient>
+<linearGradient id="paint2_linear_294_132" x1="14" y1="8" x2="14" y2="0" gradientUnits="userSpaceOnUse">
+<stop stop-color="#888888"/>
+<stop offset="1"/>
+</linearGradient>
+<linearGradient id="paint3_linear_294_132" x1="14" y1="20" x2="14" y2="28" gradientUnits="userSpaceOnUse">
+<stop stop-color="#888888"/>
+<stop offset="1"/>
+</linearGradient>
+<clipPath id="clip0_294_132">
+<rect width="28" height="28" fill="white"/>
+</clipPath>
+</defs>
+</svg>
