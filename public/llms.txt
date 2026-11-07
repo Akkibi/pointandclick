@@ -1,0 +1,36 @@
+# Way to Lutetia
+
+> Way to Lutetia is the free, playable browser demo (vertical slice) of an unreleased narrative point-and-click adventure set in the Paris Catacombs. After an opening video in which the main character takes their own life, they wake up underground and explore real photographed tunnels and chambers, meeting the people who live there (a cataphile, an artist, a stoneworker) while trying to understand where they are, why they are not dead and how to reach the hidden Kingdom of Lutetia.
+
+- Site: https://way-to-lutetia.akkibi.art/
+- Author: Akira Valade (@akkibi) https://akkibi.art (development: map generation, dialogue system, 3D rendering)
+- Team: Team Lutetia, students from Gobelins (character art, dialogue illustrations, videos)
+- Source code: https://github.com/Akkibi/pointandclick
+- Stack: React 18, TypeScript, Three.js (WebGL), GSAP, Vite
+- Made: February to June 2025, as a personal project outside school; early-development demo, a few bugs expected
+- Language: English
+- Content note: the opening sequence depicts suicide
+
+## Sections
+
+- [Play the demo](https://way-to-lutetia.akkibi.art/): the whole game runs on this single page: intro text, opening video, then the catacombs.
+- [Project dossier (PDF)](https://way-to-lutetia.akkibi.art/dossier_thewaytolutetia.pdf): the team's presentation document for the full game (about 10 MB), for partners and funding.
+- [Project page on akkibi.art](https://akkibi.art/way-to-lutetia): making-of with screenshots, in French.
+- [Source code](https://github.com/Akkibi/pointandclick): the game's React and Three.js code and scene data.
+
+## How to play
+
+- Use a desktop browser, or a phone in landscape mode. Headphones and lights off are recommended.
+- Click to advance the intro and the dialogues. Click a doorway or passage to move to the next scene, or the bottom edge of the screen to turn around and face the other way.
+- Click a character to talk to them; your replies are chosen from a list written on a sheet of paper.
+- The menu has a Full Screen button and an About button that opens the dossier.
+
+## How it is built
+
+- About 35 scenes, each a photo taken in the real catacombs. A depth-estimation model turns each photo into a black-and-white depth map, and a Three.js plane displaced by that map gives a pseudo-3D parallax when the camera moves.
+- The map is generated from images plus a JSON file per scene. Each scene has a 150x100 px "doors map": colored pixels outline the clickable exits, and a settings file links each color to the scene it leads to.
+- Characters are 2D illustrations placed in the scenes, with branching dialogues.
+
+## Contact
+
+- Team Lutetia is looking for funding for the full game: souslutece@gmail.com

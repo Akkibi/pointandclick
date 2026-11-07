@@ -3,10 +3,93 @@
     <head>
         <meta charset="UTF-8" />
         <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+        <meta name="theme-color" content="#000000" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>pointandclick</title>
+        <meta name="description" content="Free browser demo of Way to Lutetia, a narrative point-and-click adventure set in the real Paris catacombs, built from depth-mapped photos of the tunnels." />
+        <link rel="canonical" href="https://way-to-lutetia.akkibi.art/" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+        <meta name="author" content="Akira Valade" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Way to Lutetia" />
+        <meta property="og:title" content="Way to Lutetia · Point-and-click adventure in the Paris catacombs" />
+        <meta property="og:description" content="Free browser demo of Way to Lutetia, a narrative point-and-click adventure set in the real Paris catacombs, built from depth-mapped photos of the tunnels." />
+        <meta property="og:url" content="https://way-to-lutetia.akkibi.art/" />
+        <meta property="og:image" content="https://way-to-lutetia.akkibi.art/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="A lit, graffiti-covered arched tunnel of the Paris catacombs leading into darkness." />
+        <meta property="og:locale" content="en_US" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Way to Lutetia · Point-and-click adventure in the Paris catacombs" />
+        <meta name="twitter:description" content="Free browser demo of a narrative point-and-click adventure set in the real Paris catacombs." />
+        <meta name="twitter:image" content="https://way-to-lutetia.akkibi.art/og-image.jpg" />
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@graph": [
+                    {
+                        "@type": "WebSite",
+                        "@id": "https://way-to-lutetia.akkibi.art/#website",
+                        "url": "https://way-to-lutetia.akkibi.art/",
+                        "name": "Way to Lutetia",
+                        "description": "Free browser demo of a narrative point-and-click adventure set in the Paris catacombs.",
+                        "inLanguage": "en",
+                        "author": { "@id": "https://akkibi.art/#person" }
+                    },
+                    {
+                        "@type": "VideoGame",
+                        "@id": "https://way-to-lutetia.akkibi.art/#game",
+                        "name": "Way to Lutetia",
+                        "url": "https://way-to-lutetia.akkibi.art/",
+                        "description": "Playable vertical slice of a narrative point-and-click adventure set in the Paris catacombs. The player explores real photographed tunnels rendered in pseudo-3D from depth maps, meets the people living underground and searches for the hidden Kingdom of Lutetia.",
+                        "image": "https://way-to-lutetia.akkibi.art/og-image.jpg",
+                        "inLanguage": "en",
+                        "genre": ["Adventure", "Point-and-click", "Narrative"],
+                        "playMode": "SinglePlayer",
+                        "gamePlatform": "Web browser",
+                        "applicationCategory": "GameApplication",
+                        "operatingSystem": "Any",
+                        "browserRequirements": "Requires JavaScript and WebGL",
+                        "isAccessibleForFree": true,
+                        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+                        "author": { "@id": "https://akkibi.art/#person" },
+                        "contributor": { "@type": "Organization", "name": "Team Lutetia" },
+                        "isPartOf": { "@id": "https://way-to-lutetia.akkibi.art/#website" }
+                    },
+                    {
+                        "@type": "SoftwareSourceCode",
+                        "name": "Way to Lutetia",
+                        "codeRepository": "https://github.com/Akkibi/pointandclick",
+                        "programmingLanguage": ["TypeScript", "React", "Three.js"],
+                        "runtimePlatform": "Web browser (WebGL)",
+                        "targetProduct": { "@id": "https://way-to-lutetia.akkibi.art/#game" },
+                        "author": { "@id": "https://akkibi.art/#person" }
+                    },
+                    {
+                        "@type": "Person",
+                        "@id": "https://akkibi.art/#person",
+                        "name": "Akira Valade",
+                        "alternateName": "Akkibi",
+                        "url": "https://akkibi.art/",
+                        "jobTitle": "Creative developer",
+                        "sameAs": ["https://www.linkedin.com/in/akkibi/", "https://github.com/Akkibi", "https://www.instagram.com/akkibi_/"]
+                    }
+                ]
+            }
+        </script>
+        <title>Way to Lutetia · Point-and-click adventure in the Paris catacombs</title>
     </head>
     <body>
+        <noscript>
+            <h1>Way to Lutetia</h1>
+            <p>Way to Lutetia is the playable demo of a narrative point-and-click adventure set in the Paris catacombs. You wake up underground, explore real photographed tunnels and talk with the people who live there while searching for the hidden Kingdom of Lutetia.</p>
+            <p>The game needs JavaScript and WebGL. Made by Team Lutetia, developed by <a href="https://akkibi.art/">Akira Valade</a>.</p>
+            <ul>
+                <li><a href="https://way-to-lutetia.akkibi.art/">Play the demo</a></li>
+                <li><a href="https://way-to-lutetia.akkibi.art/dossier_thewaytolutetia.pdf">Project dossier (PDF)</a></li>
+                <li><a href="https://github.com/Akkibi/pointandclick">Source code on GitHub</a></li>
+            </ul>
+        </noscript>
         <div id="root"></div>
         <script type="module" src="/src/main.tsx"></script>
     </body>
